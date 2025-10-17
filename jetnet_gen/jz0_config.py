@@ -1,0 +1,62 @@
+import util.post_processing.jets as jets
+import util.particle_selection.particle_selection as parsel
+import util.particle_selection.selection_algos as algos
+import util.pileup.pileup as pu
+
+config = {
+    'generation': {
+        'proc'         : 'HardQCD',
+        'hadronization': True,
+        'mpi'          : True,
+        'isr'          : True,
+        'fsr'          : True,
+        'rng'          : 1,
+        'verbose'      : True,
+        'hepmc_format' : 'root'},
+    'pileup': {
+        'handler': pu.PileupOverlay('/vols/drive1/ixiotidi/minbias/events_0.root',
+                                    rng_seed=1)
+        },
+    'simulation' : {
+        'type'            : 'delphes',
+        'delphes_card'    : 'util/delphes/cards/delphes_card_ATLAS_custom.tcl',
+        'delphes_output'  : ['EFlowPhoton', 'EFlowNeutralHadron', 'EFlowTrack', 'Electron', 'Muon', 'Photon', 'GenMissingET', 'MissingET', 'GenVertex', 'Vertex', 'ScalarHT', 'Tower'],
+        'delphes_rng_seed': 1
+        },
+    'reconstruction' : {
+        'n_stable'          : 200,
+        'n_delphes'         : [200],
+        'fastjet_dir'       : None,
+        'n_truth'           : 200,
+        'event_filter'      : None,
+        'event_filter_flag' : None,
+        'particle_selection': {
+            'TruthParticlesTopAndChildren' :
+            parsel.MultiSelection(
+                [
+                    parsel.FirstSelector(22,6 ), #Top-quark
+                    parsel.FirstSelector(23,5 ), #B-quark
+                    parsel.FirstSelector(22,24), #W-boson
+                    parsel.AlgoSelection(algos.SelectFinalStateDaughters(parsel.FirstSelector(22, 24)), n=120)
+                ]
+            ),
+            'TruthParticlesAntiTopAndChildren':
+            parsel.MultiSelection(
+                [
+                    parsel.FirstSelector(22,-6 ),
+                    parsel.FirstSelector(23,-5 ),
+                    parsel.FirstSelector(22,-24),
+                    parsel.AlgoSelection(algos.SelectFinalStateDaughters(parsel.FirstSelector(22,-24)), n=120)
+                ]
+            )
+        },
+        'signal_flag'    : 1,
+        'split_seed'     : 1,
+        'post_processing': [
+            jets.JetFinder(['EFlowPhoton', 'EFlowNeutralHadron', 'EFlowTrack'], jet_algorithm='anti_kt', radius=1.0, jet_name='AntiKt10RecoJetsAssociatedTop'    ).PtFilter(10.).EtaFilter(4.).GhostAssociation('TruthParticlesTopAndChildren'    , 0, mode='filter'),
+            jets.JetFinder(['EFlowPhoton', 'EFlowNeutralHadron', 'EFlowTrack'], jet_algorithm='anti_kt', radius=1.0, jet_name='AntiKt10RecoJetsAssociatedAntiTop').PtFilter(10.).EtaFilter(4.).GhostAssociation('TruthParticlesAntiTopAndChildren', 0, mode='filter'),
+            jets.JetFinder(['EFlowPhoton', 'EFlowNeutralHadron', 'EFlowTrack'], jet_algorithm='anti_kt', radius=0.4, jet_name='AntiKt04RecoJetsAssociatedTop'    ).Containment('AntiKt10RecoJetsAssociatedTop'    ,0,0.4,mode='filter'),
+            jets.JetFinder(['EFlowPhoton', 'EFlowNeutralHadron', 'EFlowTrack'], jet_algorithm='anti_kt', radius=0.4, jet_name='AntiKt04RecoJetsAssociatedAntiTop').Containment('AntiKt10RecoJetsAssociatedAntiTop',0,0.4,mode='filter')
+        ]
+    }
+}

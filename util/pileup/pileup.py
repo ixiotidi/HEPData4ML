@@ -168,8 +168,8 @@ class PileupOverlay:
             self.mu_distribution = rt.TH1F(hist_name,'',nbins,0,nbins)
             # very approximate for Run 2,
             # see https://atlas.web.cern.ch/Atlas/GROUPS/DATAPREPARATION/PublicPlots/2018/DataSummary/figs/mu_2015_2018.png
-            mu = 33.7
-            sigma = 11.5
+            mu = 200
+            sigma = 10
             for i in range(nbins):
                 self.mu_distribution.SetBinContent(i+1,self._gaussian(i,mu,sigma))
 
@@ -476,6 +476,9 @@ class PileupOverlay:
 
         sumpt2 = 0.
         for i,particle in enumerate(evt.particles()):
+            #Add a safety to avoid "fake" particles
+            if particle.status() > 1:
+                continue
             charge = self.pdg_database.GetCharge(particle.pid()) # charge is in units of |e|/3
             if(np.abs(charge) > 1.0e-9): # abs might not be needed based on the above
                 sumpt2 += np.square(particle.momentum().px()) + np.square(particle.momentum().py())

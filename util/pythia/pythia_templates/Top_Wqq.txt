@@ -14,4 +14,4 @@ Top:ggm2ttbar = on
 24:onIfAny = 1 2 3 4
 Beams:idA = 2212
 Beams:idB = 2212
-Beams:eCM = 13000.
+Beams:eCM = 14000.

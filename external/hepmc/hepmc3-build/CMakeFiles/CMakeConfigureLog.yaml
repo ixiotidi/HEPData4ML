@@ -1,0 +1,798 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/CMakeDetermineSystem.cmake:205 (message)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      The system is: Linux - 5.14.0-503.23.2.el9_5.x86_64 - x86_64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler: /cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/wrappers/clang++ 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
+      
+      The CXX compiler identification is Clang, found in:
+        /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/3.30.6/CompilerIdCXX/a.out
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/CMakeDetermineCompilerABI.cmake:74 (try_compile)"
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:3 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-tu1wea"
+      binary: "/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-tu1wea"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/bin/clang-scan-deps"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_CXX_SCAN_FOR_MODULES: "OFF"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: '/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-tu1wea'
+        
+        Run Build Command(s): /cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_a3175/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_a3175.dir/build.make CMakeFiles/cmTC_a3175.dir/build
+        gmake[1]: Entering directory '/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-tu1wea'
+        Building CXX object CMakeFiles/cmTC_a3175.dir/CMakeCXXCompilerABI.cpp.o
+        /cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/wrappers/clang++   -v -MD -MT CMakeFiles/cmTC_a3175.dir/CMakeCXXCompilerABI.cpp.o -MF CMakeFiles/cmTC_a3175.dir/CMakeCXXCompilerABI.cpp.o.d -o CMakeFiles/cmTC_a3175.dir/CMakeCXXCompilerABI.cpp.o -c /cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/CMakeCXXCompilerABI.cpp
+        clang version 19.1.3
+        Target: x86_64-unknown-linux-gnu
+        Thread model: posix
+        InstalledDir: /cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/bin
+        Found candidate GCC installation: /cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0
+        Selected GCC installation: /cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0
+        Candidate multilib: .;@m64
+        Selected multilib: .;@m64
+         (in-process)
+         "/cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/bin/clang-19" -cc1 -triple x86_64-unknown-linux-gnu -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -debugger-tuning=gdb -fdebug-compilation-dir=/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-tu1wea -v -fcoverage-compilation-dir=/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-tu1wea -resource-dir /cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/lib/clang/19 -dependency-file CMakeFiles/cmTC_a3175.dir/CMakeCXXCompilerABI.cpp.o.d -MT CMakeFiles/cmTC_a3175.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -c-isystem /cvmfs/sft.cern.ch/lcg/views/LCG_108/x86_64-el9-clang19-opt/include -c-isystem /cvmfs/sft.cern.ch/lcg/views/LCG_108/x86_64-el9-clang19-opt/include -cxx-isystem /cvmfs/sft.cern.ch/lcg/views/LCG_108/x86_64-el9-clang19-opt/include -cxx-isystem /cvmfs/sft.cern.ch/lcg/views/LCG_108/x86_64-el9-clang19-opt/include -internal-isystem /cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0/../../../../include/c++/14.2.0 -internal-isystem /cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0/../../../../include/c++/14.2.0/x86_64-pc-linux-gnu -internal-isystem /cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0/../../../../include/c++/14.2.0/backward -internal-isystem /cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/lib/clang/19/include -internal-isystem /usr/local/include -internal-isystem /cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0/../../../../x86_64-pc-linux-gnu/include -internal-externc-isystem /include -internal-externc-isystem /usr/include -fdeprecated-macro -ferror-limit 19 -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fcxx-exceptions -fexceptions -faddrsig -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_a3175.dir/CMakeCXXCompilerABI.cpp.o -x c++ /cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/CMakeCXXCompilerABI.cpp
+        clang -cc1 version 19.1.3 based upon LLVM 19.1.3 default target x86_64-unknown-linux-gnu
+        ignoring nonexistent directory "/cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0/../../../../x86_64-pc-linux-gnu/include"
+        ignoring nonexistent directory "/include"
+        ignoring duplicate directory "/cvmfs/sft.cern.ch/lcg/views/LCG_108/x86_64-el9-clang19-opt/include"
+        #include "..." search starts here:
+        #include <...> search starts here:
+         /cvmfs/sft.cern.ch/lcg/views/LCG_108/x86_64-el9-clang19-opt/include
+         /cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0/../../../../include/c++/14.2.0
+         /cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0/../../../../include/c++/14.2.0/x86_64-pc-linux-gnu
+         /cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0/../../../../include/c++/14.2.0/backward
+         /cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/lib/clang/19/include
+         /usr/local/include
+         /usr/include
+        End of search list.
+        Linking CXX executable cmTC_a3175
+        /cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a3175.dir/link.txt --verbose=1
+        /cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/wrappers/clang++  -v -Wl,-v CMakeFiles/cmTC_a3175.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_a3175
+        clang version 19.1.3
+        Target: x86_64-unknown-linux-gnu
+        Thread model: posix
+        InstalledDir: /cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/bin
+        Found candidate GCC installation: /cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0
+        Selected GCC installation: /cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0
+        Candidate multilib: .;@m64
+        Selected multilib: .;@m64
+         "/cvmfs/sft.cern.ch/lcg/releases/binutils/2.40-acaab/x86_64-el9/bin/ld" --hash-style=gnu --eh-frame-hdr -m elf_x86_64 -pie -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_a3175 /lib/../lib64/Scrt1.o /lib/../lib64/crti.o /cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0/crtbeginS.o -L/cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/bin/../lib/x86_64-unknown-linux-gnu -L/cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/lib/clang/19/lib/x86_64-unknown-linux-gnu -L/cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0 -L/cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/lib -L/usr/lib -v CMakeFiles/cmTC_a3175.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0/crtendS.o /lib/../lib64/crtn.o
+        GNU ld (GNU Binutils) 2.40
+        gmake[1]: Leaving directory '/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-tu1wea'
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/CMakeDetermineCompilerABI.cmake:182 (message)"
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Parsed CXX implicit include dir info: rv=done
+        found start of include info
+        found start of implicit include info
+          add: [/cvmfs/sft.cern.ch/lcg/views/LCG_108/x86_64-el9-clang19-opt/include]
+          add: [/cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0/../../../../include/c++/14.2.0]
+          add: [/cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0/../../../../include/c++/14.2.0/x86_64-pc-linux-gnu]
+          add: [/cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0/../../../../include/c++/14.2.0/backward]
+          add: [/cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/lib/clang/19/include]
+          add: [/usr/local/include]
+          add: [/usr/include]
+        end of search list found
+        collapse include dir [/cvmfs/sft.cern.ch/lcg/views/LCG_108/x86_64-el9-clang19-opt/include] ==> [/cvmfs/sft.cern.ch/lcg/views/LCG_108/x86_64-el9-clang19-opt/include]
+        collapse include dir [/cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0/../../../../include/c++/14.2.0] ==> [/cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/include/c++/14.2.0]
+        collapse include dir [/cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0/../../../../include/c++/14.2.0/x86_64-pc-linux-gnu] ==> [/cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/include/c++/14.2.0/x86_64-pc-linux-gnu]
+        collapse include dir [/cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0/../../../../include/c++/14.2.0/backward] ==> [/cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/include/c++/14.2.0/backward]
+        collapse include dir [/cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/lib/clang/19/include] ==> [/cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/lib/clang/19/include]
+        collapse include dir [/usr/local/include] ==> [/usr/local/include]
+        collapse include dir [/usr/include] ==> [/usr/include]
+        implicit include dirs: [/cvmfs/sft.cern.ch/lcg/views/LCG_108/x86_64-el9-clang19-opt/include;/cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/include/c++/14.2.0;/cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/include/c++/14.2.0/x86_64-pc-linux-gnu;/cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/include/c++/14.2.0/backward;/cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/lib/clang/19/include;/usr/local/include;/usr/include]
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/CMakeDetermineCompilerABI.cmake:218 (message)"
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Parsed CXX implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(\\.[a-z]+)?|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(\\.[a-z]+)?))("|,| |$)]
+        ignore line: [Change Dir: '/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-tu1wea']
+        ignore line: []
+        ignore line: [Run Build Command(s): /cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_a3175/fast]
+        ignore line: [/usr/bin/gmake  -f CMakeFiles/cmTC_a3175.dir/build.make CMakeFiles/cmTC_a3175.dir/build]
+        ignore line: [gmake[1]: Entering directory '/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-tu1wea']
+        ignore line: [Building CXX object CMakeFiles/cmTC_a3175.dir/CMakeCXXCompilerABI.cpp.o]
+        ignore line: [/cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/wrappers/clang++   -v -MD -MT CMakeFiles/cmTC_a3175.dir/CMakeCXXCompilerABI.cpp.o -MF CMakeFiles/cmTC_a3175.dir/CMakeCXXCompilerABI.cpp.o.d -o CMakeFiles/cmTC_a3175.dir/CMakeCXXCompilerABI.cpp.o -c /cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [clang version 19.1.3]
+        ignore line: [Target: x86_64-unknown-linux-gnu]
+        ignore line: [Thread model: posix]
+        ignore line: [InstalledDir: /cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/bin]
+        ignore line: [Found candidate GCC installation: /cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0]
+        ignore line: [Selected GCC installation: /cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0]
+        ignore line: [Candidate multilib: .]
+        ignore line: [@m64]
+        ignore line: [Selected multilib: .]
+        ignore line: [@m64]
+        ignore line: [ (in-process)]
+        ignore line: [ "/cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/bin/clang-19" -cc1 -triple x86_64-unknown-linux-gnu -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -debugger-tuning=gdb -fdebug-compilation-dir=/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-tu1wea -v -fcoverage-compilation-dir=/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-tu1wea -resource-dir /cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/lib/clang/19 -dependency-file CMakeFiles/cmTC_a3175.dir/CMakeCXXCompilerABI.cpp.o.d -MT CMakeFiles/cmTC_a3175.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -c-isystem /cvmfs/sft.cern.ch/lcg/views/LCG_108/x86_64-el9-clang19-opt/include -c-isystem /cvmfs/sft.cern.ch/lcg/views/LCG_108/x86_64-el9-clang19-opt/include -cxx-isystem /cvmfs/sft.cern.ch/lcg/views/LCG_108/x86_64-el9-clang19-opt/include -cxx-isystem /cvmfs/sft.cern.ch/lcg/views/LCG_108/x86_64-el9-clang19-opt/include -internal-isystem /cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0/../../../../include/c++/14.2.0 -internal-isystem /cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0/../../../../include/c++/14.2.0/x86_64-pc-linux-gnu -internal-isystem /cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0/../../../../include/c++/14.2.0/backward -internal-isystem /cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/lib/clang/19/include -internal-isystem /usr/local/include -internal-isystem /cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0/../../../../x86_64-pc-linux-gnu/include -internal-externc-isystem /include -internal-externc-isystem /usr/include -fdeprecated-macro -ferror-limit 19 -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fcxx-exceptions -fexceptions -faddrsig -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_a3175.dir/CMakeCXXCompilerABI.cpp.o -x c++ /cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [clang -cc1 version 19.1.3 based upon LLVM 19.1.3 default target x86_64-unknown-linux-gnu]
+        ignore line: [ignoring nonexistent directory "/cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0/../../../../x86_64-pc-linux-gnu/include"]
+        ignore line: [ignoring nonexistent directory "/include"]
+        ignore line: [ignoring duplicate directory "/cvmfs/sft.cern.ch/lcg/views/LCG_108/x86_64-el9-clang19-opt/include"]
+        ignore line: [#include "..." search starts here:]
+        ignore line: [#include <...> search starts here:]
+        ignore line: [ /cvmfs/sft.cern.ch/lcg/views/LCG_108/x86_64-el9-clang19-opt/include]
+        ignore line: [ /cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0/../../../../include/c++/14.2.0]
+        ignore line: [ /cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0/../../../../include/c++/14.2.0/x86_64-pc-linux-gnu]
+        ignore line: [ /cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0/../../../../include/c++/14.2.0/backward]
+        ignore line: [ /cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/lib/clang/19/include]
+        ignore line: [ /usr/local/include]
+        ignore line: [ /usr/include]
+        ignore line: [End of search list.]
+        ignore line: [Linking CXX executable cmTC_a3175]
+        ignore line: [/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a3175.dir/link.txt --verbose=1]
+        ignore line: [/cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/wrappers/clang++  -v -Wl -v CMakeFiles/cmTC_a3175.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_a3175]
+        ignore line: [clang version 19.1.3]
+        ignore line: [Target: x86_64-unknown-linux-gnu]
+        ignore line: [Thread model: posix]
+        ignore line: [InstalledDir: /cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/bin]
+        ignore line: [Found candidate GCC installation: /cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0]
+        ignore line: [Selected GCC installation: /cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0]
+        ignore line: [Candidate multilib: .]
+        ignore line: [@m64]
+        ignore line: [Selected multilib: .]
+        ignore line: [@m64]
+        link line: [ "/cvmfs/sft.cern.ch/lcg/releases/binutils/2.40-acaab/x86_64-el9/bin/ld" --hash-style=gnu --eh-frame-hdr -m elf_x86_64 -pie -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_a3175 /lib/../lib64/Scrt1.o /lib/../lib64/crti.o /cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0/crtbeginS.o -L/cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/bin/../lib/x86_64-unknown-linux-gnu -L/cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/lib/clang/19/lib/x86_64-unknown-linux-gnu -L/cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0 -L/cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/lib -L/usr/lib -v CMakeFiles/cmTC_a3175.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0/crtendS.o /lib/../lib64/crtn.o]
+          arg [/cvmfs/sft.cern.ch/lcg/releases/binutils/2.40-acaab/x86_64-el9/bin/ld] ==> ignore
+          arg [--hash-style=gnu] ==> ignore
+          arg [--eh-frame-hdr] ==> ignore
+          arg [-m] ==> ignore
+          arg [elf_x86_64] ==> ignore
+          arg [-pie] ==> ignore
+          arg [-dynamic-linker] ==> ignore
+          arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
+          arg [-o] ==> ignore
+          arg [cmTC_a3175] ==> ignore
+          arg [/lib/../lib64/Scrt1.o] ==> obj [/lib/../lib64/Scrt1.o]
+          arg [/lib/../lib64/crti.o] ==> obj [/lib/../lib64/crti.o]
+          arg [/cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0/crtbeginS.o] ==> obj [/cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0/crtbeginS.o]
+          arg [-L/cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/bin/../lib/x86_64-unknown-linux-gnu] ==> dir [/cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/bin/../lib/x86_64-unknown-linux-gnu]
+          arg [-L/cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/lib/clang/19/lib/x86_64-unknown-linux-gnu] ==> dir [/cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/lib/clang/19/lib/x86_64-unknown-linux-gnu]
+          arg [-L/cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0] ==> dir [/cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0]
+          arg [-L/cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0/../../../../lib64] ==> dir [/cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0/../../../../lib64]
+          arg [-L/lib/../lib64] ==> dir [/lib/../lib64]
+          arg [-L/usr/lib/../lib64] ==> dir [/usr/lib/../lib64]
+          arg [-L/lib] ==> dir [/lib]
+          arg [-L/usr/lib] ==> dir [/usr/lib]
+          arg [-v] ==> ignore
+          arg [CMakeFiles/cmTC_a3175.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+          arg [-lstdc++] ==> lib [stdc++]
+          arg [-lm] ==> lib [m]
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [-lgcc] ==> lib [gcc]
+          arg [-lc] ==> lib [c]
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [-lgcc] ==> lib [gcc]
+          arg [/cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0/crtendS.o] ==> obj [/cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0/crtendS.o]
+          arg [/lib/../lib64/crtn.o] ==> obj [/lib/../lib64/crtn.o]
+        linker tool for 'CXX': /cvmfs/sft.cern.ch/lcg/releases/binutils/2.40-acaab/x86_64-el9/bin/ld
+        collapse obj [/lib/../lib64/Scrt1.o] ==> [/lib64/Scrt1.o]
+        collapse obj [/lib/../lib64/crti.o] ==> [/lib64/crti.o]
+        collapse obj [/lib/../lib64/crtn.o] ==> [/lib64/crtn.o]
+        collapse library dir [/cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/bin/../lib/x86_64-unknown-linux-gnu] ==> [/cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/lib/x86_64-unknown-linux-gnu]
+        collapse library dir [/cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/lib/clang/19/lib/x86_64-unknown-linux-gnu] ==> [/cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/lib/clang/19/lib/x86_64-unknown-linux-gnu]
+        collapse library dir [/cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0] ==> [/cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0]
+        collapse library dir [/cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0/../../../../lib64] ==> [/cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib64]
+        collapse library dir [/lib/../lib64] ==> [/lib64]
+        collapse library dir [/usr/lib/../lib64] ==> [/usr/lib64]
+        collapse library dir [/lib] ==> [/lib]
+        collapse library dir [/usr/lib] ==> [/usr/lib]
+        implicit libs: [stdc++;m;gcc_s;gcc;c;gcc_s;gcc]
+        implicit objs: [/lib64/Scrt1.o;/lib64/crti.o;/cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0/crtbeginS.o;/cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0/crtendS.o;/lib64/crtn.o]
+        implicit dirs: [/cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/lib/x86_64-unknown-linux-gnu;/cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/lib/clang/19/lib/x86_64-unknown-linux-gnu;/cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib/gcc/x86_64-pc-linux-gnu/14.2.0;/cvmfs/sft.cern.ch/lcg/releases/gcc/14.2.0-2f0a0/x86_64-el9/lib64;/lib64;/usr/lib64;/lib;/usr/lib]
+        implicit fwks: []
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/Internal/CMakeDetermineLinkerId.cmake:40 (message)"
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/CMakeDetermineCompilerABI.cmake:255 (cmake_determine_linker_id)"
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Running the CXX compiler's linker: "/cvmfs/sft.cern.ch/lcg/releases/binutils/2.40-acaab/x86_64-el9/bin/ld" "-v"
+      GNU ld (GNU Binutils) 2.40
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/CheckCXXCompilerFlag.cmake:34 (cmake_check_compiler_flag)"
+      - "CMakeLists.txt:197 (CHECK_CXX_COMPILER_FLAG)"
+    checks:
+      - "Performing Test CXX_COMPILER_SUPPORTS_-Wlto-type-mismatch"
+    directories:
+      source: "/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-fmuGMh"
+      binary: "/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-fmuGMh"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/bin/clang-scan-deps"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/ixiotidi/Development/HEPData4ML/external/hepmc/HepMC3/cmake/Modules;/cvmfs/sft.cern.ch/lcg/releases/ROOT/6.36.02-c35af/x86_64-el9-clang19-opt/cmake/modules"
+    buildResult:
+      variable: "CXX_COMPILER_SUPPORTS_-Wlto-type-mismatch"
+      cached: true
+      stdout: |
+        Change Dir: '/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-fmuGMh'
+        
+        Run Build Command(s): /cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_5fe26/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_5fe26.dir/build.make CMakeFiles/cmTC_5fe26.dir/build
+        gmake[1]: Entering directory '/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-fmuGMh'
+        Building CXX object CMakeFiles/cmTC_5fe26.dir/src.cxx.o
+        /cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/wrappers/clang++   -std=c++20   -DCXX_COMPILER_SUPPORTS_-Wlto-type-mismatch -Wlto-type-mismatch -MD -MT CMakeFiles/cmTC_5fe26.dir/src.cxx.o -MF CMakeFiles/cmTC_5fe26.dir/src.cxx.o.d -o CMakeFiles/cmTC_5fe26.dir/src.cxx.o -c /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-fmuGMh/src.cxx
+        warning: unknown warning option '-Wlto-type-mismatch'; did you mean '-Wselector-type-mismatch'? [-Wunknown-warning-option]
+        In file included from <built-in>:478:
+        <command line>:1:31: warning: ISO C99 requires whitespace after the macro name [-Wc99-extensions]
+            1 | #define CXX_COMPILER_SUPPORTS_-Wlto-type-mismatch 1
+              |                               ^
+        2 warnings generated.
+        Linking CXX executable cmTC_5fe26
+        /cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/bin/cmake -E cmake_link_script CMakeFiles/cmTC_5fe26.dir/link.txt --verbose=1
+        /cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/wrappers/clang++ CMakeFiles/cmTC_5fe26.dir/src.cxx.o -o cmTC_5fe26
+        gmake[1]: Leaving directory '/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-fmuGMh'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/CheckCXXCompilerFlag.cmake:34 (cmake_check_compiler_flag)"
+      - "CMakeLists.txt:197 (CHECK_CXX_COMPILER_FLAG)"
+    checks:
+      - "Performing Test CXX_COMPILER_SUPPORTS_-Werror=lto-type-mismatch"
+    directories:
+      source: "/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-TGCOGr"
+      binary: "/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-TGCOGr"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/bin/clang-scan-deps"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/ixiotidi/Development/HEPData4ML/external/hepmc/HepMC3/cmake/Modules;/cvmfs/sft.cern.ch/lcg/releases/ROOT/6.36.02-c35af/x86_64-el9-clang19-opt/cmake/modules"
+    buildResult:
+      variable: "CXX_COMPILER_SUPPORTS_-Werror=lto-type-mismatch"
+      cached: true
+      stdout: |
+        Change Dir: '/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-TGCOGr'
+        
+        Run Build Command(s): /cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_7ca67/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_7ca67.dir/build.make CMakeFiles/cmTC_7ca67.dir/build
+        gmake[1]: Entering directory '/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-TGCOGr'
+        Building CXX object CMakeFiles/cmTC_7ca67.dir/src.cxx.o
+        /cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/wrappers/clang++   -std=c++20   -DCXX_COMPILER_SUPPORTS_-Werror=lto-type-mismatch -Werror=lto-type-mismatch -MD -MT CMakeFiles/cmTC_7ca67.dir/src.cxx.o -MF CMakeFiles/cmTC_7ca67.dir/src.cxx.o.d -o CMakeFiles/cmTC_7ca67.dir/src.cxx.o -c /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-TGCOGr/src.cxx
+        warning: unknown warning option '-Werror=lto-type-mismatch'; did you mean '-Werror=selector-type-mismatch'? [-Wunknown-warning-option]
+        In file included from <built-in>:478:
+        <command line>:1:31: warning: ISO C99 requires whitespace after the macro name [-Wc99-extensions]
+            1 | #define CXX_COMPILER_SUPPORTS_-Werror lto-type-mismatch
+              |                               ^
+        2 warnings generated.
+        Linking CXX executable cmTC_7ca67
+        /cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7ca67.dir/link.txt --verbose=1
+        /cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/wrappers/clang++ CMakeFiles/cmTC_7ca67.dir/src.cxx.o -o cmTC_7ca67
+        gmake[1]: Leaving directory '/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-TGCOGr'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/CheckCXXCompilerFlag.cmake:34 (cmake_check_compiler_flag)"
+      - "CMakeLists.txt:197 (CHECK_CXX_COMPILER_FLAG)"
+    checks:
+      - "Performing Test CXX_COMPILER_SUPPORTS_-Wno-old-style-cast"
+    directories:
+      source: "/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-sgJWDy"
+      binary: "/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-sgJWDy"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/bin/clang-scan-deps"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/ixiotidi/Development/HEPData4ML/external/hepmc/HepMC3/cmake/Modules;/cvmfs/sft.cern.ch/lcg/releases/ROOT/6.36.02-c35af/x86_64-el9-clang19-opt/cmake/modules"
+    buildResult:
+      variable: "CXX_COMPILER_SUPPORTS_-Wno-old-style-cast"
+      cached: true
+      stdout: |
+        Change Dir: '/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-sgJWDy'
+        
+        Run Build Command(s): /cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_549bc/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_549bc.dir/build.make CMakeFiles/cmTC_549bc.dir/build
+        gmake[1]: Entering directory '/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-sgJWDy'
+        Building CXX object CMakeFiles/cmTC_549bc.dir/src.cxx.o
+        /cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/wrappers/clang++   -std=c++20   -DCXX_COMPILER_SUPPORTS_-Wno-old-style-cast -Wno-old-style-cast -MD -MT CMakeFiles/cmTC_549bc.dir/src.cxx.o -MF CMakeFiles/cmTC_549bc.dir/src.cxx.o.d -o CMakeFiles/cmTC_549bc.dir/src.cxx.o -c /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-sgJWDy/src.cxx
+        In file included from <built-in>:478:
+        <command line>:1:31: warning: ISO C99 requires whitespace after the macro name [-Wc99-extensions]
+            1 | #define CXX_COMPILER_SUPPORTS_-Wno-old-style-cast 1
+              |                               ^
+        1 warning generated.
+        Linking CXX executable cmTC_549bc
+        /cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/bin/cmake -E cmake_link_script CMakeFiles/cmTC_549bc.dir/link.txt --verbose=1
+        /cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/wrappers/clang++ CMakeFiles/cmTC_549bc.dir/src.cxx.o -o cmTC_549bc
+        gmake[1]: Leaving directory '/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-sgJWDy'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/CheckCXXCompilerFlag.cmake:34 (cmake_check_compiler_flag)"
+      - "CMakeLists.txt:197 (CHECK_CXX_COMPILER_FLAG)"
+    checks:
+      - "Performing Test CXX_COMPILER_SUPPORTS_-Wno-strict-aliasing"
+    directories:
+      source: "/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-HWnDyF"
+      binary: "/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-HWnDyF"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/bin/clang-scan-deps"
+      CMAKE_CXX_FLAGS: " -Wno-old-style-cast"
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/ixiotidi/Development/HEPData4ML/external/hepmc/HepMC3/cmake/Modules;/cvmfs/sft.cern.ch/lcg/releases/ROOT/6.36.02-c35af/x86_64-el9-clang19-opt/cmake/modules"
+    buildResult:
+      variable: "CXX_COMPILER_SUPPORTS_-Wno-strict-aliasing"
+      cached: true
+      stdout: |
+        Change Dir: '/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-HWnDyF'
+        
+        Run Build Command(s): /cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_39ffe/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_39ffe.dir/build.make CMakeFiles/cmTC_39ffe.dir/build
+        gmake[1]: Entering directory '/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-HWnDyF'
+        Building CXX object CMakeFiles/cmTC_39ffe.dir/src.cxx.o
+        /cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/wrappers/clang++   -Wno-old-style-cast  -std=c++20   -DCXX_COMPILER_SUPPORTS_-Wno-strict-aliasing -Wno-strict-aliasing -MD -MT CMakeFiles/cmTC_39ffe.dir/src.cxx.o -MF CMakeFiles/cmTC_39ffe.dir/src.cxx.o.d -o CMakeFiles/cmTC_39ffe.dir/src.cxx.o -c /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-HWnDyF/src.cxx
+        In file included from <built-in>:478:
+        <command line>:1:31: warning: ISO C99 requires whitespace after the macro name [-Wc99-extensions]
+            1 | #define CXX_COMPILER_SUPPORTS_-Wno-strict-aliasing 1
+              |                               ^
+        1 warning generated.
+        Linking CXX executable cmTC_39ffe
+        /cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/bin/cmake -E cmake_link_script CMakeFiles/cmTC_39ffe.dir/link.txt --verbose=1
+        /cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/wrappers/clang++  -Wno-old-style-cast  CMakeFiles/cmTC_39ffe.dir/src.cxx.o -o cmTC_39ffe
+        gmake[1]: Leaving directory '/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-HWnDyF'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/CheckCXXCompilerFlag.cmake:34 (cmake_check_compiler_flag)"
+      - "CMakeLists.txt:197 (CHECK_CXX_COMPILER_FLAG)"
+    checks:
+      - "Performing Test CXX_COMPILER_SUPPORTS_-Wno-unused-command-line-argument"
+    directories:
+      source: "/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-rxhIOS"
+      binary: "/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-rxhIOS"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/bin/clang-scan-deps"
+      CMAKE_CXX_FLAGS: " -Wno-old-style-cast -Wno-strict-aliasing"
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/ixiotidi/Development/HEPData4ML/external/hepmc/HepMC3/cmake/Modules;/cvmfs/sft.cern.ch/lcg/releases/ROOT/6.36.02-c35af/x86_64-el9-clang19-opt/cmake/modules"
+    buildResult:
+      variable: "CXX_COMPILER_SUPPORTS_-Wno-unused-command-line-argument"
+      cached: true
+      stdout: |
+        Change Dir: '/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-rxhIOS'
+        
+        Run Build Command(s): /cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_24388/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_24388.dir/build.make CMakeFiles/cmTC_24388.dir/build
+        gmake[1]: Entering directory '/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-rxhIOS'
+        Building CXX object CMakeFiles/cmTC_24388.dir/src.cxx.o
+        /cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/wrappers/clang++   -Wno-old-style-cast -Wno-strict-aliasing  -std=c++20   -DCXX_COMPILER_SUPPORTS_-Wno-unused-command-line-argument -Wno-unused-command-line-argument -MD -MT CMakeFiles/cmTC_24388.dir/src.cxx.o -MF CMakeFiles/cmTC_24388.dir/src.cxx.o.d -o CMakeFiles/cmTC_24388.dir/src.cxx.o -c /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-rxhIOS/src.cxx
+        In file included from <built-in>:478:
+        <command line>:1:31: warning: ISO C99 requires whitespace after the macro name [-Wc99-extensions]
+            1 | #define CXX_COMPILER_SUPPORTS_-Wno-unused-command-line-argument 1
+              |                               ^
+        1 warning generated.
+        Linking CXX executable cmTC_24388
+        /cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/bin/cmake -E cmake_link_script CMakeFiles/cmTC_24388.dir/link.txt --verbose=1
+        /cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/wrappers/clang++  -Wno-old-style-cast -Wno-strict-aliasing  CMakeFiles/cmTC_24388.dir/src.cxx.o -o cmTC_24388
+        gmake[1]: Leaving directory '/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-rxhIOS'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/CheckCXXCompilerFlag.cmake:34 (cmake_check_compiler_flag)"
+      - "CMakeLists.txt:197 (CHECK_CXX_COMPILER_FLAG)"
+    checks:
+      - "Performing Test CXX_COMPILER_SUPPORTS_-Wno-gnu-zero-variadic-macro-arguments"
+    directories:
+      source: "/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-N04zvr"
+      binary: "/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-N04zvr"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/bin/clang-scan-deps"
+      CMAKE_CXX_FLAGS: " -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument"
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/ixiotidi/Development/HEPData4ML/external/hepmc/HepMC3/cmake/Modules;/cvmfs/sft.cern.ch/lcg/releases/ROOT/6.36.02-c35af/x86_64-el9-clang19-opt/cmake/modules"
+    buildResult:
+      variable: "CXX_COMPILER_SUPPORTS_-Wno-gnu-zero-variadic-macro-arguments"
+      cached: true
+      stdout: |
+        Change Dir: '/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-N04zvr'
+        
+        Run Build Command(s): /cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_bc86e/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_bc86e.dir/build.make CMakeFiles/cmTC_bc86e.dir/build
+        gmake[1]: Entering directory '/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-N04zvr'
+        Building CXX object CMakeFiles/cmTC_bc86e.dir/src.cxx.o
+        /cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/wrappers/clang++   -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument  -std=c++20   -DCXX_COMPILER_SUPPORTS_-Wno-gnu-zero-variadic-macro-arguments -Wno-gnu-zero-variadic-macro-arguments -MD -MT CMakeFiles/cmTC_bc86e.dir/src.cxx.o -MF CMakeFiles/cmTC_bc86e.dir/src.cxx.o.d -o CMakeFiles/cmTC_bc86e.dir/src.cxx.o -c /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-N04zvr/src.cxx
+        In file included from <built-in>:478:
+        <command line>:1:31: warning: ISO C99 requires whitespace after the macro name [-Wc99-extensions]
+            1 | #define CXX_COMPILER_SUPPORTS_-Wno-gnu-zero-variadic-macro-arguments 1
+              |                               ^
+        1 warning generated.
+        Linking CXX executable cmTC_bc86e
+        /cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/bin/cmake -E cmake_link_script CMakeFiles/cmTC_bc86e.dir/link.txt --verbose=1
+        /cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/wrappers/clang++  -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument  CMakeFiles/cmTC_bc86e.dir/src.cxx.o -o cmTC_bc86e
+        gmake[1]: Leaving directory '/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-N04zvr'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/CheckCXXCompilerFlag.cmake:34 (cmake_check_compiler_flag)"
+      - "CMakeLists.txt:197 (CHECK_CXX_COMPILER_FLAG)"
+    checks:
+      - "Performing Test CXX_COMPILER_SUPPORTS_-Wno-deprecated-declarations"
+    directories:
+      source: "/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-atFBtG"
+      binary: "/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-atFBtG"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/bin/clang-scan-deps"
+      CMAKE_CXX_FLAGS: " -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments"
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/ixiotidi/Development/HEPData4ML/external/hepmc/HepMC3/cmake/Modules;/cvmfs/sft.cern.ch/lcg/releases/ROOT/6.36.02-c35af/x86_64-el9-clang19-opt/cmake/modules"
+    buildResult:
+      variable: "CXX_COMPILER_SUPPORTS_-Wno-deprecated-declarations"
+      cached: true
+      stdout: |
+        Change Dir: '/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-atFBtG'
+        
+        Run Build Command(s): /cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_4f6af/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_4f6af.dir/build.make CMakeFiles/cmTC_4f6af.dir/build
+        gmake[1]: Entering directory '/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-atFBtG'
+        Building CXX object CMakeFiles/cmTC_4f6af.dir/src.cxx.o
+        /cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/wrappers/clang++   -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments  -std=c++20   -DCXX_COMPILER_SUPPORTS_-Wno-deprecated-declarations -Wno-deprecated-declarations -MD -MT CMakeFiles/cmTC_4f6af.dir/src.cxx.o -MF CMakeFiles/cmTC_4f6af.dir/src.cxx.o.d -o CMakeFiles/cmTC_4f6af.dir/src.cxx.o -c /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-atFBtG/src.cxx
+        In file included from <built-in>:478:
+        <command line>:1:31: warning: ISO C99 requires whitespace after the macro name [-Wc99-extensions]
+            1 | #define CXX_COMPILER_SUPPORTS_-Wno-deprecated-declarations 1
+              |                               ^
+        1 warning generated.
+        Linking CXX executable cmTC_4f6af
+        /cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/bin/cmake -E cmake_link_script CMakeFiles/cmTC_4f6af.dir/link.txt --verbose=1
+        /cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/wrappers/clang++  -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments  CMakeFiles/cmTC_4f6af.dir/src.cxx.o -o cmTC_4f6af
+        gmake[1]: Leaving directory '/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-atFBtG'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/CheckCXXCompilerFlag.cmake:34 (cmake_check_compiler_flag)"
+      - "python/CMakeLists.txt:102 (CHECK_CXX_COMPILER_FLAG)"
+    checks:
+      - "Performing Test CXX_COMPILER_SUPPORTS_-fvisibility=hidden"
+    directories:
+      source: "/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-PeZbMG"
+      binary: "/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-PeZbMG"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/bin/clang-scan-deps"
+      CMAKE_CXX_FLAGS: " -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments -Wno-deprecated-declarations -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments -Wno-deprecated-declarations"
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/ixiotidi/Development/HEPData4ML/external/hepmc/HepMC3/cmake/Modules;/cvmfs/sft.cern.ch/lcg/releases/ROOT/6.36.02-c35af/x86_64-el9-clang19-opt/cmake/modules"
+    buildResult:
+      variable: "CXX_COMPILER_SUPPORTS_-fvisibility=hidden"
+      cached: true
+      stdout: |
+        Change Dir: '/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-PeZbMG'
+        
+        Run Build Command(s): /cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_bef74/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_bef74.dir/build.make CMakeFiles/cmTC_bef74.dir/build
+        gmake[1]: Entering directory '/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-PeZbMG'
+        Building CXX object CMakeFiles/cmTC_bef74.dir/src.cxx.o
+        /cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/wrappers/clang++   -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments -Wno-deprecated-declarations -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments -Wno-deprecated-declarations  -std=c++20   -DCXX_COMPILER_SUPPORTS_-fvisibility=hidden -fvisibility=hidden -MD -MT CMakeFiles/cmTC_bef74.dir/src.cxx.o -MF CMakeFiles/cmTC_bef74.dir/src.cxx.o.d -o CMakeFiles/cmTC_bef74.dir/src.cxx.o -c /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-PeZbMG/src.cxx
+        In file included from <built-in>:478:
+        <command line>:1:31: warning: ISO C99 requires whitespace after the macro name [-Wc99-extensions]
+            1 | #define CXX_COMPILER_SUPPORTS_-fvisibility hidden
+              |                               ^
+        1 warning generated.
+        Linking CXX executable cmTC_bef74
+        /cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/bin/cmake -E cmake_link_script CMakeFiles/cmTC_bef74.dir/link.txt --verbose=1
+        /cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/wrappers/clang++  -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments -Wno-deprecated-declarations -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments -Wno-deprecated-declarations  CMakeFiles/cmTC_bef74.dir/src.cxx.o -o cmTC_bef74
+        gmake[1]: Leaving directory '/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-PeZbMG'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/CheckCXXCompilerFlag.cmake:34 (cmake_check_compiler_flag)"
+      - "python/CMakeLists.txt:102 (CHECK_CXX_COMPILER_FLAG)"
+    checks:
+      - "Performing Test CXX_COMPILER_SUPPORTS_-Wno-unused-but-set-variable"
+    directories:
+      source: "/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-sfqrzL"
+      binary: "/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-sfqrzL"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/bin/clang-scan-deps"
+      CMAKE_CXX_FLAGS: " -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments -Wno-deprecated-declarations -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments -Wno-deprecated-declarations -fvisibility=hidden"
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/ixiotidi/Development/HEPData4ML/external/hepmc/HepMC3/cmake/Modules;/cvmfs/sft.cern.ch/lcg/releases/ROOT/6.36.02-c35af/x86_64-el9-clang19-opt/cmake/modules"
+    buildResult:
+      variable: "CXX_COMPILER_SUPPORTS_-Wno-unused-but-set-variable"
+      cached: true
+      stdout: |
+        Change Dir: '/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-sfqrzL'
+        
+        Run Build Command(s): /cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_0640d/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_0640d.dir/build.make CMakeFiles/cmTC_0640d.dir/build
+        gmake[1]: Entering directory '/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-sfqrzL'
+        Building CXX object CMakeFiles/cmTC_0640d.dir/src.cxx.o
+        /cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/wrappers/clang++   -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments -Wno-deprecated-declarations -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments -Wno-deprecated-declarations -fvisibility=hidden  -std=c++20   -DCXX_COMPILER_SUPPORTS_-Wno-unused-but-set-variable -Wno-unused-but-set-variable -MD -MT CMakeFiles/cmTC_0640d.dir/src.cxx.o -MF CMakeFiles/cmTC_0640d.dir/src.cxx.o.d -o CMakeFiles/cmTC_0640d.dir/src.cxx.o -c /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-sfqrzL/src.cxx
+        In file included from <built-in>:478:
+        <command line>:1:31: warning: ISO C99 requires whitespace after the macro name [-Wc99-extensions]
+            1 | #define CXX_COMPILER_SUPPORTS_-Wno-unused-but-set-variable 1
+              |                               ^
+        1 warning generated.
+        Linking CXX executable cmTC_0640d
+        /cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/bin/cmake -E cmake_link_script CMakeFiles/cmTC_0640d.dir/link.txt --verbose=1
+        /cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/wrappers/clang++  -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments -Wno-deprecated-declarations -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments -Wno-deprecated-declarations -fvisibility=hidden  CMakeFiles/cmTC_0640d.dir/src.cxx.o -o cmTC_0640d
+        gmake[1]: Leaving directory '/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-sfqrzL'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/CheckCXXCompilerFlag.cmake:34 (cmake_check_compiler_flag)"
+      - "python/CMakeLists.txt:102 (CHECK_CXX_COMPILER_FLAG)"
+    checks:
+      - "Performing Test CXX_COMPILER_SUPPORTS_-Wno-unused-variable"
+    directories:
+      source: "/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-uN3KWX"
+      binary: "/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-uN3KWX"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/bin/clang-scan-deps"
+      CMAKE_CXX_FLAGS: " -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments -Wno-deprecated-declarations -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments -Wno-deprecated-declarations -fvisibility=hidden -Wno-unused-but-set-variable"
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/ixiotidi/Development/HEPData4ML/external/hepmc/HepMC3/cmake/Modules;/cvmfs/sft.cern.ch/lcg/releases/ROOT/6.36.02-c35af/x86_64-el9-clang19-opt/cmake/modules"
+    buildResult:
+      variable: "CXX_COMPILER_SUPPORTS_-Wno-unused-variable"
+      cached: true
+      stdout: |
+        Change Dir: '/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-uN3KWX'
+        
+        Run Build Command(s): /cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_8ade6/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_8ade6.dir/build.make CMakeFiles/cmTC_8ade6.dir/build
+        gmake[1]: Entering directory '/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-uN3KWX'
+        Building CXX object CMakeFiles/cmTC_8ade6.dir/src.cxx.o
+        /cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/wrappers/clang++   -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments -Wno-deprecated-declarations -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments -Wno-deprecated-declarations -fvisibility=hidden -Wno-unused-but-set-variable  -std=c++20   -DCXX_COMPILER_SUPPORTS_-Wno-unused-variable -Wno-unused-variable -MD -MT CMakeFiles/cmTC_8ade6.dir/src.cxx.o -MF CMakeFiles/cmTC_8ade6.dir/src.cxx.o.d -o CMakeFiles/cmTC_8ade6.dir/src.cxx.o -c /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-uN3KWX/src.cxx
+        In file included from <built-in>:478:
+        <command line>:1:31: warning: ISO C99 requires whitespace after the macro name [-Wc99-extensions]
+            1 | #define CXX_COMPILER_SUPPORTS_-Wno-unused-variable 1
+              |                               ^
+        1 warning generated.
+        Linking CXX executable cmTC_8ade6
+        /cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8ade6.dir/link.txt --verbose=1
+        /cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/wrappers/clang++  -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments -Wno-deprecated-declarations -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments -Wno-deprecated-declarations -fvisibility=hidden -Wno-unused-but-set-variable  CMakeFiles/cmTC_8ade6.dir/src.cxx.o -o cmTC_8ade6
+        gmake[1]: Leaving directory '/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-uN3KWX'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/CheckCXXCompilerFlag.cmake:34 (cmake_check_compiler_flag)"
+      - "python/CMakeLists.txt:102 (CHECK_CXX_COMPILER_FLAG)"
+    checks:
+      - "Performing Test CXX_COMPILER_SUPPORTS_-Wno-unused-value"
+    directories:
+      source: "/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-zE2G9V"
+      binary: "/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-zE2G9V"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/bin/clang-scan-deps"
+      CMAKE_CXX_FLAGS: " -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments -Wno-deprecated-declarations -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments -Wno-deprecated-declarations -fvisibility=hidden -Wno-unused-but-set-variable -Wno-unused-variable"
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/ixiotidi/Development/HEPData4ML/external/hepmc/HepMC3/cmake/Modules;/cvmfs/sft.cern.ch/lcg/releases/ROOT/6.36.02-c35af/x86_64-el9-clang19-opt/cmake/modules"
+    buildResult:
+      variable: "CXX_COMPILER_SUPPORTS_-Wno-unused-value"
+      cached: true
+      stdout: |
+        Change Dir: '/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-zE2G9V'
+        
+        Run Build Command(s): /cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_81195/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_81195.dir/build.make CMakeFiles/cmTC_81195.dir/build
+        gmake[1]: Entering directory '/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-zE2G9V'
+        Building CXX object CMakeFiles/cmTC_81195.dir/src.cxx.o
+        /cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/wrappers/clang++   -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments -Wno-deprecated-declarations -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments -Wno-deprecated-declarations -fvisibility=hidden -Wno-unused-but-set-variable -Wno-unused-variable  -std=c++20   -DCXX_COMPILER_SUPPORTS_-Wno-unused-value -Wno-unused-value -MD -MT CMakeFiles/cmTC_81195.dir/src.cxx.o -MF CMakeFiles/cmTC_81195.dir/src.cxx.o.d -o CMakeFiles/cmTC_81195.dir/src.cxx.o -c /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-zE2G9V/src.cxx
+        In file included from <built-in>:478:
+        <command line>:1:31: warning: ISO C99 requires whitespace after the macro name [-Wc99-extensions]
+            1 | #define CXX_COMPILER_SUPPORTS_-Wno-unused-value 1
+              |                               ^
+        1 warning generated.
+        Linking CXX executable cmTC_81195
+        /cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/bin/cmake -E cmake_link_script CMakeFiles/cmTC_81195.dir/link.txt --verbose=1
+        /cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/wrappers/clang++  -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments -Wno-deprecated-declarations -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments -Wno-deprecated-declarations -fvisibility=hidden -Wno-unused-but-set-variable -Wno-unused-variable  CMakeFiles/cmTC_81195.dir/src.cxx.o -o cmTC_81195
+        gmake[1]: Leaving directory '/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-zE2G9V'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/CheckCXXCompilerFlag.cmake:34 (cmake_check_compiler_flag)"
+      - "python/CMakeLists.txt:102 (CHECK_CXX_COMPILER_FLAG)"
+    checks:
+      - "Performing Test CXX_COMPILER_SUPPORTS_--diag_suppress=inline_gnu_noinline_conflict"
+    directories:
+      source: "/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-mxj70N"
+      binary: "/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-mxj70N"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/bin/clang-scan-deps"
+      CMAKE_CXX_FLAGS: " -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments -Wno-deprecated-declarations -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments -Wno-deprecated-declarations -fvisibility=hidden -Wno-unused-but-set-variable -Wno-unused-variable -Wno-unused-value"
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/ixiotidi/Development/HEPData4ML/external/hepmc/HepMC3/cmake/Modules;/cvmfs/sft.cern.ch/lcg/releases/ROOT/6.36.02-c35af/x86_64-el9-clang19-opt/cmake/modules"
+    buildResult:
+      variable: "CXX_COMPILER_SUPPORTS_--diag_suppress=inline_gnu_noinline_conflict"
+      cached: true
+      stdout: |
+        Change Dir: '/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-mxj70N'
+        
+        Run Build Command(s): /cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_f039a/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_f039a.dir/build.make CMakeFiles/cmTC_f039a.dir/build
+        gmake[1]: Entering directory '/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-mxj70N'
+        Building CXX object CMakeFiles/cmTC_f039a.dir/src.cxx.o
+        /cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/wrappers/clang++   -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments -Wno-deprecated-declarations -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments -Wno-deprecated-declarations -fvisibility=hidden -Wno-unused-but-set-variable -Wno-unused-variable -Wno-unused-value  -std=c++20   -DCXX_COMPILER_SUPPORTS_--diag_suppress=inline_gnu_noinline_conflict --diag_suppress=inline_gnu_noinline_conflict -MD -MT CMakeFiles/cmTC_f039a.dir/src.cxx.o -MF CMakeFiles/cmTC_f039a.dir/src.cxx.o.d -o CMakeFiles/cmTC_f039a.dir/src.cxx.o -c /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-mxj70N/src.cxx
+        clang++: error: unknown argument: '--diag_suppress=inline_gnu_noinline_conflict'
+        gmake[1]: *** [CMakeFiles/cmTC_f039a.dir/build.make:79: CMakeFiles/cmTC_f039a.dir/src.cxx.o] Error 1
+        gmake[1]: Leaving directory '/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-mxj70N'
+        gmake: *** [Makefile:127: cmTC_f039a/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/CheckCXXCompilerFlag.cmake:34 (cmake_check_compiler_flag)"
+      - "python/CMakeLists.txt:102 (CHECK_CXX_COMPILER_FLAG)"
+    checks:
+      - "Performing Test CXX_COMPILER_SUPPORTS_--diag_suppress=declared_but_not_referenced"
+    directories:
+      source: "/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-Rf5CNe"
+      binary: "/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-Rf5CNe"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/bin/clang-scan-deps"
+      CMAKE_CXX_FLAGS: " -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments -Wno-deprecated-declarations -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments -Wno-deprecated-declarations -fvisibility=hidden -Wno-unused-but-set-variable -Wno-unused-variable -Wno-unused-value"
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/ixiotidi/Development/HEPData4ML/external/hepmc/HepMC3/cmake/Modules;/cvmfs/sft.cern.ch/lcg/releases/ROOT/6.36.02-c35af/x86_64-el9-clang19-opt/cmake/modules"
+    buildResult:
+      variable: "CXX_COMPILER_SUPPORTS_--diag_suppress=declared_but_not_referenced"
+      cached: true
+      stdout: |
+        Change Dir: '/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-Rf5CNe'
+        
+        Run Build Command(s): /cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_f7a13/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_f7a13.dir/build.make CMakeFiles/cmTC_f7a13.dir/build
+        gmake[1]: Entering directory '/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-Rf5CNe'
+        Building CXX object CMakeFiles/cmTC_f7a13.dir/src.cxx.o
+        /cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/wrappers/clang++   -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments -Wno-deprecated-declarations -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments -Wno-deprecated-declarations -fvisibility=hidden -Wno-unused-but-set-variable -Wno-unused-variable -Wno-unused-value  -std=c++20   -DCXX_COMPILER_SUPPORTS_--diag_suppress=declared_but_not_referenced --diag_suppress=declared_but_not_referenced -MD -MT CMakeFiles/cmTC_f7a13.dir/src.cxx.o -MF CMakeFiles/cmTC_f7a13.dir/src.cxx.o.d -o CMakeFiles/cmTC_f7a13.dir/src.cxx.o -c /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-Rf5CNe/src.cxx
+        clang++: error: unknown argument: '--diag_suppress=declared_but_not_referenced'
+        gmake[1]: *** [CMakeFiles/cmTC_f7a13.dir/build.make:79: CMakeFiles/cmTC_f7a13.dir/src.cxx.o] Error 1
+        gmake[1]: Leaving directory '/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-Rf5CNe'
+        gmake: *** [Makefile:127: cmTC_f7a13/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "/cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/share/cmake-3.30/Modules/CheckCXXCompilerFlag.cmake:34 (cmake_check_compiler_flag)"
+      - "python/CMakeLists.txt:102 (CHECK_CXX_COMPILER_FLAG)"
+    checks:
+      - "Performing Test CXX_COMPILER_SUPPORTS_-Wno-delete-abstract-non-virtual-dtor"
+    directories:
+      source: "/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-YyMd5C"
+      binary: "/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-YyMd5C"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/bin/clang-scan-deps"
+      CMAKE_CXX_FLAGS: " -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments -Wno-deprecated-declarations -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments -Wno-deprecated-declarations -fvisibility=hidden -Wno-unused-but-set-variable -Wno-unused-variable -Wno-unused-value"
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/ixiotidi/Development/HEPData4ML/external/hepmc/HepMC3/cmake/Modules;/cvmfs/sft.cern.ch/lcg/releases/ROOT/6.36.02-c35af/x86_64-el9-clang19-opt/cmake/modules"
+    buildResult:
+      variable: "CXX_COMPILER_SUPPORTS_-Wno-delete-abstract-non-virtual-dtor"
+      cached: true
+      stdout: |
+        Change Dir: '/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-YyMd5C'
+        
+        Run Build Command(s): /cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_758c3/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_758c3.dir/build.make CMakeFiles/cmTC_758c3.dir/build
+        gmake[1]: Entering directory '/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-YyMd5C'
+        Building CXX object CMakeFiles/cmTC_758c3.dir/src.cxx.o
+        /cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/wrappers/clang++   -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments -Wno-deprecated-declarations -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments -Wno-deprecated-declarations -fvisibility=hidden -Wno-unused-but-set-variable -Wno-unused-variable -Wno-unused-value  -std=c++20   -DCXX_COMPILER_SUPPORTS_-Wno-delete-abstract-non-virtual-dtor -Wno-delete-abstract-non-virtual-dtor -MD -MT CMakeFiles/cmTC_758c3.dir/src.cxx.o -MF CMakeFiles/cmTC_758c3.dir/src.cxx.o.d -o CMakeFiles/cmTC_758c3.dir/src.cxx.o -c /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-YyMd5C/src.cxx
+        In file included from <built-in>:478:
+        <command line>:1:31: warning: ISO C99 requires whitespace after the macro name [-Wc99-extensions]
+            1 | #define CXX_COMPILER_SUPPORTS_-Wno-delete-abstract-non-virtual-dtor 1
+              |                               ^
+        1 warning generated.
+        Linking CXX executable cmTC_758c3
+        /cvmfs/sft.cern.ch/lcg/releases/CMake/3.30.6-34165/x86_64-el9-clang19-opt/bin/cmake -E cmake_link_script CMakeFiles/cmTC_758c3.dir/link.txt --verbose=1
+        /cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/wrappers/clang++  -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments -Wno-deprecated-declarations -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments -Wno-deprecated-declarations -fvisibility=hidden -Wno-unused-but-set-variable -Wno-unused-variable -Wno-unused-value  CMakeFiles/cmTC_758c3.dir/src.cxx.o -o cmTC_758c3
+        gmake[1]: Leaving directory '/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/CMakeFiles/CMakeScratch/TryCompile-YyMd5C'
+        
+      exitCode: 0
+...

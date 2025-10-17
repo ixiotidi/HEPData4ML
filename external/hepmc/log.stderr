@@ -1,0 +1,5 @@
+
+
+Warning: Unused class rule: std::vector<HepMC::GenVertexData>
+Warning: Unused class rule: std::vector<HepMC::GenParticleData>
+

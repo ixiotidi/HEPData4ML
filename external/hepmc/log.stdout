@@ -1,0 +1,373 @@
+
+-- The CXX compiler identification is Clang 19.1.3
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/wrappers/clang++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- HepMC3 Build type not specified, use: Release
+-- HepMC3: CMAKE_VERSION=3.30.6
+-- HepMC3: HEPMC3_ENABLE_SEARCH         ON
+-- HepMC3: HEPMC3_ENABLE_ROOTIO         ON
+-- HepMC3: HEPMC3_ENABLE_PROTOBUFIO     OFF
+-- HepMC3: HEPMC3_ENABLE_PYTHON         ON
+-- HepMC3: HEPMC3_PYTHON_VERSIONS       3.12
+-- HepMC3: HEPMC3_ENABLE_TEST           OFF
+-- HepMC3: HEPMC3_BUILD_DOCS            OFF
+-- HepMC3: HEPMC3_BUILD_EXAMPLES        OFF
+-- HepMC3: HEPMC3_INSTALL_INTERFACES    ON
+-- HepMC3: HEPMC3_ROOTIO_INSTALL_LIBDIR lib64
+-- HepMC3: ROOTSYS provided /cvmfs/sft.cern.ch/lcg/releases/ROOT/6.36.02-c35af/x86_64-el9-clang19-opt
+-- Found Vdt: /cvmfs/sft.cern.ch/lcg/views/LCG_108/x86_64-el9-clang19-opt/include (found version "0.4")
+-- HepMC3: ROOT_FOUND=1
+-- HepMC3: ROOT_USE_FILE=/cvmfs/sft.cern.ch/lcg/releases/ROOT/6.36.02-c35af/x86_64-el9-clang19-opt/cmake/ROOTUseFile.cmake
+-- HepMC3: ROOT_INCLUDE_DIRS=/cvmfs/sft.cern.ch/lcg/releases/ROOT/6.36.02-c35af/x86_64-el9-clang19-opt/include
+-- HepMC3: ROOT_LIBRARIES=/cvmfs/sft.cern.ch/lcg/releases/ROOT/6.36.02-c35af/x86_64-el9-clang19-opt/lib/libCore.so;/cvmfs/sft.cern.ch/lcg/releases/ROOT/6.36.02-c35af/x86_64-el9-clang19-opt/lib/libImt.so;/cvmfs/sft.cern.ch/lcg/releases/ROOT/6.36.02-c35af/x86_64-el9-clang19-opt/lib/libRIO.so;/cvmfs/sft.cern.ch/lcg/releases/ROOT/6.36.02-c35af/x86_64-el9-clang19-opt/lib/libNet.so;/cvmfs/sft.cern.ch/lcg/releases/ROOT/6.36.02-c35af/x86_64-el9-clang19-opt/lib/libHist.so;/cvmfs/sft.cern.ch/lcg/releases/ROOT/6.36.02-c35af/x86_64-el9-clang19-opt/lib/libGraf.so;/cvmfs/sft.cern.ch/lcg/releases/ROOT/6.36.02-c35af/x86_64-el9-clang19-opt/lib/libGraf3d.so;/cvmfs/sft.cern.ch/lcg/releases/ROOT/6.36.02-c35af/x86_64-el9-clang19-opt/lib/libGpad.so;/cvmfs/sft.cern.ch/lcg/releases/ROOT/6.36.02-c35af/x86_64-el9-clang19-opt/lib/libROOTDataFrame.so;/cvmfs/sft.cern.ch/lcg/releases/ROOT/6.36.02-c35af/x86_64-el9-clang19-opt/lib/libTree.so;/cvmfs/sft.cern.ch/lcg/releases/ROOT/6.36.02-c35af/x86_64-el9-clang19-opt/lib/libTreePlayer.so;/cvmfs/sft.cern.ch/lcg/releases/ROOT/6.36.02-c35af/x86_64-el9-clang19-opt/lib/libRint.so;/cvmfs/sft.cern.ch/lcg/releases/ROOT/6.36.02-c35af/x86_64-el9-clang19-opt/lib/libPostscript.so;/cvmfs/sft.cern.ch/lcg/releases/ROOT/6.36.02-c35af/x86_64-el9-clang19-opt/lib/libMatrix.so;/cvmfs/sft.cern.ch/lcg/releases/ROOT/6.36.02-c35af/x86_64-el9-clang19-opt/lib/libPhysics.so;/cvmfs/sft.cern.ch/lcg/releases/ROOT/6.36.02-c35af/x86_64-el9-clang19-opt/lib/libMathCore.so;/cvmfs/sft.cern.ch/lcg/releases/ROOT/6.36.02-c35af/x86_64-el9-clang19-opt/lib/libThread.so;/cvmfs/sft.cern.ch/lcg/releases/ROOT/6.36.02-c35af/x86_64-el9-clang19-opt/lib/libMultiProc.so;/cvmfs/sft.cern.ch/lcg/releases/ROOT/6.36.02-c35af/x86_64-el9-clang19-opt/lib/libROOTVecOps.so
+-- HepMC3: ROOT_DEFINITIONS=
+-- HepMC3: ROOT_CXX_FLAGS= -pipe -fsigned-char -pthread
+-- Performing Test CXX_COMPILER_SUPPORTS_-Wlto-type-mismatch
+-- Performing Test CXX_COMPILER_SUPPORTS_-Wlto-type-mismatch - Failed
+-- Performing Test CXX_COMPILER_SUPPORTS_-Werror=lto-type-mismatch
+-- Performing Test CXX_COMPILER_SUPPORTS_-Werror=lto-type-mismatch - Failed
+-- Performing Test CXX_COMPILER_SUPPORTS_-Wno-old-style-cast
+-- Performing Test CXX_COMPILER_SUPPORTS_-Wno-old-style-cast - Success
+-- Performing Test CXX_COMPILER_SUPPORTS_-Wno-strict-aliasing
+-- Performing Test CXX_COMPILER_SUPPORTS_-Wno-strict-aliasing - Success
+-- Performing Test CXX_COMPILER_SUPPORTS_-Wno-unused-command-line-argument
+-- Performing Test CXX_COMPILER_SUPPORTS_-Wno-unused-command-line-argument - Success
+-- Performing Test CXX_COMPILER_SUPPORTS_-Wno-gnu-zero-variadic-macro-arguments
+-- Performing Test CXX_COMPILER_SUPPORTS_-Wno-gnu-zero-variadic-macro-arguments - Success
+-- Performing Test CXX_COMPILER_SUPPORTS_-Wno-deprecated-declarations
+-- Performing Test CXX_COMPILER_SUPPORTS_-Wno-deprecated-declarations - Success
+-- HepMC3: HEPMC3_CXX_STANDARD 20 
+-- HepMC3: CMAKE_CXX_COMPILER_ID Clang 
+-- HepMC3: CMAKE_CXX_FLAGS  -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments -Wno-deprecated-declarations -O3 -DNDEBUG  
+-- Performing Test CXX_COMPILER_SUPPORTS_-fvisibility=hidden
+-- Performing Test CXX_COMPILER_SUPPORTS_-fvisibility=hidden - Success
+-- Performing Test CXX_COMPILER_SUPPORTS_-Wno-unused-but-set-variable
+-- Performing Test CXX_COMPILER_SUPPORTS_-Wno-unused-but-set-variable - Success
+-- Performing Test CXX_COMPILER_SUPPORTS_-Wno-unused-variable
+-- Performing Test CXX_COMPILER_SUPPORTS_-Wno-unused-variable - Success
+-- Performing Test CXX_COMPILER_SUPPORTS_-Wno-unused-value
+-- Performing Test CXX_COMPILER_SUPPORTS_-Wno-unused-value - Success
+-- Performing Test CXX_COMPILER_SUPPORTS_--diag_suppress=inline_gnu_noinline_conflict
+-- Performing Test CXX_COMPILER_SUPPORTS_--diag_suppress=inline_gnu_noinline_conflict - Failed
+-- Performing Test CXX_COMPILER_SUPPORTS_--diag_suppress=declared_but_not_referenced
+-- Performing Test CXX_COMPILER_SUPPORTS_--diag_suppress=declared_but_not_referenced - Failed
+-- Performing Test CXX_COMPILER_SUPPORTS_-Wno-delete-abstract-non-virtual-dtor
+-- Performing Test CXX_COMPILER_SUPPORTS_-Wno-delete-abstract-non-virtual-dtor - Success
+-- HepMC3 python: Using directory A to build bindings for Python version 3.12
+-- Found Python3: /cvmfs/sft.cern.ch/lcg/views/LCG_108/x86_64-el9-clang19-opt/bin/python3.12 (found suitable exact version "3.12.11") found components: Interpreter Development.Module
+-- HepMC3 python: Python verson 3.12 found in /cvmfs/sft.cern.ch/lcg/views/LCG_108/x86_64-el9-clang19-opt/bin/python3.12. Python bindings generation is possible.
+-- HepMC3 python: For this platforrm CMAKE_SHARED_LIBRARY_PREFIX=lib, CMAKE_SHARED_LIBRARY_SUFFIX=.so
+-- HepMC3 python: For this platforrm CMAKE_IMPORT_LIBRARY_PREFIX=, CMAKE_IMPORT_LIBRARY_SUFFIX=
+-- HepMC3 python: Tweak HEPMC3_Python_SITEARCH312 option to set the installation path for the python312 bindings.
+-- HepMC3 python: HEPMC3_Python_SITEARCH312 is set to to /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/lib/python3.12/site-packages
+-- HepMC3::All contains: HepMC3::HepMC3;HepMC3::search;HepMC3::rootIO
+-- HepMC3: Developers only: black found in /cvmfs/sft.cern.ch/lcg/views/LCG_108/x86_64-el9-clang19-opt/bin/black. Formating of Python code is possible.
+-- HepMC3: Developers only: cppcheck found in /cvmfs/sft.cern.ch/lcg/views/LCG_108/x86_64-el9-clang19-opt/bin/cppcheck. Static analysis of C++ code is possible.
+-- Configuring done (2.0s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build
+
+[  1%] Building CXX object CMakeFiles/HepMC3.dir/src/GenCrossSection.cc.o
+[  1%] Built target CPythonfoorootIO3.12.11
+[  1%] Built target CPythonfoosearch3.12.11
+[  1%] Built target CPythonfoo3.12.11
+[  2%] Building CXX object CMakeFiles/HepMC3.dir/src/GenParticle.cc.o
+[  4%] Building CXX object CMakeFiles/HepMC3.dir/src/GenVertex.cc.o
+[  5%] Building CXX object CMakeFiles/HepMC3.dir/src/Print.cc.o
+[  7%] Building CXX object CMakeFiles/HepMC3.dir/src/Setup.cc.o
+[  8%] Building CXX object CMakeFiles/HepMC3.dir/src/WriterHEPEVT.cc.o
+[ 10%] Building CXX object CMakeFiles/HepMC3.dir/src/GenEvent.cc.o
+[ 11%] Building CXX object CMakeFiles/HepMC3.dir/src/GenPdfInfo.cc.o
+[ 13%] Building CXX object CMakeFiles/HepMC3.dir/src/HEPEVT_Wrapper.cc.o
+[ 14%] Building CXX object CMakeFiles/HepMC3.dir/src/ReaderAscii.cc.o
+[ 16%] Building CXX object CMakeFiles/HepMC3.dir/src/ReaderHEPEVT.cc.o
+[ 17%] Building CXX object CMakeFiles/HepMC3.dir/src/WriterAscii.cc.o
+[ 19%] Building CXX object CMakeFiles/HepMC3.dir/src/GenHeavyIon.cc.o
+[ 20%] Building CXX object CMakeFiles/HepMC3.dir/src/GenRunInfo.cc.o
+[ 22%] Building CXX object CMakeFiles/HepMC3.dir/src/LHEFAttributes.cc.o
+[ 23%] Building CXX object CMakeFiles/HepMC3.dir/src/ReaderAsciiHepMC2.cc.o
+[ 25%] Building CXX object CMakeFiles/HepMC3.dir/src/ReaderLHEF.cc.o
+[ 26%] Building CXX object CMakeFiles/HepMC3.dir/src/WriterAsciiHepMC2.cc.o
+[ 28%] Building CXX object CMakeFiles/HepMC3.dir/src/ReaderPlugin.cc.o
+[ 29%] Building CXX object CMakeFiles/HepMC3.dir/src/WriterPlugin.cc.o
+[ 31%] Building CXX object CMakeFiles/HepMC3.dir/src/ReaderFactory.cc.o
+[ 32%] Linking CXX shared library outputs/lib64/libHepMC3.so
+[ 32%] Built target HepMC3
+[ 34%] Generating G__HepMC3rootIO.cxx, ../outputs/lib64/libHepMC3rootIO_rdict.pcm, ../outputs/lib64/libHepMC3rootIO.rootmap
+[ 35%] Building CXX object search/CMakeFiles/HepMC3search.dir/src/Selector.cc.o
+[ 37%] Building CXX object search/CMakeFiles/HepMC3search.dir/src/Relatives.cc.o
+[ 38%] Building CXX object python/A/CMakeFiles/CPythonpyHepMC33.12.11.dir/__/src/pyHepMC3.cpp.o
+[ 40%] Building CXX object rootIO/CMakeFiles/HepMC3rootIO.dir/src/WriterRoot.cc.o
+[ 41%] Building CXX object rootIO/CMakeFiles/HepMC3rootIO.dir/src/ReaderRoot.cc.o
+[ 43%] Linking CXX shared library ../outputs/lib64/libHepMC3search.so
+[ 43%] Built target HepMC3search
+[ 44%] Building CXX object python/A/CMakeFiles/CPythonpyHepMC33.12.11.dir/__/src/pyHepMC3_0.cpp.o
+[ 46%] Building CXX object rootIO/CMakeFiles/HepMC3rootIO.dir/src/WriterRootTree.cc.o
+[ 47%] Building CXX object rootIO/CMakeFiles/HepMC3rootIO.dir/src/ReaderRootTree.cc.o
+[ 49%] Building CXX object rootIO/CMakeFiles/HepMC3rootIO.dir/src/Streamers.cc.o
+[ 50%] Building CXX object python/A/CMakeFiles/CPythonpyHepMC3search3.12.11.dir/__/src/pyHepMC3search.cpp.o
+[ 52%] Building CXX object python/A/CMakeFiles/CPythonpyHepMC3search3.12.11.dir/__/src/pyHepMC3search_0.cpp.o
+[ 53%] Building CXX object rootIO/CMakeFiles/HepMC3rootIO.dir/G__HepMC3rootIO.cxx.o
+[ 55%] Linking CXX shared library ../outputs/lib64/libHepMC3rootIO.so
+[ 55%] Built target HepMC3rootIO
+[ 56%] Building CXX object python/A/CMakeFiles/CPythonpyHepMC33.12.11.dir/__/src/pyHepMC3_1.cpp.o
+[ 58%] Building CXX object python/A/CMakeFiles/CPythonpyHepMC3search3.12.11.dir/__/src/pyHepMC3search_1.cpp.o
+[ 59%] Building CXX object python/A/CMakeFiles/CPythonpyHepMC3search3.12.11.dir/__/src/searchbinders.cpp.o
+[ 61%] Building CXX object python/A/CMakeFiles/CPythonpyHepMC33.12.11.dir/__/src/pyHepMC3_2.cpp.o
+[ 62%] Building CXX object python/A/CMakeFiles/CPythonpyHepMC33.12.11.dir/__/src/pyHepMC3_3.cpp.o
+[ 64%] Building CXX object python/A/CMakeFiles/CPythonpyHepMC33.12.11.dir/__/src/pyHepMC3_4.cpp.o
+[ 65%] Linking CXX shared module 3.12.11/pyHepMC3/search/pyHepMC3search.so
+/cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/wrappers/clang++ -fPIC  -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments -Wno-deprecated-declarations -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments -Wno-deprecated-declarations -fvisibility=hidden -Wno-unused-but-set-variable -Wno-unused-variable -Wno-unused-value -Wno-delete-abstract-non-virtual-dtor -Wno-gnu-zero-variadic-macro-arguments -Wno-old-style-cast -O3 -DNDEBUG -shared  -o 3.12.11/pyHepMC3/search/pyHepMC3search.so CMakeFiles/CPythonpyHepMC3search3.12.11.dir/__/src/pyHepMC3search.cpp.o CMakeFiles/CPythonpyHepMC3search3.12.11.dir/__/src/pyHepMC3search_0.cpp.o CMakeFiles/CPythonpyHepMC3search3.12.11.dir/__/src/pyHepMC3search_1.cpp.o CMakeFiles/CPythonpyHepMC3search3.12.11.dir/__/src/searchbinders.cpp.o  -Wl,-rpath,/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/outputs/lib64: ../../outputs/lib64/libHepMC3search.so.5 ../../outputs/lib64/libHepMC3.so.4
+[ 65%] Built target CPythonpyHepMC3search3.12.11
+[ 67%] Building CXX object python/A/CMakeFiles/CPythonpyHepMC3rootIO3.12.11.dir/__/src/pyHepMC3rootIO.cpp.o
+[ 68%] Building CXX object python/A/CMakeFiles/CPythonpyHepMC3rootIO3.12.11.dir/__/src/pyHepMC3rootIO_0.cpp.o
+[ 70%] Building CXX object python/A/CMakeFiles/CPythonpyHepMC3rootIO3.12.11.dir/__/src/pyHepMC3rootIO_1.cpp.o
+[ 71%] Building CXX object python/A/CMakeFiles/CPythonpyHepMC33.12.11.dir/__/src/pyHepMC3_5.cpp.o
+[ 73%] Building CXX object python/A/CMakeFiles/CPythonpyHepMC33.12.11.dir/__/src/pyHepMC3_6.cpp.o
+[ 74%] Building CXX object python/A/CMakeFiles/CPythonpyHepMC3rootIO3.12.11.dir/__/src/pyHepMC3rootIO_2.cpp.o
+[ 76%] Building CXX object python/A/CMakeFiles/CPythonpyHepMC3rootIO3.12.11.dir/__/src/rootIObinders.cpp.o
+[ 77%] Building CXX object python/A/CMakeFiles/CPythonpyHepMC33.12.11.dir/__/src/pyHepMC3_7.cpp.o
+[ 79%] Building CXX object python/A/CMakeFiles/CPythonpyHepMC33.12.11.dir/__/src/pyHepMC3_8.cpp.o
+[ 80%] Linking CXX shared module 3.12.11/pyHepMC3/rootIO/pyHepMC3rootIO.so
+/cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/wrappers/clang++ -fPIC  -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments -Wno-deprecated-declarations -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments -Wno-deprecated-declarations -fvisibility=hidden -Wno-unused-but-set-variable -Wno-unused-variable -Wno-unused-value -Wno-delete-abstract-non-virtual-dtor -Wno-gnu-zero-variadic-macro-arguments -Wno-old-style-cast -O3 -DNDEBUG -shared  -o 3.12.11/pyHepMC3/rootIO/pyHepMC3rootIO.so CMakeFiles/CPythonpyHepMC3rootIO3.12.11.dir/__/src/pyHepMC3rootIO.cpp.o CMakeFiles/CPythonpyHepMC3rootIO3.12.11.dir/__/src/pyHepMC3rootIO_0.cpp.o CMakeFiles/CPythonpyHepMC3rootIO3.12.11.dir/__/src/pyHepMC3rootIO_1.cpp.o CMakeFiles/CPythonpyHepMC3rootIO3.12.11.dir/__/src/pyHepMC3rootIO_2.cpp.o CMakeFiles/CPythonpyHepMC3rootIO3.12.11.dir/__/src/rootIObinders.cpp.o  -Wl,-rpath,/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/outputs/lib64:/cvmfs/sft.cern.ch/lcg/releases/ROOT/6.36.02-c35af/x86_64-el9-clang19-opt/lib: ../../outputs/lib64/libHepMC3rootIO.so.3 ../../outputs/lib64/libHepMC3.so.4 /cvmfs/sft.cern.ch/lcg/releases/ROOT/6.36.02-c35af/x86_64-el9-clang19-opt/lib/libTree.so /cvmfs/sft.cern.ch/lcg/releases/ROOT/6.36.02-c35af/x86_64-el9-clang19-opt/lib/libMathCore.so /cvmfs/sft.cern.ch/lcg/releases/ROOT/6.36.02-c35af/x86_64-el9-clang19-opt/lib/libImt.so /cvmfs/sft.cern.ch/lcg/releases/ROOT/6.36.02-c35af/x86_64-el9-clang19-opt/lib/libMultiProc.so /cvmfs/sft.cern.ch/lcg/releases/ROOT/6.36.02-c35af/x86_64-el9-clang19-opt/lib/libNet.so /cvmfs/sft.cern.ch/lcg/releases/ROOT/6.36.02-c35af/x86_64-el9-clang19-opt/lib/libRIO.so /cvmfs/sft.cern.ch/lcg/releases/ROOT/6.36.02-c35af/x86_64-el9-clang19-opt/lib/libThread.so /cvmfs/sft.cern.ch/lcg/releases/ROOT/6.36.02-c35af/x86_64-el9-clang19-opt/lib/libCore.so
+[ 80%] Built target CPythonpyHepMC3rootIO3.12.11
+[ 82%] Building CXX object python/A/CMakeFiles/CPythonpyHepMC33.12.11.dir/__/src/pyHepMC3_9.cpp.o
+[ 83%] Building CXX object python/A/CMakeFiles/CPythonpyHepMC33.12.11.dir/__/src/pyHepMC3_10.cpp.o
+[ 85%] Building CXX object python/A/CMakeFiles/CPythonpyHepMC33.12.11.dir/__/src/pyHepMC3_11.cpp.o
+[ 86%] Building CXX object python/A/CMakeFiles/CPythonpyHepMC33.12.11.dir/__/src/pyHepMC3_12.cpp.o
+[ 88%] Building CXX object python/A/CMakeFiles/CPythonpyHepMC33.12.11.dir/__/src/pyHepMC3_13.cpp.o
+[ 89%] Building CXX object python/A/CMakeFiles/CPythonpyHepMC33.12.11.dir/__/src/pyHepMC3_14.cpp.o
+[ 91%] Building CXX object python/A/CMakeFiles/CPythonpyHepMC33.12.11.dir/__/src/pyHepMC3_15.cpp.o
+[ 92%] Building CXX object python/A/CMakeFiles/CPythonpyHepMC33.12.11.dir/__/src/pyHepMC3_16.cpp.o
+[ 94%] Building CXX object python/A/CMakeFiles/CPythonpyHepMC33.12.11.dir/__/src/pyHepMC3_17.cpp.o
+[ 95%] Building CXX object python/A/CMakeFiles/CPythonpyHepMC33.12.11.dir/__/src/pyHepMC3_18.cpp.o
+[ 97%] Building CXX object python/A/CMakeFiles/CPythonpyHepMC33.12.11.dir/__/src/binders.cpp.o
+[ 98%] Building CXX object python/A/CMakeFiles/CPythonpyHepMC33.12.11.dir/__/src/ReaderuprootTree.cc.o
+[100%] Linking CXX shared module 3.12.11/pyHepMC3/pyHepMC3.so
+/cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/wrappers/clang++ -fPIC  -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments -Wno-deprecated-declarations -Wno-old-style-cast -Wno-strict-aliasing -Wno-unused-command-line-argument -Wno-gnu-zero-variadic-macro-arguments -Wno-deprecated-declarations -fvisibility=hidden -Wno-unused-but-set-variable -Wno-unused-variable -Wno-unused-value -Wno-delete-abstract-non-virtual-dtor -Wno-gnu-zero-variadic-macro-arguments -Wno-old-style-cast -O3 -DNDEBUG -shared  -o 3.12.11/pyHepMC3/pyHepMC3.so CMakeFiles/CPythonpyHepMC33.12.11.dir/__/src/pyHepMC3.cpp.o CMakeFiles/CPythonpyHepMC33.12.11.dir/__/src/pyHepMC3_0.cpp.o CMakeFiles/CPythonpyHepMC33.12.11.dir/__/src/pyHepMC3_1.cpp.o CMakeFiles/CPythonpyHepMC33.12.11.dir/__/src/pyHepMC3_2.cpp.o CMakeFiles/CPythonpyHepMC33.12.11.dir/__/src/pyHepMC3_3.cpp.o CMakeFiles/CPythonpyHepMC33.12.11.dir/__/src/pyHepMC3_4.cpp.o CMakeFiles/CPythonpyHepMC33.12.11.dir/__/src/pyHepMC3_5.cpp.o CMakeFiles/CPythonpyHepMC33.12.11.dir/__/src/pyHepMC3_6.cpp.o CMakeFiles/CPythonpyHepMC33.12.11.dir/__/src/pyHepMC3_7.cpp.o CMakeFiles/CPythonpyHepMC33.12.11.dir/__/src/pyHepMC3_8.cpp.o CMakeFiles/CPythonpyHepMC33.12.11.dir/__/src/pyHepMC3_9.cpp.o CMakeFiles/CPythonpyHepMC33.12.11.dir/__/src/pyHepMC3_10.cpp.o CMakeFiles/CPythonpyHepMC33.12.11.dir/__/src/pyHepMC3_11.cpp.o CMakeFiles/CPythonpyHepMC33.12.11.dir/__/src/pyHepMC3_12.cpp.o CMakeFiles/CPythonpyHepMC33.12.11.dir/__/src/pyHepMC3_13.cpp.o CMakeFiles/CPythonpyHepMC33.12.11.dir/__/src/pyHepMC3_14.cpp.o CMakeFiles/CPythonpyHepMC33.12.11.dir/__/src/pyHepMC3_15.cpp.o CMakeFiles/CPythonpyHepMC33.12.11.dir/__/src/pyHepMC3_16.cpp.o CMakeFiles/CPythonpyHepMC33.12.11.dir/__/src/pyHepMC3_17.cpp.o CMakeFiles/CPythonpyHepMC33.12.11.dir/__/src/pyHepMC3_18.cpp.o CMakeFiles/CPythonpyHepMC33.12.11.dir/__/src/binders.cpp.o CMakeFiles/CPythonpyHepMC33.12.11.dir/__/src/ReaderuprootTree.cc.o  -Wl,-rpath,/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-build/outputs/lib64: ../../outputs/lib64/libHepMC3.so.4
+[100%] Built target CPythonpyHepMC33.12.11
+[ 32%] Built target HepMC3
+[ 37%] Built target HepMC3search
+[ 49%] Built target HepMC3rootIO
+[ 83%] Built target CPythonpyHepMC33.12.11
+[ 83%] Built target CPythonfoo3.12.11
+[ 91%] Built target CPythonpyHepMC3search3.12.11
+[ 91%] Built target CPythonfoosearch3.12.11
+[100%] Built target CPythonpyHepMC3rootIO3.12.11
+[100%] Built target CPythonfoorootIO3.12.11
+Install the project...
+-- Install configuration: "RELEASE"
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/lib64/libHepMC3.so.4
+-- Set non-toolchain portion of runtime path of "/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/lib64/libHepMC3.so.4" to "/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/lib64"
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/lib64/libHepMC3.so
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/AssociatedParticle.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/Attribute.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/CompressedIO.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/Data
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/Data/GenEventData.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/Data/GenParticleData.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/Data/GenRunInfoData.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/Data/GenVertexData.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/Errors.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/FourVector.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/GenCrossSection.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/GenCrossSection_fwd.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/GenEvent.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/GenHeavyIon.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/GenHeavyIon_fwd.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/GenParticle.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/GenParticle_fwd.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/GenPdfInfo.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/GenPdfInfo_fwd.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/GenRunInfo.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/GenVertex.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/GenVertex_fwd.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/HEPEVT_Helpers.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/HEPEVT_Wrapper.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/HEPEVT_Wrapper_Runtime.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/HEPEVT_Wrapper_Runtime_Static.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/HEPEVT_Wrapper_Template.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/HepMC3.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/LHEF.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/LHEFAttributes.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/Print.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/PrintStreams.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/Reader.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/ReaderAscii.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/ReaderAsciiHepMC2.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/ReaderFactory.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/ReaderFactory_fwd.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/ReaderGZ.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/ReaderHEPEVT.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/ReaderLHEF.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/ReaderMT.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/ReaderPlugin.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/Setup.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/Units.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/Version.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/Writer.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/WriterAscii.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/WriterAsciiHepMC2.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/WriterGZ.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/WriterHEPEVT.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/WriterPlugin.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/bxzstr
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/bxzstr/LICENSE
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/bxzstr/bxzstr.hpp
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/bxzstr/bz_stream_wrapper.hpp
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/bxzstr/compression_types.hpp
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/bxzstr/config.hpp
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/bxzstr/lzma_stream_wrapper.hpp
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/bxzstr/stream_wrapper.hpp
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/bxzstr/strict_fstream.hpp
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/bxzstr/z_stream_wrapper.hpp
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/bxzstr/zstd_stream_wrapper.hpp
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/lib64/libHepMC3search.so.5
+-- Set non-toolchain portion of runtime path of "/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/lib64/libHepMC3search.so.5" to "/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/lib64"
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/lib64/libHepMC3search.so
+-- Up-to-date: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/lib64
+-- Up-to-date: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/AttributeFeature.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/Feature.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/Filter.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/FilterAttribute.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/Relatives.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/Selector.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/HepMC3/cmake/HepMC3searchTargets.cmake
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/HepMC3/cmake/HepMC3searchTargets-release.cmake
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/HepMC3/interfaces
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/HepMC3/interfaces/HepMCCompatibility
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/HepMC3/interfaces/HepMCCompatibility/include
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/HepMC3/interfaces/HepMCCompatibility/include/HepMCCompatibility.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/HepMC3/interfaces/pythia6
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/HepMC3/interfaces/pythia6/include
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/HepMC3/interfaces/pythia6/include/Pythia6
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/HepMC3/interfaces/pythia6/include/Pythia6/Pythia6ToHepMC3.cc
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/HepMC3/interfaces/pythia6/include/Pythia6/Pythia6ToHepMC3.inc
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/lib64/libHepMC3rootIO.so.3
+-- Set non-toolchain portion of runtime path of "/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/lib64/libHepMC3rootIO.so.3" to "/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/lib64:/cvmfs/sft.cern.ch/lcg/releases/ROOT/6.36.02-c35af/x86_64-el9-clang19-opt/lib"
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/lib64/libHepMC3rootIO.so
+-- Up-to-date: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/lib64
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/lib64/libHepMC3rootIO_rdict.pcm
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/lib64/libHepMC3rootIO.rootmap
+-- Up-to-date: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/ReaderRoot.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/ReaderRootTree.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/WriterRoot.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include/HepMC3/WriterRootTree.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/HepMC3/cmake/HepMC3rootIOTargets.cmake
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/HepMC3/cmake/HepMC3rootIOTargets-release.cmake
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/BasicExamples
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/BasicExamples/CMakeLists.txt
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/BasicExamples/HepMC2_reader_example.cc
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/BasicExamples/HepMC3_fileIO_example.cc
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/BasicExamples/basic_tree.cc
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/BasicExamples/hepevt_wrapper_example_fortran.f
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/BasicExamples/hepevt_wrapper_example_main.cc
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/CMakeLists.txt
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/ConvertExample
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/ConvertExample/CMakeLists.txt
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/ConvertExample/cmdline.c
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/ConvertExample/cmdline.ggo
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/ConvertExample/cmdline.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/ConvertExample/convert_example.cc
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/ConvertExample/convert_example_env.sh.in
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/ConvertExample/include
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/ConvertExample/include/AnalysisExample.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/ConvertExample/include/WriterDOT.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/ConvertExample/include/WriterHEPEVTZEUS.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/ConvertExample/include/WriterRootTreeOPAL.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/ConvertExample/src
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/ConvertExample/src/AnalysisExample.cc
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/ConvertExample/src/WriterDOT.cc
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/ConvertExample/src/WriterHEPEVTZEUS.cc
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/ConvertExample/src/WriterRootTreeOPAL.cc
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/LHEFExample
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/LHEFExample/CMakeLists.txt
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/LHEFExample/LHEF_example.lhe
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/LHEFExample/LHEF_example_1.plhe
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/LHEFExample/LHEF_example_1_cmp.plhe
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/LHEFExample/LHEF_example_1_out.plhe
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/LHEFExample/LHEF_example_2.plhe
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/LHEFExample/LHEF_example_2_cmp.plhe
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/LHEFExample/LHEF_example_2_out.plhe
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/LHEFExample/LHEF_example_cat.cc
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/LHEFExample/LHEF_example_cmp.lhe
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/LHEFExample/LHEF_example_env.sh.in
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/Pythia6Example
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/Pythia6Example/CMakeLists.txt
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/Pythia6Example/main63.f
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/Pythia6Example/pythia-6.4.28.f
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/Pythia8Example
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/Pythia8Example/CMakeLists.txt
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/Pythia8Example/cmake
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/Pythia8Example/cmake/Modules
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/Pythia8Example/cmake/Modules/FindPythia8.cmake
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/Pythia8Example/pythia8_ee_to_Z_to_tautau.conf
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/Pythia8Example/pythia8_example.cc
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/Pythia8Example/pythia8_example_env.sh.in
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/Pythia8Example/pythia8_pp_minbias.conf
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/RootIOExample
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/RootIOExample/CMakeLists.txt
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/RootIOExample/example.hepmc3
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/RootIOExample/rootIO_example_env.sh.in
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/RootIOExample/rootIO_example_read.cc
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/RootIOExample/rootIO_example_write.cc
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/RootIOExample2
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/RootIOExample2/CMakeLists.txt
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/RootIOExample2/class_example_env.sh.in
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/RootIOExample2/class_example_read.cc
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/RootIOExample2/class_example_write.cc
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/RootIOExample2/example.hepmc3
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/RootIOExample2/include
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/RootIOExample2/include/LinkDef.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/RootIOExample2/include/MyClass.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/RootIOExample2/include/MyRunClass.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/RootIOExample2/include/myclass_Classes.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/RootIOExample2/src
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/RootIOExample2/src/MyClass.cc
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/RootIOExample2/src/MyRunClass.cc
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/RootIOExample3
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/RootIOExample3/CMakeLists.txt
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/RootIOExample3/rootIOTree_example_env.sh.in
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/RootIOExample3/rootIOTree_example_read.cc
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/RootIOExample3/rootIOTree_example_write.cc
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/SearchExample
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/SearchExample/CMakeLists.txt
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/SearchExample/src
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/SearchExample/src/search_example.cc
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/ViewerExample
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/ViewerExample/CMakeLists.txt
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/ViewerExample/cmake
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/ViewerExample/cmake/Modules
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/ViewerExample/cmake/Modules/FindGraphviz.cmake
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/ViewerExample/include
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/ViewerExample/include/HepMC3ViewerFrame.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/ViewerExample/include/LinkDef.h
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/ViewerExample/src
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/ViewerExample/src/HepMC3ViewerFrame.cc
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/doc/HepMC3/examples/ViewerExample/src/main.cc
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/lib/python3.12/site-packages/pyHepMC3/pyHepMC3.so
+-- Set non-toolchain portion of runtime path of "/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/lib/python3.12/site-packages/pyHepMC3/pyHepMC3.so" to "/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/lib64"
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/lib/python3.12/site-packages/pyHepMC3/__init__.py
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/lib/python3.12/site-packages/pyHepMC3-3.3.1-py3.12.egg-info
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/lib/python3.12/site-packages/pyHepMC3/search/pyHepMC3search.so
+-- Set non-toolchain portion of runtime path of "/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/lib/python3.12/site-packages/pyHepMC3/search/pyHepMC3search.so" to "/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/lib64"
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/lib/python3.12/site-packages/pyHepMC3/search/__init__.py
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/lib/python3.12/site-packages/pyHepMC3.search-3.3.1-py3.12.egg-info
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/lib/python3.12/site-packages/pyHepMC3/rootIO/pyHepMC3rootIO.so
+-- Set non-toolchain portion of runtime path of "/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/lib/python3.12/site-packages/pyHepMC3/rootIO/pyHepMC3rootIO.so" to "/home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/lib64:/cvmfs/sft.cern.ch/lcg/releases/ROOT/6.36.02-c35af/x86_64-el9-clang19-opt/lib"
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/lib/python3.12/site-packages/pyHepMC3/rootIO/__init__.py
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/lib/python3.12/site-packages/pyHepMC3.rootIO-3.3.1-py3.12.egg-info
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/HepMC3/cmake/HepMC3Config.cmake
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/HepMC3/cmake/HepMC3Config-version.cmake
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/bin/HepMC3-config
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/HepMC3/cmake/HepMC3Targets.cmake
+-- Installing: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/share/HepMC3/cmake/HepMC3Targets-release.cmake
+
