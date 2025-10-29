@@ -1,0 +1,21 @@
+// VBF HH4b
+
+Beams:idA = 2212
+Beams:idB = 2212
+Beams:eCM = 14000.
+
+SoftQCD:all = off
+HardQCD:all = off
+WeakSingleBoson:all = off
+WeakDoubleBoson:all = off
+PromptPhoton:all = off
+HiggsSM:gg2H = off
+HiggsSM:gg2HH = off
+HiggsSM:WH = off
+HiggsSM:ZH = off
+HiggsSM:ttH = off
+HiggsSM:bbH = off
+
+HiggsSM:ff2H = on
+25:onMode = off
+25:onIfMatch = 5 -5

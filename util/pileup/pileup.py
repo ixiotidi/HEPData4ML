@@ -3,6 +3,7 @@ import uproot as ur
 import awkward as ak
 import numpy as np
 import h5py as h5
+import math
 import glob,sys,os,pathlib,itertools
 import subprocess as sub
 from util.qol_utils.progress_bar import printProgressBarColor
@@ -546,11 +547,12 @@ class PileupOverlay:
         return
 
     def _flush_to_file(self,events:List['hm.GenEvent'],output_file:str,buffername:str=None):
-        from pyHepMC3 import HepMC3 as hm
-        from pyHepMC3.rootIO.pyHepMC3rootIO.HepMC3 import WriterRootTree
+        from pyHepMC3                              import HepMC3 as hm
+        #from pyHepMC3.rootIO.pyHepMC3rootIO.HepMC3 import WriterRootTree
+        import pyHepMC3
 
         if(output_file.split('.')[-1].lower() == 'root'):
-            writer = WriterRootTree(output_file, True) # uses our custom HepMC3 functionality for "append mode"
+            writer = pyHepMC3.rootIO.pyHepMC3rootIO.HepMC3.WriterRootTree(output_file, True) # uses our custom HepMC3 functionality for "append mode"
         else:
             assert False # for now, we dont't support ASCII output since there isn't (yet) append functionality
 
@@ -567,6 +569,22 @@ class PileupOverlay:
         if(A is None): A = 1. / (np.sqrt(2.0 * np.pi))
         return A * np.exp(-np.square((x - mu) / sig) / 2)
 
+    def _poisson(self, x, mu, A = None, require_nonnegative=True):
+        if require_nonnegative and x < 0:
+            return 0.0
+        if mu < 0:
+            return 0.0
+        if A is None:
+            A = 1.0
+
+        x_int = int(np.floor(x))
+
+        if mu == 0.0:
+            return A * (1.0 if k_int == 0 else 0.0)
+
+        log_p = x_int * math.log(mu) - mu - math.lgamma(x_int + 1.0)
+        return A * math.exp(log_p)
+
     def _sumpt2(self,evt:'hm.GenEvent'):
         """
         Compute the sum of pt2 of charged particles in the event.
@@ -576,6 +594,8 @@ class PileupOverlay:
 
         sumpt2 = 0.
         for i,particle in enumerate(evt.particles()):
+            if particle.status() > 1:
+                continue
             charge = self.pdg_database.GetCharge(particle.pid()) # charge is in units of |e|/3
             if(np.abs(charge) > 1.0e-9): # abs might not be needed based on the above
                 sumpt2 += np.square(particle.momentum().px()) + np.square(particle.momentum().py())
