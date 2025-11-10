@@ -201,99 +201,106 @@ module Merger TrackMerger {
 #############
 
 module SimpleCalorimeter ECal {
-  set ParticleInputArray ParticlePropagator/stableParticles
-  set TrackInputArray TrackMerger/tracks
+    set ParticleInputArray ParticlePropagator/stableParticles
+    set TrackInputArray TrackMerger/tracks
 
-  set TowerOutputArray ecalTowers
-  set EFlowTrackOutputArray eflowTracks
-  set EFlowTowerOutputArray eflowPhotons
+    set TowerOutputArray ecalTowers
+    set EFlowTrackOutputArray eflowTracks
+    set EFlowTowerOutputArray eflowPhotons
 
-  set IsEcal true
+    set IsEcal true
 
-  set EnergyMin 0.5
-  set EnergySignificanceMin 2.0
+    set EnergyMin 0.5
+    set EnergySignificanceMin 2.0
 
-  set SmearTowerCenter true
+    set SmearTowerCenter true
 
-  set pi [expr {acos(-1)}]
+    set pi [expr {acos(-1)}]
 
-  # lists of the edges of each tower in eta and phi
-  # each list starts with the lower edge of the first tower
-  # the list ends with the higher edged of the last tower
-
-  # assume 0.02 x 0.02 resolution in eta,phi in the barrel |eta| < 1.5
-
-  # Chnaged to 0.2 in Phi pi/32 is about 0.1
+    set Nphi 64
+    set dphi [expr {2.0 * $pi/$Nphi}]    
     
+    #set PhiBins {}
+    #for {set i -180} {$i <= 180} {incr i} {
+    #	add PhiBins [expr {$i * $pi/31.1}]
+    #}
+
     set PhiBins {}
-    for {set i -180} {$i <= 180} {incr i} {
-	add PhiBins [expr {$i * $pi/31.1}]
+    for {set i 0} {$i <= $Nphi} {incr i} {
+	add PhiBins [expr {-1.0 * $pi + $i * $dphi}]
     }
     
-  # 0.02 unit in eta up to eta = 1.5 (barrel)
-  # Same for eta
-  for {set i -15} {$i <= 16} {incr i} {
-    set eta [expr {$i * 0.1}]
-    add EtaPhiBins $eta $PhiBins
-  }
+    # 0.02 unit in eta up to eta = 1.5 (barrel)
+    # Same for eta
+    for {set i -15} {$i <= 15} {incr i} {
+	set eta [expr {$i * 0.1}]
+	add EtaPhiBins $eta $PhiBins
+    }
 
-  # assume 0.02 x 0.02 resolution in eta,phi in the endcaps 1.5 < |eta| < 3.0
-  set PhiBins {}
-  for {set i -180} {$i <= 180} {incr i} {
-    add PhiBins [expr {$i * $pi/31.1}]
-  }
+    for {set i 16} {$i <= 30} {incr i} {
+	set eta_pos [expr {$i * 0.1}]
+	set eta_neg [expr {-1.0 * $eta_pos}]
+	add EtaPhiBins $eta_pos $PhiBins
+	add EtaPhiBins $eta_neg $PhiBins
+    }
 
-  # 0.02 unit in eta up to eta = 3
-  for {set i 1} {$i <= 15} {incr i} {
-    set eta [expr { -3.000 + $i * 0.1}]
-    add EtaPhiBins $eta $PhiBins
-  }
+    # assume 0.02 x 0.02 resolution in eta,phi in the endcaps 1.5 < |eta| < 3.0
+    #set PhiBins {}
+    #for {set i -180} {$i <= 180} {incr i} {
+    #	add PhiBins [expr {$i * $pi/31.1}]
+    #}
+    #
+    ## 0.02 unit in eta up to eta = 3
+    #for {set i 1} {$i <= 15} {incr i} {
+    #	set eta [expr { -3.000 + $i * 0.1}]
+    #	add EtaPhiBins $eta $PhiBins
+    #}
+    #
+    #for {set i 1} {$i <= 15} {incr i} {
+    #	set eta [expr { 1.500 + $i * 0.1}]
+    #	add EtaPhiBins $eta $PhiBins
+    #}
 
-  for {set i 1} {$i <= 15} {incr i} {
-    set eta [expr { 1.500 + $i * 0.1}]
-    add EtaPhiBins $eta $PhiBins
-  }
+    # take present CMS granularity for HF
 
-  # take present CMS granularity for HF
-
-  # 0.175 x (0.175 - 0.35) resolution in eta,phi in the HF 3.0 < |eta| < 5.0
-  set PhiBins {}
-  for {set i -18} {$i <= 18} {incr i} {
-    add PhiBins [expr {$i * $pi/31.1}]
-  }
+    # 0.175 x (0.175 - 0.35) resolution in eta,phi in the HF 3.0 < |eta| < 5.0
+    # set PhiBins {}
+    # for {set i -18} {$i <= 18} {incr i} {
+    # 	add PhiBins [expr {$i * $pi/31.1}]
+    # }
 
     foreach eta {-5 -4.9 -4.8 -4.7 -4.6 -4.5 -4.4 -4.3 -4.2 -4.1 -4.0 -3.9 -3.8 -3.7 -3.6 -3.5 -3.4 -3.3 -3.2 -3.1 -3.0 3.0 3.1 3.2 3.3 3.4 3.5 3.6 3.7 3.8 3.9 4.0 4.1 4.2 4.3 4.4 4.5 4.6 4.7 4.8 4.9 5.0} {
-    add EtaPhiBins $eta $PhiBins
-  }
+	add EtaPhiBins $eta $PhiBins
+    }
 
 
-  add EnergyFraction {0} {0.0}
-  # energy fractions for e, gamma and pi0
-  add EnergyFraction {11} {1.0}
-  add EnergyFraction {22} {1.0}
-  add EnergyFraction {111} {1.0}
-  # energy fractions for muon, neutrinos and neutralinos
-  add EnergyFraction {12} {0.0}
-  add EnergyFraction {13} {0.0}
-  add EnergyFraction {14} {0.0}
-  add EnergyFraction {16} {0.0}
-  add EnergyFraction {1000022} {0.0}
-  add EnergyFraction {1000023} {0.0}
-  add EnergyFraction {1000025} {0.0}
-  add EnergyFraction {1000035} {0.0}
-  add EnergyFraction {1000045} {0.0}
-  # energy fractions for K0short and Lambda
-  add EnergyFraction {310} {0.3}
-  add EnergyFraction {3122} {0.3}
+    add EnergyFraction {0} {0.0}
+    # energy fractions for e, gamma and pi0
+    add EnergyFraction {11} {1.0}
+    add EnergyFraction {22} {1.0}
+    add EnergyFraction {111} {1.0}
+    # energy fractions for muon, neutrinos and neutralinos
+    add EnergyFraction {12} {0.0}
+    add EnergyFraction {13} {0.0}
+    add EnergyFraction {14} {0.0}
+    add EnergyFraction {16} {0.0}
+    add EnergyFraction {1000022} {0.0}
+    add EnergyFraction {1000023} {0.0}
+    add EnergyFraction {1000025} {0.0}
+    add EnergyFraction {1000035} {0.0}
+    add EnergyFraction {1000045} {0.0}
+    # energy fractions for K0short and Lambda
+    add EnergyFraction {310} {0.3}
+    add EnergyFraction {3122} {0.3}
 
-  # set ResolutionFormula {resolution formula as a function of eta and energy}
+    # set ResolutionFormula {resolution formula as a function of eta and energy}
 
-  # set ECalResolutionFormula {resolution formula as a function of eta and energy}
-  # http://arxiv.org/pdf/physics/0608012v1 jinst8_08_s08003
-  # http://villaolmo.mib.infn.it/ICATPP9th_2005/Calorimetry/Schram.p.pdf
-  # http://www.physics.utoronto.ca/~krieger/procs/ComoProceedings.pdf
-  set ResolutionFormula {                      (abs(eta) <= 3.2) * sqrt(energy^2*0.0017^2 + energy*0.101^2) +
-                             (abs(eta) > 3.2 && abs(eta) <= 4.9) * sqrt(energy^2*0.0350^2 + energy*0.285^2)}
+    # set ECalResolutionFormula {resolution formula as a function of eta and energy}
+    # http://arxiv.org/pdf/physics/0608012v1 jinst8_08_s08003
+    # http://villaolmo.mib.infn.it/ICATPP9th_2005/Calorimetry/Schram.p.pdf
+    # http://www.physics.utoronto.ca/~krieger/procs/ComoProceedings.pdf
+    set ResolutionFormula {                      (abs(eta) <= 3.2) * sqrt(energy^2*0.0017^2 + energy*0.101^2) +
+	(abs(eta) > 3.2 && abs(eta) <= 4.9) * sqrt(energy^2*0.0350^2 + energy*0.285^2)}
 
 
 }
@@ -305,72 +312,91 @@ module SimpleCalorimeter ECal {
 #############
 
 module SimpleCalorimeter HCal {
-  set ParticleInputArray ParticlePropagator/stableParticles
-  set TrackInputArray ECal/eflowTracks
+    set ParticleInputArray ParticlePropagator/stableParticles
+    set TrackInputArray ECal/eflowTracks
 
-  set TowerOutputArray hcalTowers
-  set EFlowTrackOutputArray eflowTracks
-  set EFlowTowerOutputArray eflowNeutralHadrons
+    set TowerOutputArray hcalTowers
+    set EFlowTrackOutputArray eflowTracks
+    set EFlowTowerOutputArray eflowNeutralHadrons
 
-  set IsEcal false
+    set IsEcal false
 
-  set EnergyMin 1.0
-  set EnergySignificanceMin 2.0
+    set EnergyMin 1.0
+    set EnergySignificanceMin 2.0
 
-  set SmearTowerCenter true
+    set SmearTowerCenter true
 
- set pi [expr {acos(-1)}]
+    set pi [expr {acos(-1)}]
 
-  # lists of the edges of each tower in eta and phi
-  # each list starts with the lower edge of the first tower
-  # the list ends with the higher edged of the last tower
+    # lists of the edges of each tower in eta and phi
+    # each list starts with the lower edge of the first tower
+    # the list ends with the higher edged of the last tower
 
-  # 10 degrees towers
-  set PhiBins {}
-  for {set i -18} {$i <= 18} {incr i} {
-    add PhiBins [expr {$i * $pi/31.1}]
-  }
+    set Nphi 64
+    set dphi [expr {2.0 * $pi/$Nphi}]
+    set PhiBins {}
+    for {set i 0} {$i <= $Nphi} {incr i} {
+	add PhiBins [expr {-1.0 * $pi + $i * $dphi}]
+    }
 
-  foreach eta {-3.2 -3.1 -3.0 -2.9 -2.8 -2.7 -2.6 -2.5 -2.4 -2.3 -2.2 -2.1 -2.0 -1.9 -1.8 -1.7 -1.6 -1.5 -1.4 -1.3 -1.2 -1.1 -1.0 -0.9 -0.8 -0.7 -0.6 -0.5 -0.4 -0.3 -0.2 -0.1 0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0 1.1 1.2 1.3 1.4 1.5 1.6 1.7 1.8 1.9 2.0 2.1 2.2 2.3 2.4 2.5 2.6 2.7 2.8 2.9 3.0 3.1 3.2} {	
-    add EtaPhiBins $eta $PhiBins
-  }
+    for {set i -32} {$i <= 32} {incr i} {
+	set eta [expr {$i * 0.1}]
+	add EtaPhiBins $eta $PhiBins
+    }
 
-  # 20 degrees towers
-  set PhiBins {}
-  for {set i -9} {$i <= 9} {incr i} {
-    add PhiBins [expr {$i * $pi/31.1}]
-  }
+    for {set i 33} {$i <= 49} {incr i} {
+	set eta_pos [expr {$i * 0.1}]
+	set eta_neg [expr {-1.0 * $eta_pos}]
+	add EtaPhiBins $eta_pos $PhiBins
+	add EtaPhiBins $eta_neg $PhiBins
+    }    
+    
+    # 10 degrees towers
+    # set PhiBins {}
+    # for {set i -18} {$i <= 18} {incr i} {
+    # 	add PhiBins [expr {$i * $pi/31.1}]
+    # }
 
-  foreach eta {-4.9 -4.8 -4.7 -4.6 -4.5 -4.4 -4.3 -4.2 -4.1 -4.0 -3.9 -3.8 -3.7 -3.6 -3.5 -3.4 -3.3 -3.2 3.2 3.3 3.4 3.5 3.6 3.7 3.8 3.9 4.0 4.1 4.2 4.3 4.4 4.5 4.6 4.7 4.8 4.9} {
-    add EtaPhiBins $eta $PhiBins
-  }
+    # foreach eta {-3.2 -3.1 -3.0 -2.9 -2.8 -2.7 -2.6 -2.5 -2.4 -2.3 -2.2 -2.1 -2.0 -1.9 -1.8 -1.7 -1.6 -1.5 -1.4 -1.3 -1.2 -1.1 -1.0 -0.9 -0.8 -0.7 -0.6 -0.5 -0.4 -0.3 -0.2 -0.1 0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0 1.1 1.2 1.3 1.4 1.5 1.6 1.7 1.8 1.9 2.0 2.1 2.2 2.3 2.4 2.5 2.6 2.7 2.8 2.9 3.0 3.1 3.2} {	
+    # 	add EtaPhiBins $eta $PhiBins
+    # }
 
-  # default energy fractions {abs(PDG code)} {Fecal Fhcal}
-  add EnergyFraction {0} {1.0}
-  # energy fractions for e, gamma and pi0
-  add EnergyFraction {11} {0.0}
-  add EnergyFraction {22} {0.0}
-  add EnergyFraction {111} {0.0}
-  # energy fractions for muon, neutrinos and neutralinos
-  add EnergyFraction {12} {0.0}
-  add EnergyFraction {13} {0.0}
-  add EnergyFraction {14} {0.0}
-  add EnergyFraction {16} {0.0}
-  add EnergyFraction {1000022} {0.0}
-  add EnergyFraction {1000023} {0.0}
-  add EnergyFraction {1000025} {0.0}
-  add EnergyFraction {1000035} {0.0}
-  add EnergyFraction {1000045} {0.0}
-  # energy fractions for K0short and Lambda
-  add EnergyFraction {310} {0.7}
-  add EnergyFraction {3122} {0.7}
+    # # 20 degrees towers
+    # set PhiBins {}
+    # for {set i -9} {$i <= 9} {incr i} {
+    # 	add PhiBins [expr {$i * $pi/31.1}]
+    # }
 
-  # http://arxiv.org/pdf/hep-ex/0004009v1
-  # http://villaolmo.mib.infn.it/ICATPP9th_2005/Calorimetry/Schram.p.pdf
-  # set HCalResolutionFormula {resolution formula as a function of eta and energy}
-  set ResolutionFormula {                      (abs(eta) <= 1.7) * sqrt(energy^2*0.0302^2 + energy*0.5205^2 + 1.59^2) +
-                             (abs(eta) > 1.7 && abs(eta) <= 3.2) * sqrt(energy^2*0.0500^2 + energy*0.706^2) +
-                             (abs(eta) > 3.2 && abs(eta) <= 4.9) * sqrt(energy^2*0.09420^2 + energy*1.00^2)}
+    # foreach eta {-4.9 -4.8 -4.7 -4.6 -4.5 -4.4 -4.3 -4.2 -4.1 -4.0 -3.9 -3.8 -3.7 -3.6 -3.5 -3.4 -3.3 -3.2 3.2 3.3 3.4 3.5 3.6 3.7 3.8 3.9 4.0 4.1 4.2 4.3 4.4 4.5 4.6 4.7 4.8 4.9} {
+    # 	add EtaPhiBins $eta $PhiBins
+    # }
+
+    # default energy fractions {abs(PDG code)} {Fecal Fhcal}
+    add EnergyFraction {0} {1.0}
+    # energy fractions for e, gamma and pi0
+    add EnergyFraction {11} {0.0}
+    add EnergyFraction {22} {0.0}
+    add EnergyFraction {111} {0.0}
+    # energy fractions for muon, neutrinos and neutralinos
+    add EnergyFraction {12} {0.0}
+    add EnergyFraction {13} {0.0}
+    add EnergyFraction {14} {0.0}
+    add EnergyFraction {16} {0.0}
+    add EnergyFraction {1000022} {0.0}
+    add EnergyFraction {1000023} {0.0}
+    add EnergyFraction {1000025} {0.0}
+    add EnergyFraction {1000035} {0.0}
+    add EnergyFraction {1000045} {0.0}
+    # energy fractions for K0short and Lambda
+    add EnergyFraction {310} {0.7}
+    add EnergyFraction {3122} {0.7}
+
+    # http://arxiv.org/pdf/hep-ex/0004009v1
+    # http://villaolmo.mib.infn.it/ICATPP9th_2005/Calorimetry/Schram.p.pdf
+    # set HCalResolutionFormula {resolution formula as a function of eta and energy}
+    set ResolutionFormula {                      (abs(eta) <= 1.7) * sqrt(energy^2*0.0302^2 + energy*0.5205^2 + 1.59^2) +
+	(abs(eta) > 1.7 && abs(eta) <= 3.2) * sqrt(energy^2*0.0500^2 + energy*0.706^2) +
+	(abs(eta) > 3.2 && abs(eta) <= 4.9) * sqrt(energy^2*0.09420^2 + energy*1.00^2)}
 }
 
 
