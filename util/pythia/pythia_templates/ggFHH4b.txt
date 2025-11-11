@@ -9,15 +9,9 @@ HardQCD:all = off
 WeakSingleBoson:all = off
 WeakDoubleBoson:all = off
 PromptPhoton:all = off
-HiggsSM:ff2H = off
-HiggsSM:ff2HH = off
-HiggsSM:WH = off
-HiggsSM:ZH = off
-HiggsSM:ttH = off
-HiggsSM:bbH = off
 
 ! Loop-induced gg -> HH
-HiggsSM:gg2HH = on
+HiggsSM:gg2Hbbbar = on
 
 ! Force both Higgs bosons to b b~
 25:onMode = off

@@ -58,7 +58,7 @@ class ContainmentTagger:
 
         # Fetch the vectors from the input buffer; we don't assume that they
         # are necessarily in obj.input_collection_arrays (they likely are not).
-        vecs = np.array(obj.input_buffer[self.vec_key])[self.indices] # reminder: using cylindrical
+        vecs    = np.array(obj.input_buffer[self.vec_key])[self.indices] # reminder: using cylindrical
         jet_vec = obj.jet_vectors_cyl[key]
 
         # Compute distances. Deal with cases of "vecs" being multiple vectors, or a single one.
