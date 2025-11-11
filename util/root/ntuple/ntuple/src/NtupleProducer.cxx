@@ -28,12 +28,18 @@ namespace NtupleProducer{
 
   Converter::Converter(){
     _evt = new HepMC3::GenEvent();
+    _evtPileup = new HepMC3::GenEvent();
   }
 
   Converter::~Converter(){
     if(_readerAscii != 0) delete _readerAscii;
     if(_readerRoot != 0) delete _readerRoot;
     if(_evt != 0) delete _evt;
+
+    if(_readerPileupAscii != 0) delete _readerPileupAscii;
+    if(_readerPileupRoot != 0) delete _readerPileupRoot;
+    if(_evtPileup != 0) delete _evtPileup;
+
     if(_delphesReader != 0) delete _delphesReader;
 
     if(_delphesFile != 0){
@@ -115,7 +121,13 @@ namespace NtupleProducer{
   Bool_t Converter::_ReadHepMCEvent(){
     if(_rootMode) _readerRoot->read_event(*_evt);
     else _readerAscii->read_event(*_evt);
-    return !_failedHepMC();
+
+    Bool_t status = !_failedHepMC();
+
+    // If we have pileup, we should also read in a pileup event now.
+    if(_hasPileup) status = status && _ReadPileupHepMCEvent();
+
+    return status;
   }
 
   Bool_t Converter::_failedHepMC(){
@@ -123,18 +135,69 @@ namespace NtupleProducer{
     return _readerAscii->failed();
   }
 
+  //--------- Pileup-related funcs ------------------
+  void Converter::_OpenPileupHepMC3File(TString filename){
+    // Figure out if this is an ASCII or ROOT file.
+    // We'll do the simple thing, and assume ROOT only if
+    // the extension is ".root".
+    _rootModePileup = kFALSE;
+    TObjArray* arr = filename.Tokenize(".");
+    TString extension = ((TObjString*)arr->At(arr->GetEntries() - 1))->String();
+    if(extension.EqualTo("root")) _rootModePileup = kTRUE;
+
+    if(_rootModePileup) _OpenPileupHepMC3FileRoot(filename);
+    else _OpenPileupHepMC3FileAscii(filename);
+    delete arr;
+  }
+
+  void Converter::_OpenPileupHepMC3FileRoot(TString filename){
+
+    if(_readerPileupRoot != 0){
+      _readerPileupRoot->close();
+      delete _readerPileupRoot;
+    }
+    _readerPileupRoot = new HepMC3::ReaderRootTree(filename.Data());
+  }
+
+  void Converter::_OpenPileupHepMC3FileAscii(TString filename){
+
+    if(_readerPileupAscii != 0){
+      _readerPileupAscii->close();
+      delete _readerPileupAscii;
+    }
+    _readerPileupAscii = new HepMC3::ReaderAscii(filename.Data());
+  }
+
+  Bool_t Converter::_ReadPileupHepMCEvent(){
+    if(_rootModePileup) _readerPileupRoot->read_event(*_evtPileup);
+    else _readerPileupAscii->read_event(*_evtPileup);
+    return !_failedPileupHepMC();
+  }
+
+  Bool_t Converter::_failedPileupHepMC(){
+    if(_rootModePileup) return _readerPileupRoot->failed();
+    return _readerPileupAscii->failed();
+  }
+  //--------------------------------------------
+
   void Converter::_CreateHepMCBranches(){
 
-    _CreateHepMC3BranchesSingle(_truthParticleBranchPrefix,_stableParticles, kFALSE);
+    _CreateHepMC3BranchesSingle(_truthParticleBranchPrefix,_stableParticles, 1);
+
+    // Create pileup branches, if we have pileup input.
+    if(_hasPileup){
+      _CreateHepMC3BranchesSingle(_truthPileupParticleBranchPrefix,_stablePileupParticles, 0);
+    }
+
 
     for(auto it = _truthParticleSelectors.begin(); it != _truthParticleSelectors.end(); it++){
       _truthParticleStructs[it->first] = ParticleData();
-      _CreateHepMC3BranchesSingle(it->first, _truthParticleStructs[it->first], kTRUE);
+      _CreateHepMC3BranchesSingle(it->first, _truthParticleStructs[it->first], 2);
     }
     return;
   }
 
-  void Converter::_CreateHepMC3BranchesSingle(TString particleCollectionName, ParticleData& data, Bool_t extra){
+  void Converter::_CreateHepMC3BranchesSingle(TString particleCollectionName, ParticleData& data, Int_t extra){
     TString branchName;
     // Branches for the stable truth particles
     branchName = Form("%s.N", particleCollectionName.Data());
@@ -149,20 +212,21 @@ namespace NtupleProducer{
     branchName = Form("%s.PdgId", particleCollectionName.Data());
     _outputTree->Branch(branchName,&data.pdgId);
 
-    branchName = Form("%s.HepMC3Index", particleCollectionName.Data());
-    _outputTree->Branch(branchName,&data.indexHepMC);
+    if(extra >= 1){
+      branchName = Form("%s.HepMC3Index", particleCollectionName.Data());
+      _outputTree->Branch(branchName,&data.indexHepMC);
 
-    branchName = Form("%s.Production.Xmu", particleCollectionName.Data());
-    _outputTree->Branch(branchName,&data.xmu_prod);
+      branchName = Form("%s.Production.Xmu", particleCollectionName.Data());
+      _outputTree->Branch(branchName,&data.xmu_prod);
+    }
 
-    if(extra){
+    if(extra >= 2){
       branchName = Form("%s.Stable", particleCollectionName.Data());
       _outputTree->Branch(branchName,&data.isStable);
 
       branchName = Form("%s.Decay.Xmu", particleCollectionName.Data());
       _outputTree->Branch(branchName,&data.xmu_decay);
     }
-
   }
 
   Bool_t Converter::_CheckStringVector(vector<TString> v, TString target){
@@ -275,21 +339,27 @@ namespace NtupleProducer{
   }
 
   void Converter::_DelphesCalorimeter(TString inputBranchName, vector<TString> attributes){
+    Bool_t isCalo = kFALSE;
     if(_CheckStringVector(attributes,"Eem")){
       _delphesData[inputBranchName]->Eem = std::make_unique<TTreeReaderArray<Float_t>>(*_delphesReader,Form("%s.Eem", inputBranchName.Data()));
       TString branchName = Form("%s.E.EM", inputBranchName.Data());
       _outputTree->Branch(branchName,&_delphesData[inputBranchName]->output.caloData.Eem);
+      isCalo = kTRUE;
     }
     if(_CheckStringVector(attributes,"Ehad")){
       _delphesData[inputBranchName]->Ehad = std::make_unique<TTreeReaderArray<Float_t>>(*_delphesReader,Form("%s.Ehad", inputBranchName.Data()));
       TString branchName = Form("%s.E.Hadronic", inputBranchName.Data());
       _outputTree->Branch(branchName,&_delphesData[inputBranchName]->output.caloData.Ehad);
+      isCalo = kTRUE;
     }
     if(_CheckStringVector(attributes,"Etrk")){
       _delphesData[inputBranchName]->Etrack = std::make_unique<TTreeReaderArray<Float_t>>(*_delphesReader,Form("%s.Etrk", inputBranchName.Data()));
       TString branchName = Form("%s.E.Track", inputBranchName.Data());
       _outputTree->Branch(branchName,&_delphesData[inputBranchName]->output.caloData.Etrack);
+      isCalo = kTRUE;
     }
+
+    if(!isCalo) return; // avoid accidentally triggering edges code below, which could otherwise be triggered by other data types like Rho
     // We handle Edges specially -- the name passed to TTreeReaderArray must include [N] suffix, where N is fixed array size
 
     if(_CheckStringVector(attributes,"Edges")){
@@ -328,8 +398,62 @@ namespace NtupleProducer{
     }
   }
 
-  void Converter::_CreateDelphesBranch(TString inputBranchName){
+  void Converter::_DelphesMET(TString inputBranchName, vector<TString> attributes){
+    if(_CheckStringVector(attributes,"MET")){
+      // Connect it to the input Delphes branches.
+      _delphesData[inputBranchName]->MET = std::make_unique<TTreeReaderArray<Float_t>>(*_delphesReader,Form("%s.MET", inputBranchName.Data()));
 
+      // Assuming there's also Eta and Phi. (Should be safe, given how Delphes data is structured)
+      _delphesData[inputBranchName]->eta = std::make_unique<TTreeReaderArray<Float_t>>(*_delphesReader,Form("%s.Eta", inputBranchName.Data()));
+      _delphesData[inputBranchName]->phi = std::make_unique<TTreeReaderArray<Float_t>>(*_delphesReader,Form("%s.Phi", inputBranchName.Data()));
+
+      // if(_CheckStringVector(attributes,"Mass")){
+      //   _delphesData[inputBranchName]->mass = std::make_unique<TTreeReaderArray<Float_t>>(*_delphesReader,Form("%s.Mass", inputBranchName.Data()));
+      // }
+
+      // Connect it to the output tree branches.
+      TString branchName;
+      branchName = Form("%s.Pmu", inputBranchName.Data());
+      _outputTree->Branch(branchName,&_delphesData[inputBranchName]->output.momentum.pmu);
+      branchName = Form("%s.Pmu_cyl", inputBranchName.Data());
+      _outputTree->Branch(branchName,&_delphesData[inputBranchName]->output.momentum.pmu_cyl);
+    }
+    return;
+  }
+
+  void Converter::_DelphesRho(TString inputBranchName, vector<TString> attributes){
+    if(_CheckStringVector(attributes,"Rho")){
+      _delphesData[inputBranchName]->rho = std::make_unique<TTreeReaderArray<Float_t>>(*_delphesReader,Form("%s.Rho", inputBranchName.Data()));
+      TString branchName = Form("%s.Rho", inputBranchName.Data());
+      _outputTree->Branch(branchName,&_delphesData[inputBranchName]->output.rhoData.rho);
+    }
+    else return;
+    // We handle Edges specially -- the name passed to TTreeReaderArray must include [N] suffix, where N is fixed array size
+
+    if(_CheckStringVector(attributes,"Edges")){
+      _delphesData[inputBranchName]->hasEdges = kTRUE; // TODO: DEBUG
+      TLeaf* edgesLeaf = _delphesTree->GetLeaf(Form("%s.Edges", inputBranchName.Data()));
+      _delphesData[inputBranchName]->edgesSize = edgesLeaf->GetLen();  // typically 2, for Rho
+      TString branchNameFull = Form("%s.Edges[%i]",inputBranchName.Data(),_delphesData[inputBranchName]->edgesSize);
+      _delphesTree->SetBranchAddress(branchNameFull,&_delphesData[inputBranchName]->Edges);
+
+      TString branchName;
+
+      // Special case for edgesLeaf->GetLen() == 2
+      if(_delphesData[inputBranchName]->edgesSize == 2){
+        branchName = Form("%s.Edges.Eta", inputBranchName.Data());
+        _outputTree->Branch(branchName,&_delphesData[inputBranchName]->output.rhoData.edgesEta);
+      }
+      else{
+        branchName = Form("%s.Edges.Eta", inputBranchName.Data());
+        _outputTree->Branch(branchName,&_delphesData[inputBranchName]->output.rhoData.edgesEta);
+        branchName = Form("%s.Edges.Phi", inputBranchName.Data());
+        _outputTree->Branch(branchName,&_delphesData[inputBranchName]->output.rhoData.edgesPhi);
+      }
+    }
+  }
+
+  void Converter::_CreateDelphesBranch(TString inputBranchName){
     TString branchName;
 
     // Determine what leaves this branch has.
@@ -379,6 +503,12 @@ namespace NtupleProducer{
     // 6) Handling position information (for non-track objects)
     _DelphesPosition(inputBranchName,attributes);
 
+    // 7) Handling MET-specific information
+    _DelphesMET(inputBranchName, attributes);
+
+    // 8) Handling rho-specific information
+    _DelphesRho(inputBranchName, attributes);
+
     return;
   }
 
@@ -413,11 +543,8 @@ namespace NtupleProducer{
     for(Int_t i = 0; i < leaveList->GetEntries(); i++){
       // Leaf names incl. the branch name, e.g.: Particle_, Particle.fUniqueID, Particle.fBits, Particle.PID ...
       TString leafName = leaveList->At(i)->GetName();
-      // cout << "Checking leaf " << leafName << endl;
-
       for (TString reqName : branchNames){
         if(leafName.Contains(reqName + ".")){
-          // cout << "\tContains " << reqName << endl;
           _delphesLeafNames.push_back(leafName);
           break;
         }
@@ -481,6 +608,29 @@ namespace NtupleProducer{
     return;
   }
 
+  void Converter::_FillStablePileupParticles(){
+    // Can loop in this simple way because the "selection algorithm" is hardcoded:
+    // we simply take all particles where the HepMC3 status is equal to 1.
+    _stablePileupParticles.Clear();
+    Int_t N = 0;
+    for(Size_t i = 0; i < _evtPileup->particles().size(); i++){
+      shared_ptr<HepMC3::GenParticle> par = _evtPileup->particles().at(i);
+      if(par->status() != 1) continue;
+      HepMC3::FourVector momentum = par->momentum();
+
+      _stablePileupParticles.pdgId.push_back(par->pid());
+      _stablePileupParticles.indexHepMC.push_back(par->id());
+      _stablePileupParticles.momentum.pmu.push_back({momentum.e(),momentum.px(),momentum.py(),momentum.pz()}); // note use of double-braces (moved from vector<vector<Double_t>> to vector<FourVector>)
+      _stablePileupParticles.momentum.pmu_cyl.push_back({momentum.pt(),momentum.eta(),momentum.phi(),momentum.m()});
+
+      HepMC3::FourVector production_vertex = par->production_vertex()->position();
+      _stablePileupParticles.xmu_prod.push_back({production_vertex.t(),production_vertex.x(),production_vertex.y(),production_vertex.z()});
+      N++;
+    }
+    _stablePileupParticles.N = N;
+    return;
+  }
+
   void Converter::_FillTruthParticles(){
 
     for(auto it = _truthParticleStructs.begin(); it != _truthParticleStructs.end(); it++){
@@ -520,142 +670,167 @@ namespace NtupleProducer{
   void Converter::_FillDelphesObjects(){
     ROOT::Math::PtEtaPhiMVector v;
     for(auto& [branchName, data] : _delphesData){
-        data->Clear();
+      data->Clear();
 
-        // TODO: Package these chunks up into their own functions
-        if(data->pt){
-          Int_t N = data->pt->GetSize();
+      // TODO: Package these chunks up into their own functions
+      if(data->pt){
+        Int_t N = data->pt->GetSize();
+        data->output.N = N;
+        for(Int_t i = 0; i < N; i++){
+          Double_t pt = (*data->pt)[i];
+          Double_t eta = (*data->eta)[i];
+          Double_t phi = (*data->phi)[i];
+          Double_t m   = data->mass ? (*data->mass)[i] :
+            _delphesMassDefault.find(branchName) != _delphesMassDefault.end() ? _delphesMassDefault[branchName] :
+            0.0;
+          v.SetCoordinates(pt,eta,phi,m);
+          data->output.momentum.pmu.push_back({v.E(), v.Px(), v.Py(), v.Pz()});
+          data->output.momentum.pmu_cyl.push_back({pt, eta, phi, m});
+        }
+      }
+      if(data->d0){
+        Int_t N = data->d0->GetSize();
+        data->output.N = N;
+        for(Int_t i = 0; i < N; i++){
+          data->output.trackData.d0.push_back((*data->d0)[i]);
+          data->output.trackData.d0Error.push_back((*data->d0Error)[i]);
+          data->output.trackData.z0.push_back((*data->z0)[i]);
+          data->output.trackData.z0Error.push_back((*data->z0Error)[i]);
+
+        }
+      }
+
+      if(_delphesFillXd[branchName]){ // checking this way since there are two conditions under which we fill
+        if(data->xd){
+          Int_t N = data->xd->GetSize();
           data->output.N = N;
           for(Int_t i = 0; i < N; i++){
-            Double_t pt = (*data->pt)[i];
-            Double_t eta = (*data->eta)[i];
-            Double_t phi = (*data->phi)[i];
-            Double_t m   = data->mass ? (*data->mass)[i] :
-              _delphesMassDefault.find(branchName) != _delphesMassDefault.end() ? _delphesMassDefault[branchName] :
-              0.0;
-            v.SetCoordinates(pt,eta,phi,m);
-            data->output.momentum.pmu.push_back({v.E(), v.Px(), v.Py(), v.Pz()});
-            data->output.momentum.pmu_cyl.push_back({pt, eta, phi, m});
+            data->output.trackData.Xd.push_back({(*data->xd)[i], (*data->yd)[i], (*data->zd)[i]});
           }
         }
-        if(data->d0){
+        else{ // earlier setup should guarantee that the necessary inputs exist
           Int_t N = data->d0->GetSize();
           data->output.N = N;
           for(Int_t i = 0; i < N; i++){
-            data->output.trackData.d0.push_back((*data->d0)[i]);
-            data->output.trackData.d0Error.push_back((*data->d0Error)[i]);
-            data->output.trackData.z0.push_back((*data->z0)[i]);
-            data->output.trackData.z0Error.push_back((*data->z0Error)[i]);
-
+            Double_t d0 = (*data->d0)[i];
+            Double_t z0 = (*data->z0)[i];
+            Double_t phi = (*data->phi)[i];
+            Double_t xd = d0 * TMath::Cos(phi);
+            Double_t yd = d0 * TMath::Sin(phi);
+            data->output.trackData.Xd.push_back({xd, yd, z0});
           }
         }
+      }
+      if(data->pdgId){
+        Int_t N = data->pdgId->GetSize();
+        data->output.N = N;
+        for(Int_t i = 0; i < N; i++){
+          data->output.pdgId.push_back((*data->pdgId)[i]);
+        }
+      }
+      if(data->charge){
+        Int_t N = data->charge->GetSize();
+        data->output.N = N;
+        for(Int_t i = 0; i < N; i++){
+          data->output.charge.push_back((*data->charge)[i]);
+        }
+      }
+      if(data->Eem){
+        Int_t N = data->Eem->GetSize();
+        data->output.N = N;
+        for(Int_t i = 0; i < N; i++){
+          data->output.caloData.Eem.push_back((*data->Eem)[i]);
+        }
+      }
 
-        if(_delphesFillXd[branchName]){ // checking this way since there are two conditions under which we fill
-          if(data->xd){
-            Int_t N = data->xd->GetSize();
-            data->output.N = N;
-            for(Int_t i = 0; i < N; i++){
-              data->output.trackData.Xd.push_back({(*data->xd)[i], (*data->yd)[i], (*data->zd)[i]});
+      if(data->Ehad){
+        Int_t N = data->Ehad->GetSize();
+        data->output.N = N;
+        for(Int_t i = 0; i < N; i++){
+          data->output.caloData.Ehad.push_back((*data->Ehad)[i]);
+        }
+      }
+
+      if(data->Etrack){
+        Int_t N = data->Etrack->GetSize();
+        data->output.N = N;
+        for(Int_t i = 0; i < N; i++){
+          data->output.caloData.Etrack.push_back((*data->Etrack)[i]);
+        }
+      }
+      if(data->rho){
+        Int_t N = data->rho->GetSize();
+        data->output.N = N;
+        for(Int_t i = 0; i < N; i++){
+          Double_t rho = (*data->rho)[i];
+          data->output.rhoData.rho.push_back(rho);
+        }
+      }
+      if(data->hasEdges){
+        Int_t N = data->output.N; // assuming we got this already
+        Int_t idx = 0;
+        for(Int_t i = 0; i < N; i++) {
+
+          if(idx + data->edgesSize >= data->edgesMax){
+            cout << Form("NtupleProducer::Converter::_FillDelphesObjects(): Warning, more edges for branch %s.Edges than allowed by buffer, truncating.",branchName.Data()) << endl;
+            cout << Form("\t(edgesMax = %i, but there are %i objects for event %llu, with %i edges each)",data->edgesMax,N,_i,data->edgesSize);
+            break;
+          }
+
+          if(data->edgesSize == 2){
+            vector<Double_t> rapidityEdges = {(Double_t)data->Edges[idx], (Double_t)data->Edges[idx + 1]};
+
+            if(data->rho) data->output.rhoData.edgesEta.push_back(rapidityEdges);
+            else data->output.caloData.edgesEta.push_back(rapidityEdges);
+          }
+          else{
+            vector<Double_t> etaEdges = {};
+            vector<Double_t> phiEdges = {};
+            for(Int_t j = 0; j < data->edgesSize; j++){
+              Double_t val = (Double_t)data->Edges[idx + j];
+              if(j < data->edgesSize / 2) etaEdges.push_back(val);
+              else phiEdges.push_back(val);
             }
-          }
-          else{ // earlier setup should guarantee that the necessary inputs exist
-            Int_t N = data->d0->GetSize();
-            data->output.N = N;
-            for(Int_t i = 0; i < N; i++){
-              Double_t d0 = (*data->d0)[i];
-              Double_t z0 = (*data->z0)[i];
-              Double_t phi = (*data->phi)[i];
-              Double_t xd = d0 * TMath::Cos(phi);
-              Double_t yd = d0 * TMath::Sin(phi);
-              data->output.trackData.Xd.push_back({xd, yd, z0});
-            }
-          }
-        }
-
-        if(data->pdgId){
-          Int_t N = data->pdgId->GetSize();
-          data->output.N = N;
-          for(Int_t i = 0; i < N; i++){
-            data->output.pdgId.push_back((*data->pdgId)[i]);
-          }
-        }
-        if(data->charge){
-          Int_t N = data->charge->GetSize();
-          data->output.N = N;
-          for(Int_t i = 0; i < N; i++){
-            data->output.charge.push_back((*data->charge)[i]);
-          }
-        }
-
-        if(data->Eem){
-          Int_t N = data->Eem->GetSize();
-          data->output.N = N;
-          for(Int_t i = 0; i < N; i++){
-            data->output.caloData.Eem.push_back((*data->Eem)[i]);
-          }
-        }
-
-        if(data->Ehad){
-          Int_t N = data->Ehad->GetSize();
-          data->output.N = N;
-          for(Int_t i = 0; i < N; i++){
-            data->output.caloData.Ehad.push_back((*data->Ehad)[i]);
-          }
-        }
-
-        if(data->Etrack){
-          Int_t N = data->Etrack->GetSize();
-          data->output.N = N;
-          for(Int_t i = 0; i < N; i++){
-            data->output.caloData.Etrack.push_back((*data->Etrack)[i]);
-          }
-        }
-
-        if(data->hasEdges){
-
-          // TODO: Could consider something even safer, but we should have picked up N from something above.
-          Int_t N = data->output.N; // assuming we got this already
-
-          Int_t idx = 0;
-
-          for(Int_t i = 0; i < N; i++) {
-
-            if(idx + data->edgesSize >= data->edgesMax){
-              cout << Form("NtupleProducer::Converter::_FillDelphesObjects(): Warning, more edges for branch %s.Edges than allowed by buffer, truncating.",branchName.Data()) << endl;
-              cout << Form("\t(edgesMax = %i, but there are %i objects for event %llu, with %i edges each)",data->edgesMax,N,_i,data->edgesSize);
-              break;
-            }
-
-            if(data->edgesSize == 2){
-              vector<Double_t> rapidityEdges = {(Double_t)data->Edges[idx], (Double_t)data->Edges[idx + 1]};
-              data->output.caloData.edgesEta.push_back(rapidityEdges);
+            if(data->rho){
+              data->output.rhoData.edgesEta.push_back(etaEdges);
+              data->output.rhoData.edgesPhi.push_back(phiEdges);
             }
             else{
-              vector<Double_t> etaEdges = {};
-              vector<Double_t> phiEdges = {};
-              for(Int_t j = 0; j < data->edgesSize; j++){
-                Double_t val = (Double_t)data->Edges[idx + j];
-                if(j < data->edgesSize / 2) etaEdges.push_back(val);
-                else phiEdges.push_back(val);
-              }
               data->output.caloData.edgesEta.push_back(etaEdges);
               data->output.caloData.edgesPhi.push_back(phiEdges);
             }
-            idx += data->edgesSize;
           }
+          idx += data->edgesSize;
         }
-        if(data->X){
-          Int_t N = data->X->GetSize();
-          data->output.N = N;
-          for(Int_t i = 0; i < N; i++){
-            Double_t t = (*data->T)[i];
-            Double_t x = (*data->X)[i];
-            Double_t y = (*data->Y)[i];
-            Double_t z = (*data->Z)[i];
+      }
 
-            data->output.positionData.push_back({t, x, y, z});
-          }
+      if(data->X){
+        Int_t N = data->X->GetSize();
+        data->output.N = N;
+        for(Int_t i = 0; i < N; i++){
+          Double_t t = (*data->T)[i];
+          Double_t x = (*data->X)[i];
+          Double_t y = (*data->Y)[i];
+          Double_t z = (*data->Z)[i];
+
+          data->output.positionData.push_back({t, x, y, z});
         }
+      }
+      if(data->MET){
+        Int_t N = data->MET->GetSize();
+        data->output.N = N;
+        for(Int_t i = 0; i < N; i++){
+          Double_t pt = (*data->MET)[i];
+          Double_t eta = (*data->eta)[i];
+          Double_t phi = (*data->phi)[i];
+          Double_t m   = data->mass ? (*data->mass)[i] :
+            _delphesMassDefault.find(branchName) != _delphesMassDefault.end() ? _delphesMassDefault[branchName] :
+            0.0;
+          v.SetCoordinates(pt,eta,phi,m);
+          data->output.momentum.pmu.push_back({v.E(), v.Px(), v.Py(), v.Pz()});
+          data->output.momentum.pmu_cyl.push_back({pt, eta, phi, m});
+        }
+      }
     }
   }
 
@@ -670,13 +845,21 @@ namespace NtupleProducer{
     _truthParticleSelectors[selectionName] = std::unique_ptr<BaseSelector>(selector);
   }
 
-  void Converter::Process(TString inputFileHepMC, TString inputFileDetector, TString outputFile){
+  void Converter::Process(TString inputFileHepMC, TString inputFilePileupHepMC, TString inputFileDetector, TString outputFile){
+
+
+    _hasPileup = kFALSE;
+    if(!inputFilePileupHepMC.EqualTo("")) _hasPileup = kTRUE;
 
     // Reset the counter (unsure if we'll end up needing this at all)
     _i = 0;
 
     // Open the HepMC file -- can be either ASCII or ROOT format.
     _OpenHepMC3File(inputFileHepMC); // NOTE: We don't know how many events are in the file; in principle can figure it out for ROOT but not ASCII
+
+    // Open the pileup HepMC file if it exists.
+    if(_hasPileup) _OpenPileupHepMC3File(inputFilePileupHepMC);
+
     // Open the detector file, if present.
     // NOTE: For now, we assume it is a Delphes file.
     _OpenDelphesFile(inputFileDetector);
@@ -704,6 +887,9 @@ namespace NtupleProducer{
       // Fetch the stable truth particle data, place it in output buffers.
       _FillStableParticles();
 
+      // Fetch the pileup truth particle data, place it in output buffers.
+      if(_hasPileup) _FillStablePileupParticles();
+
       // Fetch the selected truth particle data, place it in output buffers.
       _FillTruthParticles();
 
@@ -721,4 +907,9 @@ namespace NtupleProducer{
     delete _outputFile;
     _outputFile = 0;
   }
+
+    void Converter::Process(TString inputFileHepMC, TString inputFileDetector, TString outputFile){
+      Process(inputFileHepMC,"",inputFileDetector,outputFile);
+    }
+
 }

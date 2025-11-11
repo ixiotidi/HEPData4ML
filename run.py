@@ -87,7 +87,7 @@ def main(args):
         assert(False)
 
     pythia_rng = args['rng']
-    pileup_files = args['pileupFiles']
+    pileup_input_files = args['pileupFiles']
 
     # Arguments to be used by HTCondor jobs.
     # TODO: Maybe find another way to handle these? A wrapper script for condor?
@@ -249,7 +249,13 @@ def main(args):
         #===============================
         # STEP 2: Pileup (optional)
         #===============================
+        # In this step, we produce pileup HepMC/ROOT "sidecar" files
+        # (or just fetch existing ones). Note that producing these from scratch
+        # is a relatively slow process (specifically, combining HepMC3 events is slow).
+        # Thus it is preferrable to produce these in a dedicated run, and then later
+        # simply use a pileup_handler that fetches these pre-mixed events.
         pileup_handler = None
+        pileup_files = None
         if('pileup' in steps):
             timer.start_timestamp('pileup')
             pileup_handler = configurator.GetPileupHandler()
@@ -261,8 +267,8 @@ def main(args):
                 pileup_handler.SetConfigurator(configurator)
                 pileup_handler.SetHTCondorInfo(is_condor_job,condor_job_number,n_condor_jobs)
 
-                if(pileup_files is not None): # overriding config file
-                    pileup_handler.SetPileupFiles(pileup_files)
+                if(pileup_input_files is not None): # overriding config file
+                    pileup_handler.SetPileupFiles(pileup_input_files)
 
                 # TODO: Maybe rework this code, it's a bit ugly to have to check attributes like this? -Jan
                 if(hasattr(pileup_handler,'SetGenerator')):
@@ -280,7 +286,11 @@ def main(args):
                 elif(args['rng'] is not None): # Case 2: The Pythia RNG seed was specified at command line -- in practice we may want to then use this for pileup too (e.g. HTCondor usage).
                     pileup_handler.SetRNGSeed(pythia_rng)
 
-                pileup_handler.Process(hepmc_files) # will overwrite the hepmc_files
+                # for file in hepmc_files:
+                #     pileup_handler(file)
+
+                # # TODO: Rework the Process() step, should switch to producing sidecar files.
+                pileup_files = pileup_handler.Process(hepmc_files) # will overwrite the hepmc_files
 
                 # TODO: Now we fetch some information from the pileup handler, that will propagate into the final dataset:
                 # info on the number of interactions per bunch crossing, the actual indices of pileup events used,
@@ -321,6 +331,8 @@ def main(args):
             if(simulator is not None):
                 simulator.SetMetadataHandler(metadata_handler)
                 simulator.SetInputs(hepmc_files)
+                if(pileup_files is not None):
+                    simulator.SetPileupInputs(pileup_files)
                 simulator.Process()
                 delphes_files = simulator.GetOutputFiles()
             timer.end_timestamp('simulation')
@@ -347,27 +359,34 @@ def main(args):
             processor.SetOutputDirectory(outdir)
             processor.SetMetadataHandler(metadata_handler)
 
-            # Add the correct file extension to "ntuple_file", so we know what it is.
+            # List of ntuple filenames, for the temporary files
+            # (one per input HepMC/Delphes). We'll merge them after the loop.
+            ntuple_files = []
+
+            # Create the filename for the unified ntuple file.
             ntuple_file = '{}.{}'.format(ntuple_file,processor.GetOutputExtension())
 
-            ntuple_files = []
             if(verbose): print('\nProducing separate N-tuple files for each pT bin, and then concatenating these.')
             nentries_per_chunk = int(nentries_per_chunk/nbins)
 
             for i, hepmc_file in enumerate(hepmc_files):
                 delphes_file = None
+                pileup_file = None
                 if(len(delphes_files) > 0):
                     delphes_file = delphes_files[i]
+                if(pileup_files is not None):
+                    pileup_file = pileup_files[i]
+
                 # TODO: Rework this a little. Should just generically loop over HepMC files, since they might have an external source and not be pt-binned.
                 ntuple_file_individual = hepmc_file.split('/')[-1].replace(hepmc_extension,processor.GetOutputExtension())
 
                 processor.SetProgressBarPrefix('\tProducing N-tuple for file {}/{}:'.format(i+1,len(hepmc_files)))
-                processor.ProcessFull(hepmc_file,delphes_file, ntuple_file_individual,verbosity=ntuple_verbosity)
+                processor.ProcessFull(hepmc_file,pileup_file, delphes_file, ntuple_file_individual,verbosity=ntuple_verbosity)
 
-                # Add information from the pileup handler (if any).
-                # TODO: This may need a little reworking? The handling of filenames might be a little fragile.
-                if(pileup_handler is not None):
-                    pileup_handler.AddPileupInfoToH5(ntuple_file_individual,cwd=outdir,file_key=hepmc_file)
+                # # Add information from the pileup handler (if any).
+                # # TODO: This may need a little reworking? The handling of filenames might be a little fragile.
+                # if(pileup_handler is not None):
+                #     pileup_handler.AddPileupInfoToH5(ntuple_file_individual,cwd=outdir,file_key=hepmc_file)
 
                 ntuple_file_individual = '/'.join((outdir,ntuple_file_individual))
                 ntuple_files.append(ntuple_file_individual)
@@ -407,7 +426,15 @@ def main(args):
                 sub.check_call(comm)
             timer.end_timestamp('reconstruction')
         timer.end_main()
+        print('\n#############################')
         timer.summarize_time()
+        # Give a further breakdown of the post-processing.
+
+        if(processor.post_processing is not None):
+            for i,post_proc in enumerate(processor.post_processing):
+                post_proc.SummarizeRuntime(level=2)
+        print('\n#############################')
+
 
         if(profiler is not None): profiler.report()
 

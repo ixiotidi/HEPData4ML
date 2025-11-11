@@ -30,11 +30,9 @@
 
 #include <map>
 #include <vector>
-
 #include <stdio.h>
 
 // ROOT includes
-// #include "RTypes.h"
 #include "TDatabasePDG.h"
 #include "TLorentzVector.h"
 #include "TObjArray.h"
@@ -43,11 +41,6 @@
 #include "TString.h"
 
 // HepMC3 includes
-
-// swapped in favor of ReaderRootTree -- still ROOT file, slightly different format.
-// In principle, the file type used by ReaderRootTree supports random access, although
-// it is not clear to me that this is directly supported by the HepMC ROOT IO classes. - Jan
-// #include "HepMC3/ReaderRoot.h"
 #include "HepMC3/ReaderRootTree.h"
 #include "HepMC3/GenEvent.h"
 
@@ -63,16 +56,12 @@ public:
   ~DelphesHepMC3ROOTReader();
 
   void SetInputFile(TString inputFile);
+  void SetInputPileupFile(TString inputFilePileup);
 
   void Clear();
-  bool EventReady();
+  Bool_t EventReady();
 
   Bool_t ReadEvent();
-
-  bool ReadBlock(DelphesFactory *factory,
-    TObjArray *allParticleOutputArray,
-    TObjArray *stableParticleOutputArray,
-    TObjArray *partonOutputArray);
 
   void AnalyzeEvent(ExRootTreeBranch *branch, long long eventNumber,
     TStopwatch *readStopWatch, TStopwatch *procStopWatch);
@@ -87,10 +76,9 @@ public:
 
 private:
 
-  void AnalyzeVertex(DelphesFactory *factory, int code, Candidate *candidate = 0);
+  void AnalyzeVertex(DelphesFactory *factory, Int_t code, Candidate *candidate = 0);
 
-  // void AnalyzeParticle(DelphesFactory *factory);
-  void AnalyzeParticle(DelphesFactory *factory, std::shared_ptr<HepMC3::GenParticle> particle);
+  void AnalyzeParticle(DelphesFactory *factory, std::shared_ptr<HepMC3::GenParticle> particle, Bool_t isPileup=kFALSE);
 
 
   void FinalizeParticles(TObjArray *allParticleOutputArray,
@@ -99,39 +87,41 @@ private:
 
   TString fInputFile;
 
-  char *fBuffer;
+  Char_t *fBuffer = 0;
 
-  TDatabasePDG *fPDG;
+  TDatabasePDG *fPDG = 0;
 
-  int fEventNumber, fMPI, fProcessID, fSignalCode, fVertexCounter, fParticleCounter;
-  double fScale, fAlphaQCD, fAlphaQED;
+  Int_t fEventNumber, fMPI, fProcessID, fVertexCounter, fParticleCounter;
+  Double_t fScale, fAlphaQCD, fAlphaQED;
 
-  double fMomentumCoefficient, fPositionCoefficient;
+  Double_t fMomentumCoefficient, fPositionCoefficient;
 
-  std::vector<double> fWeights;
+  std::vector<Double_t> fWeights;
 
-  double fCrossSection, fCrossSectionError;
+  Double_t fCrossSection, fCrossSectionError;
 
-  int fID1, fID2;
-  double fX1, fX2, fScalePDF, fPDF1, fPDF2;
+  Int_t fID1, fID2;
+  Double_t fX1, fX2, fScalePDF, fPDF1, fPDF2;
 
-  int fVertexCode, fVertexStatus;
-  double fX, fY, fZ, fT;
-
-  int fParticleCode, fPID, fParticleStatus, fOutVertexCode;
-  double fPx, fPy, fPz, fE, fMass;
+  Double_t fX, fY, fZ, fT;
 
   std::vector<std::pair<TLorentzVector *, TObjArray *> > fVertices;
-  std::vector<int> fParticles;
+  std::vector<Int_t> fParticles;
 
-  std::map<int, int> fInVertexMap;
-  std::map<int, int> fOutVertexMap;
+  std::map<Int_t, Int_t> fInVertexMap;
+  std::map<Int_t, Int_t> fOutVertexMap;
 
-  std::map<int, std::pair<int, int> > fMotherMap;
-  std::map<int, std::pair<int, int> > fDaughterMap;
+  std::map<Int_t, std::pair<Int_t, Int_t> > fMotherMap;
+  std::map<Int_t, std::pair<Int_t, Int_t> > fDaughterMap;
 
-  HepMC3::ReaderRootTree* fReader;
+  HepMC3::ReaderRootTree* fReader = 0;
   HepMC3::GenEvent fEvent;
+
+  // For handling pileup input (from a "sidecar" file).
+  TString fInputFilePileup;
+  HepMC3::ReaderRootTree* fReaderPileup = 0;
+  HepMC3::GenEvent fEventPileup;
+  Bool_t fHasPileupFile = kFALSE;
 
 };
 

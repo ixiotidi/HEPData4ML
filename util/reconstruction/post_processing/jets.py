@@ -1,5 +1,6 @@
 # The purpose of this code is to apply the Johns Hopkins top tagger (arXiv:0806.0848 [hep-ph])
 # to the jets in the dataset.
+import time, datetime
 import numpy as np
 from typing import Any, Optional, List, Tuple, Annotated, Union, TYPE_CHECKING # experimenting with typing
 from numpy.typing import NDArray
@@ -7,7 +8,7 @@ from util.fastjet.jetfinderbase import JetFinderBase
 from util.qol_utils.progress_bar import printProgressBarColor
 from util.buffer.input import RootTreeLoader
 from util.buffer.output import RootOutputBuffer
-from util.misc.timing import profile_method
+from util.misc.timing import profile_method, profile_block
 
 import util.reconstruction.post_processing.utils.ghost_association as ghost_assoc
 import util.reconstruction.post_processing.utils.softdrop as softdrop
@@ -15,6 +16,8 @@ import util.reconstruction.post_processing.utils.jhtagger as jhtagger
 import util.reconstruction.post_processing.utils.jet_filter as jet_filter
 import util.reconstruction.post_processing.utils.containment as containment
 import util.reconstruction.post_processing.utils.simple_btag as simple_btag
+import util.reconstruction.post_processing.utils.jet_energy_scale as jes
+import util.reconstruction.post_processing.utils.rho_area_subtraction as rho_area_sub
 
 if(TYPE_CHECKING):
     from util.metadata.meta import MetaDataHandler
@@ -54,12 +57,12 @@ class JetFinder(JetFinderBase):
 
         self.input_collection_arrays = {}
         self.input_collection_arrays_cyl = {}
-        self.input_collection_arrays_rapidity = None
+        self.input_collection_arrays_rapidity = {}
         self.constituent_indices_dict = None
 
         self.SetVerbosity(verbose)
 
-        self.print_prefix = '\n\tJetFinder'
+        self.print_prefix = 'JetFinder'
         self.progress_bar_length = 50
         self.progress_bar_prefix = '\tRunning JetFinder:'
         self.progress_bar_suffix = 'Complete'
@@ -73,7 +76,6 @@ class JetFinder(JetFinderBase):
         self.metadata_handler = None
 
         # Stuff for dealing with I/O
-
         self.ntuple_file = None # The input HDF5 file -- also where output will ultimately be copied.
         self.output_file_tmp = None # The temporary output file -- write to this, then it'll be merged with input file. Allows having input and output files simultaneously read & modified.
 
@@ -81,12 +83,12 @@ class JetFinder(JetFinderBase):
         self.citations = {}
         self._generate_citations()
 
-        # Buffer containing FastJet::PseudoJet objects -- better to use
-        self.pseudojets = None
-        self.pseudojet_init_flag = False
+        # for timing
+        self.runtime = 0.
 
-    def _print(self,val:Any):
-        print('{}: {}'.format(self.print_prefix,val))
+    def _print(self,val,level=0):
+        prefix = level * '\t' + self.print_prefix
+        print('{}: {}'.format(prefix,val))
         return
 
     def SetMetadataHandler(self,handler:'MetaDataHandler'):
@@ -121,12 +123,13 @@ class JetFinder(JetFinderBase):
         """
         if(type(collections) != list):
             collections = [collections]
-        collections_pmu = ['{}.Pmu'.format(collection) for collection in collections]
-        collections_pmu_cyl = ['{}.Pmu_cyl'.format(collection) for collection in collections]
 
         self.input_collection_names = collections
-        self.input_collection_names_Pmu = collections_pmu
-        self.input_collection_names_Pmu_cyl = collections_pmu_cyl
+        self.input_collection_names_Pmu = {collection: '{}.Pmu'.format(collection) for collection in collections}
+        self.input_collection_names_Pmu_cyl = {collection: '{}.Pmu_cyl'.format(collection) for collection in collections}
+
+
+        #NOTE: the keys for rapidity branches will be set later on
 
     def SetNConstituentsMax(self,n:int):
         self.n_constituents_max = n
@@ -153,25 +156,6 @@ class JetFinder(JetFinderBase):
 
     def GetCitations(self):
         return self.citations
-
-    # def _input_consistency_check(self):
-    #     f = h5.File(self.ntuple_file,'r')
-    #     keys = list(f.keys())
-    #     f.close()
-
-    #     cleaned_collections = []
-    #     for collection in self.input_collection_names_Pmu:
-    #         # we will be using the Cartesian versions of each collection for clustering
-    #         found = collection in keys
-    #         if(not found):
-    #             self._print('Warning: Did not find key {} in file {}. Disabling as input...'.format(collection,self.ntuple_file))
-    #         else:
-    #             cleaned_collections.append(collection)
-    #     self.input_collection_names_Pmu = cleaned_collections
-    #     if(len(self.input_collection_names_Pmu)==0):
-    #         self._print('Error: No input collections.')
-    #         return False
-    #     return True
 
     def _generate_citations(self):
         """
@@ -247,21 +231,20 @@ class JetFinder(JetFinderBase):
         self._initialize_jet_definition()
 
         # Read in the input 4-momenta from the input file.
-
         self._fetch_inputs()
 
         # Also fetch rapidity & phi, for potentially speeding up some FastJet computations.
-        # self._fetch_rapidity() # TODO: Fix this
+        self._fetch_rapidity() # TODO: Fix this
 
         # Get maximum size of jet inputs.
         n_max = self._get_max_input_size()
         self._initialize_pseudojets(n_max)
 
+        # We can initialize the buffer
+        self._initializeBuffer()
+
         # Optional modification of initialize. May be harnessed by some special configurations.
         self._modifyInitialization()
-
-        # With nevents defined, we can initialize the buffer.
-        self._initializeBuffer()
 
         # Now (re)generate citations, will pull in any additions from post-processors that have been added on.
         self._generate_citations()
@@ -272,9 +255,9 @@ class JetFinder(JetFinderBase):
 
         self.input_buffer = RootTreeLoader(self.ntuple_file,'hepdata4ml_tree') #TODO: Dynamic tree name?
         self.input_buffer.load()
-        for key in self.input_collection_names_Pmu:
+        for collection_name,key in self.input_collection_names_Pmu.items():
             self.input_buffer.read_branch(key)
-        for key in self.input_collection_names_Pmu_cyl:
+        for collection_name,key in self.input_collection_names_Pmu_cyl.items():
             self.input_buffer.read_branch(key)
 
         self.nevents = self.input_buffer.t.GetEntries()
@@ -295,20 +278,22 @@ class JetFinder(JetFinderBase):
         """
 
         # For rapidity, fetch rapidity or pseudorapidity based on what is available.
-        full_keys = list(self.input_buffer.keys()) # gives all available branch names in the input TTree
-        rapidity_keys = {}
+        # Thus we will store keys in "self.input_collection_names_rapidity", where the actual rapidity keys
+        # are mapped to contents of self.input_collection_names.
+        # Note that self.input_collection_names_Pmu(_cyl) etc are built from self.input_collection_names.
+        full_keys = list(self.input_buffer.keys) # gives all available branch names in the input TTree
+        self.input_collection_names_rapidity = {}
         for key in self.input_collection_names:
             potential_keys = ['{}.{}'.format(key,x) for x in ['Rapidity','Rap','Y','Pmu_cyl']] # last is the fall-back
             for key2 in potential_keys:
                 if(key2 in full_keys):
-                    rapidity_keys[key] = key2
+                    self.input_collection_names_rapidity[key] = key2
                     break
-        assert(len(rapidity_keys.keys()) == len(self.input_collection_names))
-        self.input_collection_arrays_rapidity = {}
+        assert(len(self.input_collection_names_rapidity.keys()) == len(self.input_collection_names))
 
         # Now, ensure that the necessary collections are loaded
-        for key,key2 in rapidity_keys.items():
-            self.input_buffer.load_branch(key2) # e
+        for key,key2 in self.input_collection_names_rapidity.items():
+            self.input_buffer.read_branch(key2)
         return
 
     def _get_max_input_size(self):
@@ -336,16 +321,20 @@ class JetFinder(JetFinderBase):
         self.input_buffer.set_entry(event_index)
 
         #TODO: Likely have to fix some things with the ghost associator
-        for key in self.input_collection_names_Pmu: # NOTE: Using self.input_collections_array.keys() can be dangerous, due to modifications/additions to keys by things like GhostAssociation(). Those should not touch self.input_collections, for this reason.
-            self.input_collection_arrays[key] = self.input_buffer[key]
+        for collection_name,key in self.input_collection_names_Pmu.items(): # NOTE: Using self.input_collections_array.keys() can be dangerous, due to modifications/additions to keys by things like GhostAssociation(). Those should not touch self.input_collections, for this reason.
+            self.input_collection_arrays[collection_name] = self.input_buffer[key]
 
-        for key in self.input_collection_names_Pmu_cyl: # NOTE: Using self.input_collections_array.keys() can be dangerous, due to modifications/additions to keys by things like GhostAssociation(). Those should not touch self.input_collections, for this reason.
-            self.input_collection_arrays_cyl[key] = self.input_buffer[key]
+        for collection_name,key in self.input_collection_names_Pmu_cyl.items(): # NOTE: Using self.input_collections_array.keys() can be dangerous, due to modifications/additions to keys by things like GhostAssociation(). Those should not touch self.input_collections, for this reason.
+            self.input_collection_arrays_cyl[collection_name] = self.input_buffer[key]
 
-        # print('Loaded event {}'.format(event_index))
-        # key = self.input_collection_names_Pmu_cyl[0]
-        # print('\tPrinting buffer for {}'.format(key))
-        # print(self.input_collection_arrays_cyl[key])
+        # Also take care of rapidity. Here, we have to keep in mind the case where we've pointed
+        # the rapidity collection at a cylindrical Pmu key (Pmu_cyl), in which case we're
+        # linked to a branch carrying not the rapidity but the whole four-momentum; in that
+        # case we need to peel off the eta component (it'll be pseudorapidity in this case).
+        #
+        # We'll actually *handle* this complication in _set_inputs(), however.
+        for collection_name,key in self.input_collection_names_rapidity.items():
+            self.input_collection_arrays_rapidity[collection_name] = self.input_buffer[key]
 
         return
 
@@ -354,11 +343,25 @@ class JetFinder(JetFinderBase):
         # We want to vstack the input_collection_arrays, but have to consider the edge
         # case where one of them is empty, in which case it'll be "{}". This will cause
         # dimensionality issues with vstack if we do things naively.
-        self.SetInputs(np.vstack([self.input_collection_arrays[key] for key in self.input_collection_names_Pmu if len(self.input_collection_arrays[key]) > 0])) # NOTE: Using self.input_collections_array.keys() can be dangerous, due to modifications/additions to keys by things like GhostAssociation(). Those should not touch self.input_collections, for this reason.
-        self.SetInputsCylindrical(np.vstack([self.input_collection_arrays_cyl[key] for key in self.input_collection_names_Pmu_cyl if len(self.input_collection_arrays_cyl[key]) > 0]))
+        self.SetInputs(np.vstack([self.input_collection_arrays[cname] for cname in self.input_collection_names_Pmu.keys() if len(self.input_collection_arrays[cname]) > 0])) # NOTE: Using self.input_collections_array.keys() can be dangerous, due to modifications/additions to keys by things like GhostAssociation(). Those should not touch self.input_collections, for this reason.
+        self.SetInputsCylindrical(np.vstack([self.input_collection_arrays_cyl[cname] for cname in self.input_collection_names_Pmu_cyl.keys() if len(self.input_collection_arrays_cyl[cname]) > 0]))
+
+        # For rapidity, there is the complication that we might be reading a "Pmu_cyl" branch, in case
+        # we really just want its pseudorapidity component: slicing like [:,1] but these are cppyy.gbl.std.vector,
+        # not numpy arrays, so we have to do it correctly.
+
+        # Collect views/slices
+        with profile_block('rapidity setting'):
+            rapidity_views = []
+            for cname in self.input_collection_names_rapidity.keys():
+                coll = self.input_collection_arrays_rapidity[cname]
+                rapidity = np.asarray(coll)
+                rapidity_views.append(rapidity[:, 1] if rapidity.ndim > 1 else rapidity)
+            self.SetRapidity(np.concatenate(rapidity_views, axis=0))
 
     @profile_method('JetFinder.Process')
     def Process(self):
+        start_time = time.time()
         self.Initialize()
 
         if(self.verbose):
@@ -377,39 +380,61 @@ class JetFinder(JetFinderBase):
             # Gather the different input collections together, into one array of four-momenta.
             self._set_inputs()
 
-            # self.SetRapidity(np.concatenate([self.input_collection_arrays_rapidity[key] for key in self.input_collection_names],axis=0)) # TODO: Fix this
-
             # Optional modification of inputs. May be harnessed by some special configurations.
             self._modifyInputs()
 
             self._clusterJets() # fills self.jets_dict
 
-            # Optional modification of jets. May be harnessed by some special configurations.
-            self._modifyJets()
-
-            # Pt-sort the jets, and truncate to fixed length given by self.n_jets_max
-            self._ptSort(truncate=True)
-
             # optionally extract information on jet constituents
             if(self.constituents_flag):
                 self._fetchJetConstituents() # fills self.constituent_vectors, self.constituent_indices
 
-                # Optional modification of constituents. May be harnessed by some special configurations.
-                self._modifyConstituents()
-
-            # now write to buffer
+            # Now, write jets to buffer. This actually stages them in a dictionary associated with the buffer,
+            # where they're not explicitly ordered.
             self._writeToBuffer()
 
-            # Optional extension of writing to buffer. May be harnessed by some special configurations.
-            self._modifyWrite()
+            # Now run post-processing methods.
+            # These can produce new branches associated with jets and/or their constituents.
+            # This function will also place these new branches in dictionaries associated with the buffer;
+            # they're unsorted but staged to be written as soon as the buffer is flushed.
+            self.PostProcess()
+
+            # Record the number of jets -- this is something that the post-processors might've modified,
+            # and due to *how* we write data to the buffer, we need to handle this value separately
+            # from the others (that are updated more intelligently).
+            self._writeNJets()
+
+            # Pt-sort the jets, and truncate to fixed length given by self.n_jets_max
+            self._ptSort(truncate=True)
+
+            # With the pt sorting done, we can now tell the buffer how the jets are to be ordered.
+            # This information is propagated to all the branch information staged in dictionaries.
+            #
+            # This ordering will be used the next time the output buffer flushes, which will happen
+            # at the top of this loop on the next iteration -- or when we explicitly flush the buffer
+            # (as we do once after the loop, in self.__call__()).
+            self.output_buffer.set_ordering(self.jet_ordering)
 
             if(self.verbose):
                 printProgressBarColor(self._i+1,self.nevents,prefix=self.progress_bar_prefix,suffix=self.progress_bar_suffix,length=self.progress_bar_length)
+        end_time = time.time()
+        self.runtime += end_time - start_time
         return
 
     def _modifyInitialization(self):
-        for processor in self.processors:
+        """
+        Initialize the post-processors.
+        """
+        for i,processor in enumerate(self.processors):
+            input_name = None
+            input_constituents_name = None
+            if(i > 0):
+                input_name = self.processors[i-1].GetOutputObjectName()
+                input_constituents_name = self.processors[i-1].GetOutputObjectConstituentsName()
+            processor.SetInputObjectName(input_name, input_constituents_name)
             processor.ModifyInitialization(self)
+            print()
+            processor.SummarizeIO()
         return
 
     def _modifyInputs(self):
@@ -417,22 +442,26 @@ class JetFinder(JetFinderBase):
             processor.ModifyInputs(self)
         return
 
-    def _modifyJets(self):
-        for processor in self.processors:
+    def PostProcess(self):
+        """
+        Sequentially run the post-processors, to modify jets (and possibly constituents).
+        This may modify self.jets_dict and its derived quantities, and/or create new
+        branches in the output buffer.
+        """
+        # NOTE: Used to "interleave" post-processors with main jet clustering method,
+        #       but doing this fully sequentially is probably better; allows for nicer
+        #       and clearer interplay between the post-processors (each can access outputs
+        #       of previous ones fully).
+        #
+        #       Note that we *do* still effectively interleave the ModifyInitialization()
+        #       and ModifyInputs() methods with the jet clustering.
+        for i,processor in enumerate(self.processors):
+            start_time = time.time()
             processor.ModifyJets(self)
-        return
-
-    def _modifyWrite(self):
-        for processor in self.processors:
-            processor.ModifyWrite(self)
-
-    def _modifyConstituents(self):
-        #NOTE: Considering removing this, might cause weird interplay
-        #      between processors. Its better to modify the actual
-        #      fastjet jet's constituents within _modifyJets(), so that
-        #      the processors' handling of the jets isn't interleaved.
-        for processor in self.processors:
             processor.ModifyConstituents(self)
+            processor.ModifyWrite(self)
+            end_time = time.time()
+            processor.AddRuntime(end_time - start_time)
         return
 
     def Flush(self, output_file=None):
@@ -519,13 +548,12 @@ class JetFinder(JetFinderBase):
             # a constituent came from, as well as its index *within* that collection.
             self.output_buffer.create_array('{}.Constituents.Collection'.format(self.jet_name),ndim=dim1,dtype=np.dtype('i4'))
             self.output_buffer.create_array('{}.Constituents.Collection.Index'.format(self.jet_name),ndim=dim1,dtype=np.dtype('i4'))
-
         return
 
     @profile_method('JetFinder._computeConstituentIndices')
     def _computeConstituentIndices(self):
         # Precompute collection boundaries once
-        n_per_collection = [len(self.input_collection_arrays[key]) for key in self.input_collection_names_Pmu]
+        n_per_collection = [len(self.input_collection_arrays[cname]) for cname in self.input_collection_names_Pmu.keys()]
         cumulative_lengths = np.cumsum([0] + n_per_collection)
 
         self.constituent_indices_dict = {}
@@ -542,6 +570,14 @@ class JetFinder(JetFinderBase):
             self.constituent_indices_dict[i] = constituent_indices
         return
 
+    def _writeNJets(self,event_index:Optional[int]=None):
+        if(event_index is None):
+            event_index = self._i
+        if(len(self.jets_dict) == 0):
+            return
+        njets = len(self.jet_ordering)
+        self.output_buffer.set('{}.N'.format(self.jet_name),event_index,njets)
+
     @profile_method('JetFinder._writeToBuffer')
     def _writeToBuffer(self,event_index:Optional[int]=None):
 
@@ -551,16 +587,12 @@ class JetFinder(JetFinderBase):
         if(len(self.jets_dict) == 0):
             self.output_buffer.flush() # should write an empty entry
             return
-        njets = len(self.jet_vectors)
 
-        # Fill jet information in the buffer.
-        self.output_buffer.set('{}.N'.format(self.jet_name),event_index,njets)
-
-        # TODO: This needs fixing. The above will trigger a flush once we reach event 1,
-        #       and this might be messing up the input buffer since the output_buffer calls
-        #       clone_tree.SetEntry()
+        # NOTE: Filling number of jets in separate function, to deal with post-processor behaviour.
+        #       We can fill the other quantities because they're actually stored in dictionaries
+        #       by self.output_buffer, with self.jet_ordering used at the very end to filter them.
+        #       Being a single integer, the "number of jets" branch isn't stored/written in this way.
         self._load_data()
-
 
         # TODO: Maybe later clean this up a bit? Have to deal with special case of "single_jet = True".
         if(self.single_jet):
@@ -569,8 +601,8 @@ class JetFinder(JetFinderBase):
             self.output_buffer.set('{}.Pmu_cyl'.format(self.jet_name),event_index,self.jet_vectors_cyl[idx])
 
         else:
-            self.output_buffer.set('{}.Pmu'.format(self.jet_name),event_index,np.vstack([self.jet_vectors[i] for i in self.jet_ordering]))
-            self.output_buffer.set('{}.Pmu_cyl'.format(self.jet_name),event_index,np.vstack([self.jet_vectors_cyl[i] for i in self.jet_ordering]))
+            self.output_buffer.set('{}.Pmu'.format(self.jet_name),event_index,self.jet_vectors)
+            self.output_buffer.set('{}.Pmu_cyl'.format(self.jet_name),event_index,self.jet_vectors_cyl)
 
         # Fill the jet constituent information.
         if(self.constituents_flag):
@@ -588,14 +620,19 @@ class JetFinder(JetFinderBase):
                 self.output_buffer.set('{}.Constituents.Collection.Index'.format(self.jet_name),event_index,self.constituent_indices_dict[idx][:,1])
 
             else:
-                self.output_buffer.set('{}.Constituents.N'.format(self.jet_name),event_index,[len(self.constituent_vectors[i]) for i in self.jet_ordering])
+                self.output_buffer.set('{}.Constituents.N'.format(self.jet_name),event_index,{i:len(self.constituent_vectors[i]) for i in self.constituent_vectors.keys()})
+                self.output_buffer.set('{}.Constituents.Pmu'.format(self.jet_name),event_index,self.constituent_vectors)
+                self.output_buffer.set('{}.Constituents.Pmu_cyl'.format(self.jet_name),event_index,self.constituent_vectors_cyl)
+                self.output_buffer.set('{}.Constituents.Collection'.format(self.jet_name),event_index,{key:val[:,0] for key,val in self.constituent_indices_dict.items()})
+                self.output_buffer.set('{}.Constituents.Collection.Index'.format(self.jet_name),event_index,{key:val[:,1] for key,val in self.constituent_indices_dict.items()})
 
-                # Now we loop, as we're embedding what is really jagged information.
-                for i,j in enumerate(self.jet_ordering):
-                    self.output_buffer.set('{}.Constituents.Pmu'.format(self.jet_name),(event_index,i),self.constituent_vectors[j])
-                    self.output_buffer.set('{}.Constituents.Pmu_cyl'.format(self.jet_name),(event_index,i),self.constituent_vectors_cyl[j])
-                    self.output_buffer.set('{}.Constituents.Collection'.format(self.jet_name),(event_index,i),self.constituent_indices_dict[j][:,0])
-                    self.output_buffer.set('{}.Constituents.Collection.Index'.format(self.jet_name),(event_index,i),self.constituent_indices_dict[j][:,1])
+        return
+
+    def SummarizeRuntime(self,level=0):
+        runtime_readable = str(datetime.timedelta(seconds=self.runtime))
+        self._print('     Runtime: {:.1f} seconds\t({})'.format(self.runtime,runtime_readable),level=level)
+        for i,processor in enumerate(self.processors):
+            processor.SummarizeRuntime(level=level+1)
         return
 
     # NOTE: Will define various functions for performing some modifications to clustering or post-processing of results.
@@ -702,11 +739,48 @@ class JetFinder(JetFinderBase):
         self.processors.append(jet_filter.Leading())
         return self
 
+    def JESCalibration(self,formula:str, override:bool=False):
+        """
+        This function performs a jet energy scale calibration of the jets.
+        It directly modifies the jets, so their momenta (and constituent momenta)
+        are calibrated. Also writes the per-jet calibration factor to a new branch,
+        with which one can determine the pre-calibrated momenta.
+
+        Returns self, so this can be chained with the constructor.
+        """
+        self.processors.append(jes.JetEnergyScale(formula,override))
+        return self
+
+    def JESCalibrationATLAS(self, override:bool=False):
+        """
+        This function performs a jet energy scale calibration of the jets,
+        corresponding to the one in the ATLAS Delphes card.
+        Returns self, so this can be chained with the constructor.
+        """
+        self.processors.append(jes.JetEnergyScale('atlas',override))
+        return self
+
+    def JESCalibrationCMS(self, override:bool=False):
+        """
+        This function performs a jet energy scale calibration of the jets,
+        corresponding to the one in the default CMS Delphes card.
+        Returns self, so this can be chained with the constructor.
+        """
+        self.processors.append(jes.JetEnergyScale('cms',override))
+        return self
+
+    def RhoAreaSubtraction(self,rho_input=None,pt_min:Annotated[float,"GeV"]=20.,rho_eta_edges:List[Any]=None,eta_bins:List[Any]=None,phi_bins:List[Any]=None):
+        """
+        This function performs rho area subtraction, for pileup removal.
+        Can read in an existing rho branch (e.g. from Delphes), or compute it on-the-fly.
+        """
+        self.processors.append(rho_area_sub.RhoAreaSubtraction(rho_input,pt_min,rho_eta_edges,eta_bins,phi_bins))
+        return self
+
+
 class TruthJetFinder(JetFinderBase):
     """
     A simple jet-finding class, for use with event filters.
-    See the JetFinder in util/reconstruction/post_processing/jets.py
-    for a more complete example (made to work with HDF5 input files).
     """
 
     def __init__(self, jet_algorithm:str='anti_kt',radius:float=0.4, jet_name:str='AK04Jets', n_jets_max:Optional[int]=None,fastjet_dir:Optional[str]=None):
@@ -755,6 +829,7 @@ class TruthJetFinder(JetFinderBase):
         self._clusterJets()
         self._ptSort()
 
-    def _print(self,val:Any):
-        print('{}: {}'.format(self.print_prefix,val))
+    def _print(self,val,level=0):
+        prefix = level * '\t' + self.print_prefix
+        print('{}: {}'.format(prefix,val))
         return
