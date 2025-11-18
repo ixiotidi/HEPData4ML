@@ -1,0 +1,30 @@
+
+~/Development/HEPData4ML/util/root/pileup/pileup/build ~/Development/HEPData4ML/util/root/pileup
+-- The C compiler identification is Clang 19.1.3
+-- The CXX compiler identification is Clang 19.1.3
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/wrappers/clang - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /cvmfs/sft.cern.ch/lcg/releases/clang/19.1.3-e838d/x86_64-el9/wrappers/clang++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found Vdt: /cvmfs/sft.cern.ch/lcg/views/LCG_108/x86_64-el9-clang19-opt/include (found version "0.4")
+-- Set HEPMC3_EXT_DIR = /home/ixiotidi/Development/HEPData4ML/util/root/pileup/../../../external/hepmc/hepmc3-install
+-- Found HepMC3 headers: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/include
+-- Found HepMC3 library: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/lib64/libHepMC3.so
+-- Found HepMC3/ROOT library: /home/ixiotidi/Development/HEPData4ML/external/hepmc/hepmc3-install/lib64/libHepMC3rootIO.so
+-- Configuring done (0.7s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/ixiotidi/Development/HEPData4ML/util/root/pileup/pileup/build
+[  0%] Built target move_headers
+[ 25%] Generating G__Pileup.cxx, ../lib/libPileup_rdict.pcm, ../lib/libPileup.rootmap
+[ 50%] Building CXX object pileup/CMakeFiles/G__Pileup.dir/G__Pileup.cxx.o
+[ 50%] Built target G__Pileup
+[ 75%] Building CXX object pileup/CMakeFiles/Pileup.dir/src/Pileup.cxx.o
+[100%] Linking CXX shared library ../lib/libPileup.so
+[100%] Built target Pileup
+~/Development/HEPData4ML/util/root/pileup

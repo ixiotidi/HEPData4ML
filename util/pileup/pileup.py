@@ -1,12 +1,6 @@
 import ROOT as rt
 import numpy as np
 import h5py as h5
-
-import math
-import glob,sys,os,pathlib,itertools
-import subprocess as sub
-from util.qol_utils.progress_bar import printProgressBarColor
-
 import glob,sys,os,pathlib
 
 from util.pileup.setup import PileupSetup
@@ -188,7 +182,7 @@ class PileupMixer:
         if(self.mu_input is None):
             # very approximate for Run 2,
             # see https://atlas.web.cern.ch/Atlas/GROUPS/DATAPREPARATION/PublicPlots/2018/DataSummary/figs/mu_2015_2018.png
-            self.mu_input = [33.7,11.5]
+            self.mu_input = [200,14.14]
             self._init_mu_distribution()
             return
 
@@ -273,24 +267,6 @@ class PileupMixer:
         #self.AddPileupInfoToHepMC3ROOT()
 
         self._writeMetadata()
-
-        return
-
-    def _flush_to_file(self,events:List['hm.GenEvent'],output_file:str,buffername:str=None):
-        from pyHepMC3                              import HepMC3 as hm
-        #from pyHepMC3.rootIO.pyHepMC3rootIO.HepMC3 import WriterRootTree
-        import pyHepMC3
-
-        if(output_file.split('.')[-1].lower() == 'root'):
-            writer = pyHepMC3.rootIO.pyHepMC3rootIO.HepMC3.WriterRootTree(output_file, True) # uses our custom HepMC3 functionality for "append mode"
-        else:
-            assert False # for now, we dont't support ASCII output since there isn't (yet) append functionality
-
-        for evt in events:
-            writer.write_event(evt)
-
-        writer.close()
-        events.clear()
         return output_files
 
     def _gaussian(self,x,mu,sig,A=None,require_positive=True):
@@ -298,189 +274,6 @@ class PileupMixer:
             return 0.
         if(A is None): A = 1. / (np.sqrt(2.0 * np.pi))
         return A * np.exp(-np.square((x - mu) / sig) / 2)
-
-    def _poisson(self, x, mu, A = None, require_nonnegative=True):
-        if require_nonnegative and x < 0:
-            return 0.0
-        if mu < 0:
-            return 0.0
-        if A is None:
-            A = 1.0
-
-        x_int = int(np.floor(x))
-
-        if mu == 0.0:
-            return A * (1.0 if k_int == 0 else 0.0)
-
-        log_p = x_int * math.log(mu) - mu - math.lgamma(x_int + 1.0)
-        return A * math.exp(log_p)
-
-    def _sumpt2(self,evt:'hm.GenEvent'):
-        """
-        Compute the sum of pt2 of charged particles in the event.
-        Used for scaling the x/y displacement of the primary vertex,
-        see https://github.com/delphes/delphes/blob/d256775e652525b0c35929e72a8bf20252328696/modules/PileUpMerger.cc#L181.
-        """
-
-        sumpt2 = 0.
-        for i,particle in enumerate(evt.particles()):
-            if particle.status() > 1:
-                continue
-            charge = self.pdg_database.GetCharge(particle.pid()) # charge is in units of |e|/3
-            if(np.abs(charge) > 1.0e-9): # abs might not be needed based on the above
-                sumpt2 += np.square(particle.momentum().px()) + np.square(particle.momentum().py())
-        return sumpt2
-
-    def _combine_event_with_pileup(self,
-        main_event: 'hm.GenEvent',
-        pileup_events: Union['hm.GenEvent', List['hm.GenEvent']],
-        pileup_displacements: Optional[Union[Tuple[float, float, float, float],
-                                        List[Tuple[float, float, float, float]]]] = None,
-        auto_displace: bool = True,
-        beam_spot_sigma: Optional[Tuple[float,float,float,float]] = None
-    ) -> 'hm.GenEvent':
-        """
-        Combine a main event with pileup events, applying vertex displacements.
-
-        Parameters:
-        -----------
-        main_event : hm.GenEvent
-            The primary hard-scatter event
-        pileup_events : hm.GenEvent or List[hm.GenEvent]
-            Single pileup event or list of pileup events to overlay
-        pileup_displacements : tuple or list of tuples, optional
-            (t, x, y, z) displacements for each pileup event in mm/ns units
-            If None and auto_displace=True, random displacements are generated
-        auto_displace : bool
-            If True, automatically generate random displacements when none provided
-        beam_spot_sigma : tuple, optional
-            Standard deviation for random displacement generation (mm/ns), in (t,x,y,z).
-            Defaults to self.beam_spot_sigma (preferred use).
-
-        Returns:
-        --------
-        hm.GenEvent
-            Combined event with displaced pileup vertices
-        """
-
-        from pyHepMC3 import HepMC3 as hm
-
-        # Ensure pileup_events is a list
-        if isinstance(pileup_events, hm.GenEvent):
-            pileup_events = [pileup_events]
-
-        # Generate or validate displacements
-        if pileup_displacements is None:
-            pileup_displacements = np.zeros((len(pileup_events),4))
-            if auto_displace:
-                if(beam_spot_sigma is None):
-                    beam_spot_sigma = self.beam_spot_sigma
-                beam_spot_sigma = list(beam_spot_sigma)
-                beam_spot_sigma[0] *= 1.0e6 / rt.TMath.C() # convert from ns to mm/c
-                pileup_displacements = np.random.normal(0,beam_spot_sigma,(len(pileup_events),4))
-
-        if len(pileup_displacements) != len(pileup_events):
-            raise ValueError("Number of displacements ({}) must match number of pileup events ({})".format(len(pileup_displacements),len(pileup_events)))
-
-        # We displace the main event as well.
-        # NOTE: Based on the approach taken in Delphes (https://github.com/delphes/delphes/blob/d256775e652525b0c35929e72a8bf20252328696/modules/PileUpMerger.cc#L181),
-        # it looks like we should scale the x/y displacement by the sum of pT^2 of the event.
-        # Note that there, the vertex position is basically some sort of pt2-weighted average of attached particles' "positions",
-        # though it's not a perfect average since all particles contribute to the numerator (regardless of charge) but only
-        # charged particles contribute to the denominator. I don't know how well-motivated this really is. - Jan
-        combined_event = main_event
-
-        main_event_displacement = np.random.normal(0,beam_spot_sigma,4)
-        sumpt2 = self._sumpt2(main_event)
-        if(sumpt2 > 0.):
-            main_event_displacement[1:3] /= sumpt2 # adjust the x- and y-displacements, to make them smaller based on sum of pt2 of charged particles. A little unclear on units/scale here... #TODO: Check this? Based on some Delphes code
-        combined_event.shift_position_by(hm.FourVector(*np.roll(main_event_displacement,-1))) # using np.roll to get from (t,x,y,z) to (x,y,z,t)
-        # self._displace_event(combined_event,*main_event_displacement)
-
-        # Add each pileup event with displacement
-        self.phi_rotations_transient.clear()
-        for pileup_event, (dt, dx, dy, dz) in zip(pileup_events, pileup_displacements):
-            self._add_displaced_event(combined_event, pileup_event, dt, dx, dy, dz)
-
-        return combined_event
-
-    def _add_displaced_event(self,
-                            target_event: 'hm.GenEvent',
-                            pileup_event: 'hm.GenEvent',
-                            dt: float, dx: float, dy: float, dz: float):
-        """Add a pileup event to the target event with vertex displacement."""
-        from pyHepMC3 import HepMC3 as hm
-
-        # TODO: Consider using hm.GenEvent.shift_position_by() here? Maybe not possible if doing a phi rotation.
-
-        # Add a random rotation in phi to the input pileup event.
-        # (rotate, then translate)
-        phi_rotation_angle = self.rng.uniform(0.,2 * np.pi)
-        if(self.do_phi_rotations):
-            self.phi_rotations_transient.append(phi_rotation_angle)
-
-        # Create mapping from old vertex objects to new vertex objects using list index
-        vertex_map = {}
-        vertices_list = list(pileup_event.vertices())
-
-        # Copy vertices with displacement
-        for i, vertex in enumerate(vertices_list):
-            # Apply displacement to vertex position
-
-            old_position = np.array([getattr(vertex.position(),method)() for method in ['t','x','y','z']])
-            if(self.do_phi_rotations):
-                new_position = RotateVector(old_position,phi_rotation_angle,0.,0.)
-            else:
-                new_position = old_position
-            new_position += np.array([dt,dx,dy,dz])
-            new_position = hm.FourVector(*np.roll(new_position,-1)) # using np.roll to get from (t,x,y,z) to (x,y,z,t) for the constructor
-
-            new_vertex = hm.GenVertex(new_position)
-            new_vertex.set_status(vertex.status())
-            # target_event.add_vertex(new_vertex)
-            vertex_map[i] = new_vertex
-
-        # Copy particles and establish relationships
-        for particle in pileup_event.particles():
-
-            if(self.filter_stable):
-                if(particle.status() != 1):
-                    continue
-
-            old_momentum = np.array([getattr(particle.momentum(),method)() for method in ['e','px','py','pz']])
-            if(self.do_phi_rotations):
-                new_momentum = hm.FourVector(*np.roll(RotateVector(old_momentum,phi_rotation_angle,0.,0.),-1))
-            else:
-                new_momentum = hm.FourVector(*np.roll(old_momentum,-1)) # using np.roll to get from (e,px,py,pz) to (px,py,pz,e) for the constructor
-
-            new_particle = hm.GenParticle(
-                new_momentum,
-                particle.pid(),
-                particle.status()
-            )
-            new_particle.set_generated_mass(particle.generated_mass())
-
-            # Set production vertex if it exists
-            if particle.production_vertex():
-                try:
-                    vertex_idx = vertices_list.index(particle.production_vertex())
-                    prod_vertex = vertex_map[vertex_idx]
-                    prod_vertex.add_particle_out(new_particle)
-                except ValueError:
-                    pass # expected to be triggered, by beam particles
-
-            # Set end vertex if it exists
-            if particle.end_vertex():
-                try:
-                    vertex_idx = vertices_list.index(particle.end_vertex())
-                    end_vertex = vertex_map[vertex_idx]
-                    end_vertex.add_particle_in(new_particle)
-                except ValueError:
-                    print("Warning: Could not find end vertex for particle {}".format(particle.pid))
-
-        for i,vtx in vertex_map.items():
-            target_event.add_vertex(vtx)
-
 
     def _writeMetadata(self):
         """

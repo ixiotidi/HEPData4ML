@@ -14,9 +14,8 @@ config = {
         'verbose'      : False,
         'hepmc_format' : 'root'},
     'pileup': {
-        'handler': pu.PileupOverlay('/vols/drive1/ixiotidi/minbias/events_0.root',
-                                    rng_seed=0,
-                                    mu_input=[200,14.14])
+        'handler': pu.PileupMixer('/vols/drive1/ixiotidi/minbias/events_*.hepmc.root',
+                                    rng_seed=1)
         },
     'simulation' : {
         'type'            : 'delphes',

@@ -16,9 +16,8 @@ config = {
         'hepmc_format' : 'root' },
     #Pile-Up Adapter (adding min-bias 200)
     'pileup': {
-        'handler': pu.PileupOverlay('/vols/drive1/ixiotidi/minbias/events_0.hepmc.root',
-                                    rng_seed = 0,
-                                    mu_input = [200, 14.14]) },
+        'handler': pu.PileupMixer('/vols/drive1/ixiotidi/minbias/events_*.hepmc.root',
+                                  rng_seed = 1) },
     #Running the detector simulation
     'simulation': {
         'type'            : 'delphes',

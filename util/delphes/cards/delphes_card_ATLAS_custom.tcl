@@ -3,57 +3,57 @@
 #######################################
 
 set ExecutionPath {
- ParticlePropagator
+    ParticlePropagator
 
-  ChargedHadronTrackingEfficiency
-  ElectronTrackingEfficiency
-  MuonTrackingEfficiency
+    ChargedHadronTrackingEfficiency
+    ElectronTrackingEfficiency
+    MuonTrackingEfficiency
 
-  ChargedHadronMomentumSmearing
-  ElectronMomentumSmearing
-  MuonMomentumSmearing
+    ChargedHadronMomentumSmearing
+    ElectronMomentumSmearing
+    MuonMomentumSmearing
 
-  TrackMerger
+    TrackMerger
 
-  ECal
-  HCal
+    ECal
+    HCal
 
-  Calorimeter
-  EFlowMerger
-  EFlowFilter
-  
-  PhotonEfficiency
-  PhotonIsolation
+    Calorimeter
+    EFlowMerger
+    EFlowFilter
+    
+    PhotonEfficiency
+    PhotonIsolation
 
-  ElectronFilter
-  ElectronEfficiency
-  ElectronIsolation
+    ElectronFilter
+    ElectronEfficiency
+    ElectronIsolation
 
-  ChargedHadronFilter
+    ChargedHadronFilter
 
-  MuonEfficiency
-  MuonIsolation
+    MuonEfficiency
+    MuonIsolation
 
-  MissingET
+    MissingET
 
-  NeutrinoFilter
-  GenJetFinder
-  GenMissingET
+    NeutrinoFilter
+    GenJetFinder
+    GenMissingET
 
-  FastJetFinder
+    FastJetFinder
 
-  JetEnergyScale
+    JetEnergyScale
 
-  JetFlavorAssociation
+    JetFlavorAssociation
 
-  BTagging
-  TauTagging
+    BTagging
+    TauTagging
 
-  UniqueObjectFinder
+    UniqueObjectFinder
 
-  ScalarHT
+    ScalarHT
 
-  TreeWriter
+    TreeWriter
 }
 
 #################################
@@ -618,15 +618,16 @@ module PdgCodeFilter NeutrinoFilter {
 #####################
 
 module FastJetFinder GenJetFinder {
-  set InputArray NeutrinoFilter/filteredParticles
+    set InputArray NeutrinoFilter/filteredParticles
 
-  set OutputArray jets
+    set OutputArray jets
 
-  # algorithm: 1 CDFJetClu, 2 MidPoint, 3 SIScone, 4 kt, 5 Cambridge/Aachen, 6 antikt
-  set JetAlgorithm 6
-  set ParameterR 0.6
+    # algorithm: 1 CDFJetClu, 2 MidPoint, 3 SIScone, 4 kt, 5 Cambridge/Aachen, 6 antikt
+    set JetAlgorithm 6
+    set ParameterR 0.4
+    #Need to change this to R = 0.4
 
-  set JetPTMin 20.0
+    set JetPTMin 20.0
 }
 
 
@@ -647,15 +648,16 @@ module Merger GenMissingET {
 ############
 
 module FastJetFinder FastJetFinder {
-  set InputArray Calorimeter/towers
+    set InputArray Calorimeter/towers
 
-  set OutputArray jets
+    set OutputArray jets
 
-  # algorithm: 1 CDFJetClu, 2 MidPoint, 3 SIScone, 4 kt, 5 Cambridge/Aachen, 6 antikt
-  set JetAlgorithm 6
-  set ParameterR 0.6
+    # algorithm: 1 CDFJetClu, 2 MidPoint, 3 SIScone, 4 kt, 5 Cambridge/Aachen, 6 antikt
+    set JetAlgorithm 6
+    set ParameterR 0.4
+    # Need to change this to R = 0.4
 
-  set JetPTMin 20.0
+    set JetPTMin 20.0
 }
 
 ##################

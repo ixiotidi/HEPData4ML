@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ixiotidi/Development/HEPData4ML/util/root/pileup/pileup/inc/Pileup_LinkDef.h
+
+/home/ixiotidi/Development/HEPData4ML/util/root/pileup/pileup/inc/pileup/Pileup.h
+Rtypes.h
+/home/ixiotidi/Development/HEPData4ML/util/root/pileup/pileup/inc/pileup/Rtypes.h
+TString.h
+/home/ixiotidi/Development/HEPData4ML/util/root/pileup/pileup/inc/pileup/TString.h
+TH1D.h
+/home/ixiotidi/Development/HEPData4ML/util/root/pileup/pileup/inc/pileup/TH1D.h
+TRandomGen.h
+/home/ixiotidi/Development/HEPData4ML/util/root/pileup/pileup/inc/pileup/TRandomGen.h
+Math/RotationZ.h
+/home/ixiotidi/Development/HEPData4ML/util/root/pileup/pileup/inc/pileup/Math/RotationZ.h
+vector
+-
+utility
+-
+tuple
+-
+random
+-
+

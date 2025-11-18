@@ -1,0 +1,7 @@
+module "Pileup" {
+  requires cplusplus
+  module "pileup/Pileup.h" { header "pileup/Pileup.h" export * }
+  link "libPileup.so"
+  export *
+}
+

@@ -5,20 +5,20 @@ import util.pileup.pileup                         as pu
 
 config = {
     'generation': {
-        'process'      : 'SoftQCD',
+        'process'      : 'HardQCD',
         'hadronization': True,
-        'mpi'          : True,
+        'mpi'          : False,
         'isr'          : True,
         'fsr'          : True,
         'rng'          : 1,
-        'verbose'      : True,
+        'verbose'      : False,
         'hepmc_format' : 'root'},
     'pileup': {
-        'handler': None},
+        'handler': pu.PileupMixer('/vols/drive1/ixiotidi/minbias/events_*.hepmc.root',
+                                  rng_seed = 1) },
     'simulation': {
         'type'            : 'delphes',
         'delphes_card'    : 'util/delphes/cards/delphes_card_ATLAS_custom.tcl',
-        'delphes_output'  : ['Tower'],
-        'delphes_rng_seed': 0
-        }    
-    }
+        'delphes_output'  : ['EFlowPhoton', 'EFlowNeutralHadron', 'EFlowTrack', 'Electron', 'Muon', 'Photon', 'GenMissingET', 'MissingET', 'GenVertex', 'Vertex', 'Tower', 'Jet', 'GenJet'],
+        'delphes_rng_seed': 1 }
+}

@@ -43,6 +43,20 @@ class DetectorSimulator:
 
     def SetMetadataHandler(self,handler:'MetaDataHandler'):
         self.metadata_handler = handler
+        
+    def ClearPileupInputs(self):
+        self.pileup_input_files = None
+
+    def ClearInputs(self):
+        self.input_files = []
+
+    def ClearOutputs(self):
+        self.output_files = []
+
+    def ClearAll(self):
+        self.ClearPileupInputs()
+        self.ClearInputs()
+        self.ClearOutputs()
 
 class DelphesSimulator(DetectorSimulator):
     """
@@ -140,7 +154,7 @@ class DelphesSimulator(DetectorSimulator):
         """
         self.default_rng_seed = seed
 
-    def Process(self,files=None):
+    def Process(self,files=None, extra_name=''):
         if(files is not None):
             self.SetInputs(files)
 
@@ -158,7 +172,7 @@ class DelphesSimulator(DetectorSimulator):
             hep_file_no_extension = hep_file
             for ext in extensions:
                 hep_file_no_extension = hep_file_no_extension.replace('.{}'.format(ext),'')
-            delphes_file = hep_file_no_extension + '.delphes.root'
+            delphes_file = hep_file_no_extension + extra_name +'.delphes.root'
 
             try:
                 pileup_file = self.pileup_input_files[i]
