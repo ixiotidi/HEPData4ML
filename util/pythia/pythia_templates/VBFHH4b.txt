@@ -9,13 +9,7 @@ HardQCD:all = off
 WeakSingleBoson:all = off
 WeakDoubleBoson:all = off
 PromptPhoton:all = off
-HiggsSM:gg2H = off
-HiggsSM:gg2HH = off
-HiggsSM:WH = off
-HiggsSM:ZH = off
-HiggsSM:ttH = off
-HiggsSM:bbH = off
 
-HiggsSM:ff2H = on
+HiggsSM:ffbar2H = on
 25:onMode = off
 25:onIfMatch = 5 -5

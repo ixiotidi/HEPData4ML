@@ -5,7 +5,7 @@ import util.pileup.pileup                         as pu
 
 config = {
     'generation': {
-        'process': 'VBFHH4b',
+        'process': 'HZbbnunu',
         'hadronization': True,
         'mpi'          : False,
         'isr'          : True,

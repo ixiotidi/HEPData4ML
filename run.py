@@ -44,6 +44,7 @@ def main(args):
     # Overrides for things set in the config file.
     parser.add_argument('-rng',          '--rng',               type=int,          default=None,             help='Pythia RNG seed. Overides the config file.')
     parser.add_argument('-pileup',       '--pileupFiles',       type=str,          default=None,             help='Glob-compatible string for input pileup files, for the pileup step. Overides the config file.')
+    parser.add_argument('-p_gen' ,       '--pileup_gen' ,       type=int,          default=0   ,             help='When enabled it allows for pileup_event generations to append extra stuff in the name of the files')
 
     # Flag for when running as a parallelized job. Shouldn't need to be touched by user.
     parser.add_argument('-condor','--condor', action='store_true',help='Flag to be set when this is an HTCondor job; for advanced usage (you typically should *not* set this, for internal use.).')
@@ -73,7 +74,8 @@ def main(args):
     index_offset = args['index_offset']
     config_file = args['config']
 
-    nbins = len(pt_bin_edges) - 1
+    p_name = args['pileup_gen']
+    nbins  = len(pt_bin_edges) - 1
 
     split_files = args['split'] > 0
     train_frac = args['train_fraction']
@@ -212,6 +214,8 @@ def main(args):
                 hepmc_extension = 'hepmc.root'
 
             hep_file = 'events_{}.{}'.format(i,hepmc_extension)
+            if p_name != 0:
+                hep_file = 'events_{}.{}'.format(p_name, hepmc_extension)
 
             generator = PythiaGenerator(pt_min,pt_max, configurator, pythia_rng,pythia_config_file=pythia_config)
             generator.SetMetadataHandler(metadata_handler)
@@ -255,8 +259,9 @@ def main(args):
         # Thus it is preferrable to produce these in a dedicated run, and then later
         # simply use a pileup_handler that fetches these pre-mixed events.
         pileup_handler = None
-        pileup_files = None
+        pileup_files   = None
         if('pileup' in steps):
+
             timer.start_timestamp('pileup')
             pileup_handler = configurator.GetPileupHandler()
 
@@ -290,7 +295,7 @@ def main(args):
                 #     pileup_handler(file)
 
                 # # TODO: Rework the Process() step, should switch to producing sidecar files.
-                pileup_files = pileup_handler.Process(hepmc_files) # will overwrite the hepmc_files
+                pileup_files = pileup_handler.Process(hepmc_files) # will overwrite the hepmc_files                
 
                 # TODO: Now we fetch some information from the pileup handler, that will propagate into the final dataset:
                 # info on the number of interactions per bunch crossing, the actual indices of pileup events used,
@@ -335,6 +340,14 @@ def main(args):
                     simulator.SetPileupInputs(pileup_files)
                 simulator.Process()
                 delphes_files = simulator.GetOutputFiles()
+
+                #Re-Run for pu0 files
+                print("Kick Start also PU0 sim")
+                simulator.ClearAll()
+                simulator.SetInputs(hepmc_files)
+                simulator.Process(extra_name='_pu0')
+                delphes_pu0_files = simulator.GetOutputFiles()
+
             timer.end_timestamp('simulation')
         else: # try to pick up any available delphes files #TODO: Make this more robust
             delphes_files = glob.glob('{}/*.delphes.root'.format(outdir))
@@ -351,6 +364,7 @@ def main(args):
         # and add new branches to them.
         #
 
+        processor = None
         if('reconstruction' in steps):
             timer.start_timestamp('reconstruction')
             # Do reco and put everything into an n-tuple file.
@@ -425,12 +439,13 @@ def main(args):
                 comm = ['rm','{}/{}'.format(outdir,ntuple_file)]
                 sub.check_call(comm)
             timer.end_timestamp('reconstruction')
+
         timer.end_main()
         print('\n#############################')
         timer.summarize_time()
         # Give a further breakdown of the post-processing.
 
-        if(processor.post_processing is not None):
+        if(processor is not None): # or processor.post_processing is not None):
             for i,post_proc in enumerate(processor.post_processing):
                 post_proc.SummarizeRuntime(level=2)
         print('\n#############################')

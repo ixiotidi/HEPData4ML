@@ -1,0 +1,21 @@
+// ===== ZH with Z->νν, H->bb =====
+Beams:idA = 2212
+Beams:idB = 2212
+Beams:eCM = 14000.
+
+! Turn off other physics; be explicit.
+SoftQCD:all = off
+HardQCD:all = off
+WeakDoubleBoson:all = off
+PromptPhoton:all = off
+
+! qq -> ZH
+HiggsSM:ffbar2HZ = on
+
+! Force H -> b b~
+25:onMode = off
+25:onIfMatch = 5 -5
+
+! Force Z -> ν ν (any flavor)
+23:onMode = off
+23:onIfAny = 12 14 16

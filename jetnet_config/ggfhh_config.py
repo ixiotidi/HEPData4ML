@@ -4,8 +4,9 @@ import util.particle_selection.selection_algos    as algos
 import util.pileup.pileup                         as pu
 
 config = {
+    #Generation configuration (Pythia-8)
     'generation': {
-        'process': 'VBFHH4b',
+        'process'      : 'ggFHH4b',
         'hadronization': True,
         'mpi'          : False,
         'isr'          : True,
@@ -45,4 +46,3 @@ config = {
             jets.JetFinder(['EFlowPhoton', 'EFlowNeutralHadron', 'EFlowTrack'], jet_algorithm='anti_kt', radius=0.4, jet_name='AntiKt04RecoJets').PtFilter(20.) .EtaFilter(4.0).GhostAssociation('TruthHiggsAndChildren', 0, mode='filter'), ],
     }
 }
-
