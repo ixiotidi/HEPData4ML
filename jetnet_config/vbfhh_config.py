@@ -16,13 +16,13 @@ config = {
     #Pile-Up Adapter (adding min-bias 200)
     'pileup': {
         'handler': pu.PileupMixer('/vols/drive1/ixiotidi/minbias/events_*.hepmc.root',
-                                  rng_seed = 1) },
+                                  rng_seed = 0) },
     #Running the detector simulation
     'simulation': {
         'type'            : 'delphes',
         'delphes_card'    : 'util/delphes/cards/delphes_card_ATLAS_custom.tcl',
         'delphes_output'  : ['EFlowPhoton', 'EFlowNeutralHadron', 'EFlowTrack', 'Electron', 'Muon', 'Photon', 'GenMissingET', 'MissingET', 'GenVertex', 'Vertex', 'Tower'],
-        'delphes_rng_seed': 1 },
+        'delphes_rng_seed': 0 },
     #Run reconstruction
     'reconstruction': {
         'n_stable'          : 200,

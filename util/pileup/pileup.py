@@ -113,6 +113,7 @@ class PileupMixer:
             rng_seed = 0
         self.rng_seed = rng_seed
         self.rng = np.random.default_rng(self.rng_seed)
+        self.mixer.SetRNGSeed(self.rng_seed)
 
     def SetVerbosity(self,val:int):
         self.verbosity = val

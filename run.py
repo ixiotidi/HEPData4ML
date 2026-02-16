@@ -288,8 +288,8 @@ def main(args):
                 if(pileup_handler.GetRNGSeed() < 0): # Case 1: Seed in the config file is negative.
                     pileup_handler.SetRNGSeed(pythia_rng)
 
-                elif(args['rng'] is not None): # Case 2: The Pythia RNG seed was specified at command line -- in practice we may want to then use this for pileup too (e.g. HTCondor usage).
-                    pileup_handler.SetRNGSeed(pythia_rng)
+                # elif(args['rng'] is not None): # Case 2: The Pythia RNG seed was specified at command line -- in practice we may want to then use this for pileup too (e.g. HTCondor usage).
+                #     pileup_handler.SetRNGSeed(pythia_rng)
 
                 # for file in hepmc_files:
                 #     pileup_handler(file)

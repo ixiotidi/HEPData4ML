@@ -18,7 +18,7 @@ config = {
     'simulation': {
         'type'            : 'delphes',
         'delphes_card'    : 'util/delphes/cards/delphes_card_ATLAS_custom.tcl',
-        'delphes_output'  : ['Tower'],
+        'delphes_output'  : ['EFlowPhoton', 'EFlowNeutralHadron', 'EFlowTrack', 'Electron', 'Muon', 'Photon', 'GenMissingET', 'MissingET', 'GenVertex', 'Vertex', 'Tower', 'Jet', 'GenJet', 'Tower'],
         'delphes_rng_seed': 0
         }    
     }
