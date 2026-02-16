@@ -11,4 +11,4 @@ HardQCD:hardccbar = on ! was previously off
 
 Beams:idA = 2212
 Beams:idB = 2212
-Beams:eCM = 13000.
+Beams:eCM = 14000.
